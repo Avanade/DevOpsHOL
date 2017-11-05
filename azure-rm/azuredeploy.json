@@ -1,0 +1,252 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.1",
+    "parameters": {
+      "storageType": {
+        "type": "string",
+        "defaultValue": "Premium_LRS",
+        "allowedValues": [
+          "Premium_LRS",
+          "Standard_LRS"
+        ],
+        "metadata": {
+          "description": "Which type of storage you want to use"
+        }
+      },
+      "vmName": {
+        "type": "string",
+        "defaultValue": "VSVM-choco",
+        "metadata": {
+          "description": "Local name for the VM can be whatever you want"
+        }
+      },
+      "vmAdminUserName": {
+        "type": "string",
+        "defaultValue": "andrewmo",
+        "metadata": {
+          "description": "VM admin user name"
+        }
+      },
+      "vmAdminPassword": {
+        "type": "securestring",
+        "metadata": {
+          "description": "VM admin password. The supplied password must be between 8-123 characters long and must satisfy at least 3 of password complexity requirements from the following: 1) Contains an uppercase character 2) Contains a lowercase character 3) Contains a numeric digit 4) Contains a special character."
+        }
+      },
+      "vmSize": {
+        "type": "string",
+        "metadata": {
+          "description": "Desired Size of the VM. Any valid option accepted but if you choose premium storage type you must choose a DS class VM size."
+        },
+        "defaultValue": "Standard_D2s_v3"
+      },
+      "vmVisualStudioVersion": {
+        "type": "string",
+        "defaultValue": "VS-2017-Ent-Latest-Win10-N",
+        "allowedValues": [
+          "VS-2015-Comm-VSU3-AzureSDK-29-Win10-N",
+          "VS-2015-Comm-VSU3-AzureSDK-29-WS2012R2",
+          "VS-2015-Ent-VSU3-AzureSDK-29-Win10-N",
+          "VS-2015-Ent-VSU3-AzureSDK-29-WS2012R2",
+          "VS-2017-Comm-Latest-Win10-N",
+          "VS-2017-Comm-Latest-WS2016",
+          "VS-2017-Comm-Win10-N",
+          "VS-2017-Comm-WS2016",
+          "VS-2017-Ent-Latest-Win10-N",
+          "VS-2017-Ent-Latest-WS2016",
+          "VS-2017-Ent-Win10-N",
+          "VS-2017-Ent-WS2016"
+        ],
+        "metadata": {
+          "description": "Which version of Visual Studio you would like to deploy"
+        }
+      },
+      "dnsLabelPrefix": {
+        "type": "string",
+        "defaultValue": "andrewmo-choco",
+        "metadata": {
+        "description": "DNS Label for the unique Public IP. Must be lowercase. It should match with the following regular expression: ^[a-z][a-z0-9-]{1,61}[a-z0-9]$ or it will raise an error."
+        }
+      },
+      "chocoPackages": {
+        "type": "string",
+        "defaultValue": "sysinternals;googlechrome",
+        "metadata": {
+          "description": "List of Chocolatey packages to install separated by a semi-colon. Can not be empty. eg. nodejs-lts;python2;visualstudiocode;notepadplusplus;googlechrome;dotnetcore --version 1.1.2"
+        }
+      },
+      "setupChocolateyScriptFileName": {
+        "type": "string",
+        "defaultValue": "SetupChocolatey.ps1",
+        "metadata": {
+          "description": "PowerShell script name to execute"
+        }
+      },
+      "setupChocolatelyScriptLocation": {
+        "type": "string",
+        "defaultValue": "https://raw.githubusercontent.com/snagrom/azure-rm-templates/master/dev-chocolatey/scripts/",
+        "metadata": {
+          "description": "Public uri location of PowerShell Chocolately setup script"
+        }
+      }
+    },
+      "variables": {
+        "storageName": "[concat('stor', uniquestring(resourceGroup().id))]",
+        "vnet01Prefix": "10.0.0.0/16",
+        "vnet01Subnet1Name": "Subnet-1",
+        "vnet01Subnet1Prefix": "10.0.0.0/24",
+        "vmImagePublisher": "MicrosoftVisualStudio",
+        "vmImageOffer": "VisualStudio",
+        "vmOSDiskName": "VMOSDisk",
+        "vmVnetName": "[concat(parameters('VMName'), '-net')]",
+        "vmVnetID": "[resourceId('Microsoft.Network/virtualNetworks', variables('vmVnetName'))]",
+        "vmSubnetRef": "[concat(variables('vmVnetID'), '/subnets/', variables('Vnet01Subnet1Name'))]",
+        "vmStorageAccountContainerName": "vhds",
+        "vmNicName": "[concat(parameters('vmName'), '-nic')]",
+        "vmIP01Name": "[concat(parameters('vmName'), '-ip')]"
+      },
+      "resources": [
+        {
+          "name": "[variables('storageName')]",
+          "type": "Microsoft.Storage/storageAccounts",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2015-06-15",
+          "dependsOn": [ ],
+          "tags": {
+            "displayName": "Storage01"
+          },
+          "properties": {
+            "accountType": "[parameters('storageType')]"
+          }
+        },
+        {
+          "name": "[variables('vmVnetName')]",
+          "type": "Microsoft.Network/virtualNetworks",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2015-06-15",
+          "dependsOn": [ ],
+          "properties": {
+            "addressSpace": {
+              "addressPrefixes": [
+                "[variables('vnet01Prefix')]"
+              ]
+            },
+            "subnets": [
+              {
+                "name": "[variables('vnet01Subnet1Name')]",
+                "properties": {
+                  "addressPrefix": "[variables('vnet01Subnet1Prefix')]"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "[variables('vmNicName')]",
+          "type": "Microsoft.Network/networkInterfaces",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2015-06-15",
+          "dependsOn": [
+            "[concat('Microsoft.Network/virtualNetworks/', variables('vmVnetName'))]",
+            "[concat('Microsoft.Network/publicIPAddresses/', variables('vmIP01Name'))]"
+          ],
+          "properties": {
+            "ipConfigurations": [
+              {
+                "name": "ipconfig1",
+                "properties": {
+                  "privateIPAllocationMethod": "Dynamic",
+                  "subnet": {
+                    "id": "[variables('vmSubnetRef')]"
+                  },
+                  "publicIPAddress": {
+                    "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('vmIP01Name'))]"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "[parameters('vmName')]",
+          "type": "Microsoft.Compute/virtualMachines",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2015-06-15",
+          "dependsOn": [
+            "[concat('Microsoft.Storage/storageAccounts/', variables('storageName'))]",
+            "[concat('Microsoft.Network/networkInterfaces/', variables('vmNicName'))]"
+          ],
+          "properties": {
+            "hardwareProfile": {
+              "vmSize": "[parameters('vmSize')]"
+            },
+            "osProfile": {
+              "computerName": "[parameters('vmName')]",
+              "adminUsername": "[parameters('vmAdminUsername')]",
+              "adminPassword": "[parameters('vmAdminPassword')]"
+            },
+            "storageProfile": {
+              "imageReference": {
+                "publisher": "[variables('vmImagePublisher')]",
+                "offer": "[variables('vmImageOffer')]",
+                "sku": "[parameters('vmVisualStudioVersion')]",
+                "version": "latest"
+              },
+              "osDisk": {
+                "name": "VMOSDisk",
+                "vhd": {
+                  "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('storageName')), '2015-06-15').primaryEndpoints.blob, variables('vmStorageAccountContainerName'), '/', variables('vmOSDiskName'), '.vhd')]"
+                },
+                "caching": "ReadWrite",
+                "createOption": "FromImage"
+              }
+            },
+            "networkProfile": {
+              "networkInterfaces": [
+                {
+                  "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('vmNicName'))]"
+                }
+              ]
+            }
+          },
+          "resources": [
+            {
+              "type": "extensions",
+              "name": "CustomScriptExtension",
+              "apiVersion": "2015-06-15",
+              "location": "[resourceGroup().location]",
+              "dependsOn": [
+                "[parameters('vmName')]"
+              ],
+              "properties": {
+                "publisher": "Microsoft.Compute",
+                "type": "CustomScriptExtension",
+                "typeHandlerVersion": "1.8",
+                "autoUpgradeMinorVersion": true,
+                "settings": {
+                  "fileUris": [
+                    "[concat(parameters('setupChocolatelyScriptLocation'),parameters('setupChocolateyScriptFileName'))]"
+                  ],
+                  "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ',parameters('setupChocolateyScriptFileName'),' -chocoPackages ',parameters('chocoPackages'))]"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "[variables('vmIP01Name')]",
+          "type": "Microsoft.Network/publicIPAddresses",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2015-06-15",
+          "dependsOn": [ ],
+          "properties": {
+            "publicIPAllocationMethod": "Dynamic",
+            "dnsSettings": {
+              "domainNameLabel": "[parameters('dnsLabelPrefix')]"
+            }
+          }
+        }
+      ],
+      "outputs": { }
+    }
+  
