@@ -1,5 +1,5 @@
 # Avanade DevOps HOL - Getting Started
-In this lab we will be installing the required development components and verifying that the solution builds and is able to be pushed to VSTS.
+In this lab, we will be installing the required development components and verifying that the solution builds and is able to be pushed to VSTS.
 ## Pre-requisites ##
 1. An active Azure subscription<br>
 	[Azure Portal](https://portal.azure.com)
@@ -28,7 +28,7 @@ In this lab we will be installing the required development components and verify
     + Do a quick smoke test to verify that the solution built and runs correctly.<br>
     + Close application<br>
 4. Add solution to VSTS project (Team Explorer -> Sync -> Publish Git Repo)
-    + Push to Visual Studio Team Servies<br>
+    + Push to Visual Studio Team Services<br>
     + Repository name: DevOpsHOL<br>
     + Publish repository will create a project in VSTS (NOTE: if you have multiple VSTS accounts, make sure this is published to the correct Team Services Domain).<br>
 ![](<media/GS1.png>)

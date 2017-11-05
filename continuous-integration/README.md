@@ -1,6 +1,6 @@
 Avanade DevOps HOL - Continuous Integration with Visual Studio Team Services
 ====================================================================================
-In this lab we use the application created in the Getting Started lab to set up
+In this lab, we use the application created in the Getting Started HOL to set up
 Visual Studio Team Services to be able continuously integrate code into the master
 branch of code. This means that whenever code is committed and pushed to the
 master branch, we want to ensure that it integrates into our code correctly to
@@ -44,12 +44,12 @@ deploying but for this lab we want to walk through a few extra steps to allow yo
 	Name: **DevOpsHOL-CI**<br>
 	Agent queue: **Hosted VS2017**<br>
 > **Note:** This will use a hosted (i.e. built in) build server.  
-For more flexibility in the build (and for a more in depth learning experience), a private agent can be configured and used following the steps in the [Private Agent]((private-agent/README.md)) lab.  This is not necessary for this lab, but you can do this if you are up for the adventure.
+For more flexibility in the build (and for a more in depth learning experience), a private agent can be configured and used following the steps in the [Private Agent](../private-agent/README.md) lab.  This is not necessary for this lab, but you can do this if you are up for the adventure.
 >- Process -> Get Sources<br>
 	From: This project<br>
 	Repository: DevOpsHOL
 5. To the right of the **Phase 1** item click on the + sign and add the following tasks:<br>
-    For eacho of the tasks, the settings for that task (if different thant the default) are listed below<br>
+    For each of the tasks, the settings for that task (if different than the default) are listed below<br>
  (*Hint: use the search box to filter in order to find the tasks in the list*)
 >- NuGet Tool Installer (Use NuGet 4.3.0)
 >- NuGet (NuGet restore)
@@ -110,4 +110,4 @@ Integration build that runs when new commits are pushed to the master branch.
 This allows you to get feedback as to whether your changes made breaking syntax
 changes, or if they broke one or more automated tests, or if your changes are a okay.
 
-Next do the [Continuous Deployment Lab](../HOL-Continuous_Deployment/README.md)
+Next do the [Continuous Deployment](../continuous-deployment/README.md) lab
