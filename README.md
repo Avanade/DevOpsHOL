@@ -3,11 +3,13 @@ These are the hands on labs associated with the Avanade DevOps Practicioners cou
 
 You can accomplish these labs using Visual Studio 2017 on your local computer, but you may want to consider doing the labs using an Azure VM as the development machine.  This not only keeps you from having to make changes to your local environment, but it gives you additional experience using Azure.  You can either configure an Azure development environment on your own or an easy way to do this is to use Powershell ISE and execute the following commands.  This will create a new Azure resource group and then configure an Azure VM with Windows 10 and Visual Studio 2017 Community edition.  It will also use Chocolety to install a collection of other tools and applications.  **Review and modify the script to suit your own needs before executing.**
 
+>**Note:** Some times this all works great but other times, the Chocolety packages do not install when the VM is first created so you may need to run choco install for the individual packages to complete the environment setup.
+
 ```PowerShell
 Login-AzureRmAccount
 Select-AzureRmSubscription -SubscriptionName andrewmo
 $VmName = "DevOpsHOL"
-$DnsLabelPrefix = "andrewmome" #globally unique name for the DNS name
+$DnsLabelPrefix = "<uniqueDNSName>"
 $VmIPName = $VmName+"-ip"
 $VmAdminUserName = "<VmAdminUserName>"
 $VmAdminPassword ="<TopSecretPassword>"
@@ -28,7 +30,6 @@ New-AzureRmResourceGroupDeployment -ResourceGroupName $ResourceGroupName `
 ```
 
 Once the script above completes, you can use the following to start the VM and check to see that everything was installed correctly.
->**Note:** Some times this all works great but other times, the Chocolety packages do not install when the VM is first created so you may need to run cinst for the individual packages to complete the environment setup.
 
 ```PowerShell
 Start-AzureRmVM -ResourceGroupName $ResourceGroupName -Name $VmName
