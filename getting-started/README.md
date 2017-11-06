@@ -38,5 +38,5 @@ In this lab, we will be installing the required development components and verif
 
 ## Next steps
 
-- [Continuous Integration](continuous-integration/README.md)
+- [Continuous Integration](../continuous-integration/README.md)
 

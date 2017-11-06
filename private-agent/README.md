@@ -1,10 +1,10 @@
 Avanade DevOps HOL - Private Agent configuration with Visual Studio Team Services
 ====================================================================================
-In this lab we configure a private agent for use in building the solution created in the [Continuous Integration](continuous-integration/README.md) lab.
+In this lab we configure a private agent for use in building the solution created in the [Continuous Integration](../continuous-integration/README.md) lab.
 For more information on using private agents for VSTS builds, see the [Build and Release Agents](https://docs.microsoft.com/en-us/vsts/build-release/concepts/agents/agents) documentation.
 
 ### Pre-requisites: ###
-- Complete [Getting Started](../GettingStarted.md) task.
+- Complete [Getting Started](../getting-started/README.md) task.
 -   An active Visual Studio Team Services account.<br>
 	 [Sign up for Visual Studio Team Services](https://www.visualstudio.com/en-us/docs/setup-admin/team-services/sign-up-for-visual-studio-team-services)
 
