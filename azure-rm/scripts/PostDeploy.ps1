@@ -70,6 +70,7 @@ if (-not [String]::IsNullOrWhiteSpace($ChocoPackages)){
 }
 
 if (-not [String]::IsNullOrWhiteSpace($PartsUnlimited)){
+    "Configuring PartsUnlimitedHOL" | Out-File $LogFile -Append
     Invoke-Command -ScriptBlock {
         $slnPath = "$env:userprofile\Desktop\PartsUnlimitedHOL"
         "slnPath: $slnPath"
@@ -100,6 +101,7 @@ if (-not [String]::IsNullOrWhiteSpace($PartsUnlimited)){
 
 #A few more settings that I like but are not required for the PartsUnlimitedHOL
 if (-not [String]::IsNullOrWhiteSpace($Extras)){
+    "Configuring Extras" | Out-File $LogFile -Append
     Invoke-Command -ScriptBlock {
         # Show file extensions (have to restart Explorer for this to take effect if run maually - Stop-Process -processName: Explorer -force)
         Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name HideFileExt -Value "0"
