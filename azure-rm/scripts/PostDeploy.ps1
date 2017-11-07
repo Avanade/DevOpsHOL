@@ -1,7 +1,7 @@
 Param(
     [Parameter(Mandatory=$false)][string]$ChocoPackages,
-    [Parameter(Mandatory=$false)][string]$PartsUnlimited,
-    [Parameter(Mandatory=$false)][string]$Extras,
+    [Parameter(Mandatory=$false)][bool]$PartsUnlimited,
+    [Parameter(Mandatory=$false)][bool]$Extras,
     [Parameter(Mandatory=$false)][string]$VmAdminUserName,
     [Parameter(Mandatory=$false)][string]$VmAdminPassword
     )
