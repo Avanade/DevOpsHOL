@@ -1,7 +1,9 @@
 Param(
-    [Parameter(Mandatory=$true)][string]$ChocoPackages,
-    [Parameter(Mandatory=$true)][string]$VmAdminUserName,
-    [Parameter(Mandatory=$true)][string]$VmAdminPassword
+    [Parameter(Mandatory=$false)][string]$ChocoPackages,
+    [Parameter(Mandatory=$false)][string]$PartsUnlimited,
+    [Parameter(Mandatory=$false)][string]$Extras,
+    [Parameter(Mandatory=$false)][string]$VmAdminUserName,
+    [Parameter(Mandatory=$false)][string]$VmAdminPassword
     )
 
 cls
@@ -40,6 +42,8 @@ function buildVS
 New-Item "c:\choco" -type Directory -force | Out-Null
 $LogFile = "c:\choco\Script.log"
 $ChocoPackages | Out-File $LogFile -Append
+$PartsUnlimited | Out-File $LogFile -Append
+$Extras | Out-File $LogFile -Append
 $VmAdminUserName | Out-File $LogFile -Append
 $VmAdminPassword | Out-File $LogFile -Append
 
@@ -65,43 +69,46 @@ if (-not [String]::IsNullOrWhiteSpace($ChocoPackages)){
     }
 }
 
-Invoke-Command -ScriptBlock {
-    $slnPath = "$env:userprofile\Desktop\PartsUnlimitedHOL"
-    "slnPath: $slnPath"
-    npm install bower -g
-    npm install grunt-cli -g
-    Copy-Item C:\Python27\python.exe C:\Python27\python2.exe
-    New-Item $slnPath -type directory -force
-    git clone https://github.com/Microsoft/PartsUnlimited.git $slnPath # The error message "CategoryInfo : NotSpecified: (Switched to branch..." is a documented issues but no workaround.  This still works fine.
-    #Sometimes the \AppData\Roaming\npm gets added to the path and some times it doesn't. This makes sure.
-    "Adding $env:userprofile\AppData\Roaming\npm to path"
-    $AddedLocation ="$env:userprofile\AppData\Roaming\npm"
-    $Reg = "Registry::HKLM\System\CurrentControlSet\Control\Session Manager\Environment"
-    $OldPath = (Get-ItemProperty -Path "$Reg" -Name PATH).Path
-    "OldPath: $OldPath"
-    if(-Not $OldPath.Contains($AddedLocation)) {
-        $NewPath= $OldPath + ';' + $AddedLocation
-        Set-ItemProperty -Path "$Reg" -Name PATH -Value $NewPath
-        $UpdatedPath = (Get-ItemProperty -Path "$Reg" -Name PATH).Path
-        "UpdatedPath: $UpdatedPath"
-    }
+if (-not [String]::IsNullOrWhiteSpace($PartsUnlimited)){
+    Invoke-Command -ScriptBlock {
+        $slnPath = "$env:userprofile\Desktop\PartsUnlimitedHOL"
+        "slnPath: $slnPath"
+        npm install bower -g
+        npm install grunt-cli -g
+        Copy-Item C:\Python27\python.exe C:\Python27\python2.exe
+        New-Item $slnPath -type directory -force
+        git clone https://github.com/Microsoft/PartsUnlimited.git $slnPath # The error message "CategoryInfo : NotSpecified: (Switched to branch..." is a documented issues but no workaround.  This still works fine.
+        #Sometimes the \AppData\Roaming\npm gets added to the path and some times it doesn't. This makes sure.
+        "Adding $env:userprofile\AppData\Roaming\npm to path"
+        $AddedLocation ="$env:userprofile\AppData\Roaming\npm"
+        $Reg = "Registry::HKLM\System\CurrentControlSet\Control\Session Manager\Environment"
+        $OldPath = (Get-ItemProperty -Path "$Reg" -Name PATH).Path
+        "OldPath: $OldPath"
+        if(-Not $OldPath.Contains($AddedLocation)) {
+            $NewPath= $OldPath + ';' + $AddedLocation
+            Set-ItemProperty -Path "$Reg" -Name PATH -Value $NewPath
+            $UpdatedPath = (Get-ItemProperty -Path "$Reg" -Name PATH).Path
+            "UpdatedPath: $UpdatedPath"
+        }
 
-    Enable-WindowsOptionalFeature –online –featurename IIS-WebServerRole
-
-    refreshenv
-    buildVS "$slnPath\PartsUnlimited.sln" -nuget $true -clean $false
-    Remove-Item $slnPath\src\PartsUnlimitedWebsite\node_modules -Force -Recurse
-    buildVS "$slnPath\PartsUnlimited.sln" -nuget $true -clean $true
-} -ComputerName $env:COMPUTERNAME -Credential $credential | Out-File $LogFile -Append
-
+        refreshenv
+        buildVS "$slnPath\PartsUnlimited.sln" -nuget $true -clean $false
+        Remove-Item $slnPath\src\PartsUnlimitedWebsite\node_modules -Force -Recurse
+        buildVS "$slnPath\PartsUnlimited.sln" -nuget $true -clean $true
+    } -ComputerName $env:COMPUTERNAME -Credential $credential | Out-File $LogFile -Append
+}
 
 #A few more settings that I like but are not required for the PartsUnlimitedHOL
-Invoke-Command -ScriptBlock {
-    # Show file extensions (have to restart Explorer for this to take effect if run maually - Stop-Process -processName: Explorer -force)
-    Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name HideFileExt -Value "0"
-    
-    Set-TimeZone -Name "Eastern Standard Time"
-} -ComputerName $env:COMPUTERNAME -Credential $credential | Out-File $LogFile -Append
+if (-not [String]::IsNullOrWhiteSpace($Extras)){
+    Invoke-Command -ScriptBlock {
+        # Show file extensions (have to restart Explorer for this to take effect if run maually - Stop-Process -processName: Explorer -force)
+        Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name HideFileExt -Value "0"
 
+        Set-TimeZone -Name "Eastern Standard Time"
+
+        Enable-WindowsOptionalFeature –online –featurename IIS-WebServerRole
+
+    } -ComputerName $env:COMPUTERNAME -Credential $credential | Out-File $LogFile -Append
+}
 
 Disable-PSRemoting -Force
