@@ -1,10 +1,10 @@
 Param(
-    [Parameter(Mandatory=$false)][string]$ChocoPackages,
-    [Parameter(Mandatory=$false)][bool]$PartsUnlimited,
-    [Parameter(Mandatory=$false)][bool]$Extras,
-    [Parameter(Mandatory=$false)][string]$VmAdminUserName,
-    [Parameter(Mandatory=$false)][string]$VmAdminPassword
-    )
+    [string]$ChocoPackages,
+    [bool]$PartsUnlimited,
+    [bool]$Extras,
+    [string]$VmAdminUserName,
+    [Security.SecureString]$VmAdminPassword
+)
 
 cls
 function buildVS 
