@@ -1,0 +1,26 @@
+To add Application Settings to a web app in an ARM template
+
+To add the ability to change the "Traffic Routing" (used to be called "Testing in Production") percentage of requests, add the following to the 
+More information on this can be found at [A/B Testing and Testing In Production with Azure Web Apps](https://www.hanselman.com/blog/ABTestingAndTestingInProductionWithAzureWebApps.aspx)
+            "resources": [
+              {
+                "apiVersion":"2015-04-01",
+                "name":"web",
+                "type":"config",
+                "dependsOn":[
+                  "[resourceId('Microsoft.Web/Sites/Slots', parameters('siteName'), 'Staging')]"
+                ],
+                "properties":{
+                  "experiments": {
+                    "rampUpRules": [
+                      {
+                        "actionHostName": "deploydemo778.azurewebsites.net",
+                        "reroutePercentage": 33,
+                        "name": "production"
+                      }
+                    ]
+                  },
+                  "autoSwapSlotName": "production"
+                }
+              }
+            ]
