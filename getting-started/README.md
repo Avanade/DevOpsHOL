@@ -13,14 +13,23 @@ In this lab, we will be installing the required development components and verif
 
 ## Create MVC web application ##
 1. Open Visual Studio 2017
-2. Go to File -> New -> Project and create a new ASP.NET web application<br>
+2. Go to File -> New -> Project... and create a new ASP.NET Core Web Application<br>
     + Name: DevOpsHOL<br>
     + Location: *where ever you put project source*<br>
     + Create Directory for solution: Checked<br>
     + Create new Git repository: Checked<br>
     + Click OK<br>
-    + On the next dialog, choose MVC as the application type and check "Add unit tests", No Authentication<br>
+    + On the next dialog, choose Web Application (Model-View-Controller) as the application type, No Authentication<br>
     + Click OK<br>
+3.  Build and run the solution to make sure everything is OK to this point.
+    + Debug -> Start Debugging (F5)<br>
+		+ If application doesn't start the first time, just run again.
+    + Do a quick smoke test to verify that the solution built and runs correctly.<br>
+    + Close application and stop debugging<br>
+4. Choose File -> New -> Project... and add a Unit Test Project to the solution.
+    + Name: DevOpsHOL.Tests<br>
+    + Solution: Add to solution<br>
+5. Rename **UnitTest.cs** to **HomeControllerTest.cs** and replace the file contents with the content of this file ()
 3. Build, run unit tests and run the solution to make sure everything is OK to this point.
     + Test -> Run -> All Tests (Ctrl+R,A)<br>
     + Debug -> Start Debugging (F5)<br>

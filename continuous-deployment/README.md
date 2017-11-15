@@ -8,14 +8,14 @@ In this lab, you have an example MVC application, committed to a Git repository 
 
 ### Tasks Overview: ###
 
-**2. Add ARM Template to Solution:** In this step, add a deployment project to the solution.  This will create an ARM template which will be used to create the App Service and web site in Azure for deploying the solution into.
+**1. Add ARM Template to Solution:** In this step, add a deployment project to the solution.  This will create an ARM template which will be used to create the App Service and web site in Azure for deploying the solution into.
 
 **2. Create Service Endpoint:** In this step, create a service endpoint in VSTS that will allow you to connect to the Azure subscription and use ARM templates to create the deployment environments.
 
 **3. Create a VSTS Release:** In this step, the release will be created that will configure the deployment environment in Azure and deploy the website to multiple environments.
 
 
-### II. Create Service Endpoint
+### I. Create Service Endpoint
 1. Open the DevOpsHOL solution, that was created in the [Getting Started](../getting-started/README.md) lab, in Visual Studio.  Right click on the solution in Solution Explorer and choose **Add project...**
 
 ![](<media/CD1.png>)
@@ -72,7 +72,7 @@ This will take you to the project dashboard page.  Click on the Setting icon (ge
 		-HostingPlanName $(HostingPlan)
 		```
 >>+ You will shortly define the values for each parameter, like `$(ServerName)`, in the Environment variables.
->>+  **Note**: If you open the FullEnvironmentSeWebSite.parameters.json file, you will see empty placeholders for these parameters. You could hard code values in the file instead of specifying them as "overrides". Either way is valid. If you do specify  values in the params file, remember that in order to change values, you would have to edit the file, commit and create a  new build in order for the Release to have access the new values.
+>>+  **Note**: If you open the FullEnvironmentSeWebSite.parameters.json file, you will see empty placeholders for these parameters. You could hard code values in the file instead of specifying them as "overrides". Either way is valid. If you do specify  values in the parameters file, remember that in order to change values, you would have to edit the file, commit and create a  new build in order for the Release to have access the new values.
 
 8. Click on the **Azure App Service Deploy:** accordion and fill out the settings as follows:
 >+ Azure Subscription: DevOpsHOLDeployment
