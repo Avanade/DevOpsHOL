@@ -1,0 +1,1 @@
+These two files are the export from the VSTS build definiton (DevOpsHOL-CI.json) and release definition ().  These can be imported into the VSTS project to configure the build and release and skip all the steps in the labs :).
