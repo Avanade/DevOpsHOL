@@ -131,7 +131,7 @@ NOTE: The website address can be seen on the Azure portal on the WebApp
 >+ https://\<WebsiteName>-staging.azurewebsites.net/
 >+ https://\<WebsiteName>-dev.azurewebsites.net/
 14. By default, the Release process is manual.  Go back to the **Pipeline** tab and click on the lightning bolt icon in the Artifacts panel and enable the Continuous deployment trigger
-15. Now go back into Visual Studio and make a change to the code that will be visible in the application.  Observe the status of the Build and Release and verify that all the items configured in the CI and CD labs complete successfuly.
+15. Now go back into Visual Studio and make a change to the code that will be visible in the application.  Observe the status of the Build and Release and verify that all the items configured in the CI and CD labs complete successfully.
 
 Next steps
 ----------
@@ -146,6 +146,6 @@ and modify the settings to require approvals prior to deploying to the next envi
 >+ Add additional variables to the build or release to make them more dynamic (i.e. less dependent on hard coded names)
 >+ Use the ARM template and the Visual Studio deployment and publish process to create an individual Azure environment in addition to the Dev, Stage and production environments.
 >+ Delete the DevOpsHOL resource group and re-release the same build to make sure that the environments can be dynamically re-created.
->+ Export the build and release definitions.  Check them into source control.  Delete these definitons and restore from the source files.
+>+ Export the build and release definitions.  Check them into source control.  Delete these definitions and restore from the source files.
 
 
