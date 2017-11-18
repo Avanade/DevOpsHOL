@@ -10,7 +10,7 @@ Feature flags provide the ability to turn features of your application on and of
 
 **2. Create a new page to enable/disable features** - in this task we will add a page for users to opt in for specific features.
 
-**3. Update the website to use the feature flags** - in this task we will add new features to the website and leverge the feature flags
+**3. Update the website to use the feature flags** - in this task we will add new features to the website and leverage the feature flags
 
 **4. Try it out!** - in this task we will try out our feature flag to ensure it's working as expected.
 
