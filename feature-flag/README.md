@@ -1,4 +1,4 @@
-# Avanade DevOps HOL - Feature Flag for Web Application
+Avanade DevOps HOL - Feature Flag for Web Application
 ====================================================================================
 Feature flags provide the ability to turn features of your application on and off at a moments notice, no code deployments required. In this lab, we will add code to the project to demonstrate the use of feature flags to allow selectively turning on and off features to expose functionality. 
 
