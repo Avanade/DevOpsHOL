@@ -8,20 +8,20 @@ get fast feedback. To do so, we are going to be setting up a Continuous Integrat
 will allow us to compile and run unit tests on our code every time a commit is
 pushed to Visual Studio Team Services.
 
-### Pre-requisites: ###
+## Pre-requisites: ##
 - Complete [Getting Started](../getting-started/README.md) hands on lab.
 -   An active Visual Studio Team Services account.<br>
 	 [Sign up for Visual Studio Team Services](https://www.visualstudio.com/en-us/docs/setup-admin/team-services/sign-up-for-visual-studio-team-services)
 
 
-### Tasks Overview: ###
+## Tasks Overview: ##
 
 **1. Create Continuous Integration Build:** In this step, you will create a build definition that will be triggered every time a commit is pushed to your repository in Visual Studio Team Services.
 
 **2. Test the CI Trigger in Visual Studio Team Services:** In this step, test the Continuous Integration build (CI) build we created by changing code in the Parts Unlimited project with Visual Studio Team Services.
 
 
-### I. Create Continuous Integration Build
+## I. Create Continuous Integration Build
 
 A continuous integration build will give us the ability check whether the code
 we checked in can compile and will successfully pass any automated tests that we
@@ -81,7 +81,7 @@ For more flexibility in the build (and for a more in depth learning experience),
 ![](<media/CI4.png>)
 
 
-### III. Test the CI Trigger in Visual Studio Team Services
+## III. Test the CI Trigger in Visual Studio Team Services
 
 We will now test the **Continuous Integration build (CI)** build we created by changing code in the project with Visual Studio.
 
@@ -102,7 +102,7 @@ We will now test the **Continuous Integration build (CI)** build we created by c
 
 ![](<media/CI8.png>)
 
-Next steps
+## Next steps ##
 ----------
 
 In this lab, you learned how to push new code to Visual Studio Team Services, setup a Git repo and create a Continuous
