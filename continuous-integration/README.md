@@ -57,14 +57,23 @@ For more flexibility in the build (and for a more in depth learning experience),
 	MSBuild Arguments: /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)\\\\"<br>
 	Platform: $(BuildPlatform)<br>
 	Configuration: $(BuildConfiguration)
->- Visual Studio Test<br>
+>- .NET Core<br>
 	Display name: Test Assemblies<br>
-	Test Assemblies: \*\*\\$(BuildConfiguration)\\\*test\*.dll<br>
-        !\*\*\obj\\**<br>
+	Command: test<br>
+	Project(s): **/\*test\*.csproj<br>
+	Arguments: -l "trx"<br>
+	Continue on error: Checked<br>
+>- Publish Test Results<br>
+	Display name: Publish Test Result<br>
+	Test result format: VSTest<br>
+	Test results files: **\\*.trx<br>
+	Search folder: $(System.DefaultWorkingDirectory)<br>
 >- Publish Build Artifacts<br>
 	Path to publish: $(build.artifactstagingdirectory)<br>
 	Artifact name: drop<br>
+
 ![](<media/CI2.png>)
+
 6. Click on the **Variables** tab and add the following Variables:
 >- **BuildConfiguration** with a value of **release**
 >- **BuildPlatform** with a value of **any cpu**
@@ -81,7 +90,7 @@ For more flexibility in the build (and for a more in depth learning experience),
 ![](<media/CI4.png>)
 
 
-## III. Test the CI Trigger in Visual Studio Team Services
+## II. Test the CI Trigger in Visual Studio Team Services
 
 We will now test the **Continuous Integration build (CI)** build we created by changing code in the project with Visual Studio.
 
