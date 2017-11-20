@@ -1,3 +1,4 @@
+
 # Avanade DevOps HOL - Getting Started
 In this lab, we will be installing the required development components and verifying that the solution builds and is able to be pushed to VSTS.
 ## Pre-requisites ##
@@ -50,7 +51,9 @@ In this lab, we will be installing the required development components and verif
 
 ![](<media/GS1.png>)
 
-9. Log in to VSTS with browser and verify that DevOpsHOL project was created and source code is uploaded.
+9. Create the first commit for your project (Team Explorer -> Changes)
+
+10. Log in to VSTS with browser and verify that DevOpsHOL project was created and source code is uploaded.
 
 ## Next steps
 
