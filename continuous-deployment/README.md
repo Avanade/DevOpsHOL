@@ -129,7 +129,7 @@ NOTE: The website address can be seen on the Azure portal on the WebApp
 13. Once the release completes successfully to all three environments, verify that the application has been deployed to all three environments
 >+ https://\<WebsiteName>-dev.azurewebsites.net/
 >+ https://\<WebsiteName>-staging.azurewebsites.net/
->+ https://\<WebsiteName>-dev.azurewebsites.net/
+>+ https://\<WebsiteName>.azurewebsites.net/
 14. By default, the Release process is manual.  Go back to the **Pipeline** tab and click on the lightning bolt icon in the Artifacts panel and enable the Continuous deployment trigger
 15. Now go back into Visual Studio and make a change to the code that will be visible in the application.  Observe the status of the Build and Release and verify that all the items configured in the CI and CD labs complete successfully.
 
