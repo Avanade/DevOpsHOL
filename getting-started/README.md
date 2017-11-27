@@ -38,7 +38,7 @@ In this lab, we will be installing the required development components and verif
 
 6. Rename **UnitTest.cs** to **HomeControllerTest.cs** and replace the file contents with the content of this file [HomeControllerTest.cs](../source/tests/HomeControllerTest.cs)
 
-7. Add the "DevOpsHOL" as references to the DevOpsHOL.Tests project. Tip: Use quick refactoring.
+7. Add the "DevOpsHOL" and "Microsoft.AspNetCore.Mvc.ViewFeatures.dll" as references to the DevOpsHOL.Tests project. Tip: Use quick refactoring.
 
 8. Build, run unit tests and run the solution to make sure everything is OK to this point.
     + Test -> Run -> All Tests (Ctrl+R,A)<br>
