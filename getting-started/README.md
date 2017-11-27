@@ -53,7 +53,7 @@ In this lab, we will be installing the required development components and verif
 
 ![](<media/GS1.png>)
 
-9. Create the first commit for your project (Team Explorer -> Changes -> Commit Staged and Push)
+9. Create the first commit for your project (Team Explorer -> Changes -> Commit All and Push)
 
 10. Log in to VSTS with browser and verify that DevOpsHOL project was created and source code is uploaded.
 
