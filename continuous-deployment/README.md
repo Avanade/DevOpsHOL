@@ -104,7 +104,7 @@ workerSize "0"
 
 10. Click **Save** and then click **Release -> Create Release**, click **Create**.  Inside the Green notification bar, click on the *Release-1* link to be taken to a page to show the release progress.  If this page doesn't refresh automatically, periodically refresh the page until the release succeeds (if the release fails, review the error message and go back and make adjustments and re-release).
 
-11. Open a browser page and navigate to the website in Azure.  The url will depend on the $(WebsiteName).  For example, if the $(WebsiteName) was devopshol-am, then the naviage to https://devopshol-am-dev.azurewebsites.net/.<br>
+11. Open a browser page and navigate to the website in Azure.  The url will depend on the $(WebsiteName).  For example, if the $(WebsiteName) was devopshol-am, then navigate to https://devopshol-am-dev.azurewebsites.net/.<br>
 NOTE: The website address can be seen on the Azure portal on the WebApp
 
 ![](<media/CD7.png>)
@@ -122,7 +122,7 @@ NOTE: The website address can be seen on the Azure portal on the WebApp
 >+ Click on the **Azure App Service Deploy: $(WebSiteName)** task and edit the Slot to change **Dev** to **Staging**.
 >+ Save
 >+ Click on the **Pipeline** link and repeat the above steps to create a clone of **Staging** called **Prod**
->>+ Uncheck the **Deploy to slot** which will make the release deploy to the production slot.
+>>+ Un-check the **Deploy to slot** which will make the release deploy to the production slot.
 >+ Save
 >+ Release -> Create Release -> Create
 >>+ This wil create a release that is deployed to Dev, Stage and Prod
