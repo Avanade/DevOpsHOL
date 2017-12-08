@@ -25,7 +25,7 @@ New-AzureRmResourceGroupDeployment -ResourceGroupName $ResourceGroupName `
     -VmAdminUserName $VmAdminUserName `
     -VmAdminPassword $SecureStringPwd `
     -DnsLabelPrefix $DnsLabelPrefix `
-    -ChocoPackages 'nodejs-lts;python2;visualstudiocode;notepadplusplus;googlechrome;"dotnetcore --version 1.1.2"' `
+    -ChocoPackages 'visualstudiocode;notepadplusplus;googlechrome' `
     -Force -Verbose
 ```
 
