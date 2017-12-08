@@ -5,6 +5,8 @@ You can accomplish these labs using Visual Studio 2017 on your local computer, b
 
 >**Note:** Sometimes this all works great but other times, the Chocolatey packages do not install when the VM is first created so you may need to run choco install for the individual packages to complete the environment setup.
 
+>**Note:** Run PowerShell as an administrator.
+
 ```PowerShell
 Login-AzureRmAccount
 Select-AzureRmSubscription -SubscriptionName andrewmo
