@@ -1,62 +1,92 @@
-
 # Avanade DevOps HOL - Getting Started
-In this lab, we will be installing the required development components and verifying that the solution builds and is able to be pushed to VSTS.
-## Pre-requisites ##
-1. An active Azure subscription<br>
-	[Azure Portal](https://portal.azure.com)
-2. An active Visual Studio Team Services account.<br>
-	[Sign up for Visual Studio Team Services](https://www.visualstudio.com/en-us/docs/setup-admin/team-services/sign-up-for-visual-studio-team-services)
 
-## Set up your machine ##
-1. Install [Visual Studio 2017](http://go.microsoft.com/fwlink/?LinkId=517106)<br>
-      Select ASP.NET and web development and Azure development tools on the installer.
-2. Install [Azure Power Shell](https://docs.microsoft.com/en-us/powershell/azure/install-azurerm-ps?view=azurermps-4.1.0)
+In this lab, we will be installing the required development components to setup your lab environment.
 
-## Create MVC web application ##
-1. Open Visual Studio 2017
+You can either configure an Azure development environment on your own, or use a simple PowerShell script provided in this document. The script will create a new Azure resource group and then configure an Azure VM with Windows 10 and Visual Studio 2017 Community edition. It will also use Chocolatey to install a collection of other tools and applications. **Review and modify the script to suit your own needs before executing such as changing to VS Enterprise and Windows Server 2016 (VS-2017-Ent-Latest-WS2016)**
 
-2. Make sure GIT is the current source control plugin (under Tools -> Options -> Source Control -> Plug-in Selection)
+## Prerequisites
 
-3. Go to File -> New -> Project... and create a new ASP.NET Core Web Application<br>
-    + Name: DevOpsHOL<br>
-    + Location: *where ever you put project source*<br>
-    + Create Directory for solution: Checked<br>
-    + Create new Git repository: Checked<br>
-    + Click OK<br>
-    + On the next dialog, choose Web Application (Model-View-Controller) as the application type, No Authentication<br>
-    + Click OK<br>
+1. An active Azure subscription
+   - Visit the [Azure Portal](https://portal.azure.com)
 
-4.  Build and run the solution to make sure everything is OK to this point.
-    + Debug -> Start Debugging (F5)<br>
-		+ If application doesn't start the first time, just run again.
-    + Do a quick smoke test to verify that the solution built and runs correctly.<br>
-    + Close browser and stop debugging<br>
+1. An active Visual Studio Team Services account.
+   - [Sign up for Visual Studio Team Services](https://www.visualstudio.com/en-us/docs/setup-admin/team-services/sign-up-for-visual-studio-team-services)
 
-5. Choose File -> New -> Project... and add a Unit Test Project (.NET Core) project, to the solution *not the .NET Framework unit test project*.
-    + Name: DevOpsHOL.Tests<br>
-    + Solution: Add to solution<br>
+1. Install [Azure PowerShell](https://docs.microsoft.com/nl-nl/powershell/azure/install-azurerm-ps) on your local machine
 
-6. Rename **UnitTest.cs** to **HomeControllerTest.cs** and replace the file contents with the content of this file [HomeControllerTest.cs](../source/tests/HomeControllerTest.cs)
+## Environment requirements
 
-7. Add the "DevOpsHOL" and "Microsoft.AspNetCore.Mvc.ViewFeatures.dll" as references to the DevOpsHOL.Tests project. Tip: Use quick refactoring.
+1. [Visual Studio 2017](http://go.microsoft.com/fwlink/?LinkId=517106)
+   - Select the following workloads:
+     - ASP.NET and web development
+     - Azure development (including PowerShell tools)
+     - .NET Core cross-platform development
 
-8. Build, run unit tests and run the solution to make sure everything is OK to this point.
-    + Test -> Run -> All Tests (Ctrl+R,A)<br>
-    + Debug -> Start Debugging (F5)<br>
-    + Do another quick smoke test to verify that the solution built and runs correctly.<br>
-    + Close browser and stop debugging<br>
+## Optional: Setup through PowerShell
 
-9. Add solution to VSTS project (Team Explorer -> Sync -> Publish Git Repo)
-    + Push to Visual Studio Team Services<br>
-    + Repository name: DevOpsHOL<br>
-    + Publish repository will create a project in VSTS (NOTE: if you have multiple VSTS accounts, make sure this is published to the correct Team Services Domain).<br>
+In case you chose not to set up your own environment through the Azure Portal, this section is just for you!
 
-![](<media/GS1.png>)
+Execute the following steps:
 
-9. Create the first commit for your project (Team Explorer -> Changes -> Commit All and Push)
+1. Run PowerShell ISE as an administrator.
 
-10. Log in to VSTS with browser and verify that DevOpsHOL project was created and source code is uploaded.
+1. Paste the following PowerShell code in the script pane:
 
-## Next steps
+    ```PowerShell
+    Login-AzureRmAccount
+    Select-AzureRmSubscription -SubscriptionName <MyAzureSubscriptionName>
+    $VmName = "DevOpsHOL"
+    $DnsLabelPrefix = "<UniqueDNSName>"
+    $VmIPName = $VmName+"-ip"
+    $VmAdminUserName = "<VmAdminUserName>"
+    $VmAdminPassword ="<TopSecretPassword>"
+    $ResourceGroupName = "DevOpsHOL"
+    $ResourceGroupLocation = "East US 2"
+    $SecureStringPwd = ConvertTo-SecureString $VmAdminPassword -AsPlainText -Force
+    New-AzureRmResourceGroup -Name $ResourceGroupName -Location $ResourceGroupLocation -Verbose -Force
+    New-AzureRmResourceGroupDeployment -ResourceGroupName $ResourceGroupName `
+        -TemplateUri "https://raw.githubusercontent.com/Avanade/DevOpsHOL/master/azure-rm/azuredeploy.json" `
+        -VmName $VmName `
+        -VmSize "Standard_D2s_v3" `
+        -VmVisualStudioVersion "VS-2017-Comm-Latest-Win10-N" `
+        -VmAdminUserName $VmAdminUserName `
+        -VmAdminPassword $SecureStringPwd `
+        -DnsLabelPrefix $DnsLabelPrefix `
+        -ChocoPackages 'visualstudiocode;googlechrome' `
+        -Force -Verbose
+    ```
 
-- [Continuous Integration](../continuous-integration/README.md)
+    **Note:** Sometimes this all works great but other times, the Chocolatey packages do not install when the VM is first created so you may need to run choco install for the individual packages to complete the environment setup.
+
+1. Replace all the \<placeholders\> with your own values and run the script.
+
+1. Once the script above completes, you can use the following to start the VM and check to see that everything was installed correctly.
+
+    ```PowerShell
+    Start-AzureRmVM -ResourceGroupName $ResourceGroupName -Name $VmName
+    while((Get-AzureRmVM -ResourceGroupName $ResourceGroupName -Name $VmName -Status | `
+        select -ExpandProperty Statuses | `
+        ?{ $_.Code -match "PowerState" } | `
+        select -ExpandProperty DisplayStatus) -ne "VM running")
+    {
+        Start-Sleep -s 2
+    }
+    Start-Sleep -s 5 ## Give the VM time to come up so it can accept remote requests
+    $vmip = Get-AzureRmPublicIpAddress -Name $VmIPName -ResourceGroupName $ResourceGroupName
+    $hostdns = $vmip.IpAddress.ToString() ## $vmip.DnsSettings.Fqdn
+    cmdkey /generic:TERMSRV/$hostdns /user:"$VmName\$VmAdminUserName" /pass:$VmAdminPassword
+    Start-Process "mstsc" -ArgumentList "/V:$hostdns /f" ## use /span to use both monitors
+    ```
+
+## Optional: Cleanup resources
+
+Finally, when you are done, you can use the following code to:
+
+- Shut down the VM to minimize Azure charges
+    ```PowerShell
+    Stop-AzureRmVM -ResourceGroupName $ResourceGroupName -Name $VmName -Force
+    ```
+- Delete the entire resource group when done with the labs or to start fresh.
+    ```PowerShell
+    Remove-AzureRmResourceGroup -Name $ResourceGroupName
+    ```
