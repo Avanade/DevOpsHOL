@@ -1,4 +1,4 @@
-# Avanade DevOps HOL - UI Testing
+# Avanade DevOps HOL - Lab 5 - UI Testing
 
 In this lab, we add ui tests to our test project.
 
@@ -6,7 +6,7 @@ Based on: https://docs.microsoft.com/en-us/vsts/build-release/test/continuous-te
 
 ## Prerequisites
 
-- Complete [Feature Toggle](lab-4-feature-toggle.md).
+- Complete [Lab 4 - Feature Toggle](lab-4-feature-toggle.md).
 
 ## Tasks
 
@@ -16,3 +16,7 @@ Based on: https://docs.microsoft.com/en-us/vsts/build-release/test/continuous-te
    - Selenium.WebDriver.PhantomJS
 
 1. Test the submit contact information
+
+## Next steps
+
+Continue with [Lab 6 - Smoke Testing](lab-6-smoke-testing.md).

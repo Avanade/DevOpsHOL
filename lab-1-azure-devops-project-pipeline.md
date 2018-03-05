@@ -1,4 +1,4 @@
-# Avanade DevOps HOL - Create a CI/CD pipeline for .NET with the Azure DevOps Project
+# Avanade DevOps HOL - Lab 1 - Create a CI/CD pipeline for .NET with the Azure DevOps Project
 
 In this lab, we create our own application in Visual Studio with Unit Tests.
 
@@ -18,3 +18,7 @@ In this lab, we create our own application in Visual Studio with Unit Tests.
 
 1. Configure unit test in build with argument !Integration
    - Stretch: what should be added is ARM which can be reverse engineered.
+
+## Next steps
+
+Continue with [Lab 2 - Define your multi-stage continuous deployment process with approvals and gates](lab-2-multi-stage-deployments.md).

@@ -1,10 +1,10 @@
-# Avanade DevOps HOL - Define your multi-stage continuous deployment process with approvals and gates
+# Avanade DevOps HOL - Lab 2 - Define your multi-stage continuous deployment process with approvals and gates
 
 In this lab, we setup our multi-stage continuous deployment process by adding approvals and gates.
 
 ## Prerequisites
 
-- Complete [Create a CI/CD pipeline for .NET with the Azure DevOps Project](lab-1-azure-devops-project-pipeline.md).
+- Complete [Lab 1 - Create a CI/CD pipeline for .NET with the Azure DevOps Project](lab-1-azure-devops-project-pipeline.md).
 
 ## Tasks
 
@@ -21,3 +21,7 @@ Use approvals and gates to control your deployment
 1. Add pre deployment gates on work item count
 
 1. Add pre/post deployment approvals to control promotion to next environments
+
+## Next steps
+
+Continue with [Lab 3 - Analysis with SonarQube](lab-3-analysis-with-sonarqube.md).

@@ -1,10 +1,10 @@
-# Avanade DevOps HOL - Smoke Testing
+# Avanade DevOps HOL - Lab 6 - Smoke Testing
 
 In this lab, we add smoke tests to our test project.
 
 ## Prerequisites
 
-- Complete [UI Testing](lab-5-ui-testing.md).
+- Complete [Lab 5 - UI Testing](lab-5-ui-testing.md).
 
 ## Tasks
 
@@ -17,3 +17,7 @@ In this lab, we add smoke tests to our test project.
 
 1. Create a new xml file "integration.runsettings" containing a VSTS variable token for the same website url variable
    - Set "Copy to output directory" on "Copy if newer"
+
+## Next steps
+
+Done!

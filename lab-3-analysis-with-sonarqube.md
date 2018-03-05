@@ -1,4 +1,4 @@
-# Avanade DevOps HOL - Analysis with SonarQube
+# Avanade DevOps HOL - Lab 3 - Analysis with SonarQube
 
 In this lab, we enable SonarQube for analysis of our code.
 
@@ -7,7 +7,7 @@ https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Extension+for+V
 
 ## Prerequisites
 
-- Complete [Define your multi-stage continuous deployment process with approvals and gates](lab-2-multi-stage-deployments.md).
+- Complete [Lab 2 - Define your multi-stage continuous deployment process with approvals and gates](lab-2-multi-stage-deployments.md).
 
 ## Tasks
 
@@ -30,3 +30,7 @@ https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Extension+for+V
 1. Save and Queue the build
 
 1. Log on to SonarQube and view the results
+
+## Next steps
+
+Continue with [Lab 4 - Feature Toggle](lab-4-feature-toggle.md).
