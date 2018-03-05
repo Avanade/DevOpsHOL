@@ -13,6 +13,54 @@ In this lab, we create our own application in Visual Studio with Unit Tests.
 1. Create project in visual studio
 
 1. Create unit test project + unit test
+   - <details><summary>Click here to expand the example code</summary>
+
+     ```csharp
+      [TestClass]
+      public class HomeControllerTest
+      {
+          [TestMethod]
+          public void Index()
+          {
+              // Arrange
+              HomeController controller = new HomeController();
+
+              // Act
+              ViewResult result = controller.Index() as ViewResult;
+
+              // Assert
+              Assert.IsNotNull(result);
+          }
+
+          [TestMethod]
+          public void About()
+          {
+              // Arrange
+              HomeController controller = new HomeController();
+
+              // Act
+              ViewResult result = controller.About() as ViewResult;
+
+              // Assert
+              Assert.IsNotNull(result);
+              Assert.AreEqual("Your application description page.", result.ViewData["Message"]);
+          }
+
+          [TestMethod]
+          public void Contact()
+          {
+              // Arrange
+              HomeController controller = new HomeController();
+
+              // Act
+              ViewResult result = controller.Contact() as ViewResult;
+
+              // Assert
+              Assert.IsNotNull(result);
+          }
+      }
+     ```
+     </details>
 
 1. Use Azure DevOps project
 
