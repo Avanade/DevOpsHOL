@@ -1,6 +1,8 @@
 # Avanade DevOps HOL - Lab 1 - Create a CI/CD pipeline for .NET with the Azure DevOps Project
 
-In this lab, we create our own application in Visual Studio with Unit Tests.
+In this lab, we create our own application in Visual Studio with Unit Tests and setup a DevOps Project in Azure to create our CI/CD pipeline.
+
+Based on [this](https://docs.microsoft.com/en-us/vsts/build-release/apps/cd/azure/azure-devops-project-aspnetcore) tutorial.
 
 ## Prerequisites
 
@@ -8,12 +10,11 @@ In this lab, we create our own application in Visual Studio with Unit Tests.
 
 ## Tasks
 
-1. Follow the steps in [this](https://docs.microsoft.com/en-us/vsts/build-release/apps/cd/azure/azure-devops-project-aspnetcore) tutorial.
+1. Create a new project in visual studio:
+   - ASP.NET Core 2.0 Web Application (MVC)
 
-1. Create project in visual studio
-
-1. Create unit test project + unit test
-   - <details><summary>Click here to expand the example code</summary>
+1. Add new Unit Test Project (.NET Core) + unit test
+   - <details><summary>Click here to expand the sample unit test code</summary>
 
      ```csharp
       [TestClass]
@@ -61,6 +62,8 @@ In this lab, we create our own application in Visual Studio with Unit Tests.
       }
      ```
      </details>
+
+1. Build your solution and run the unit tests. Make sure that the tests pass.
 
 1. Use Azure DevOps project
 
