@@ -63,12 +63,17 @@ Based on [this](https://docs.microsoft.com/en-us/vsts/build-release/apps/cd/azur
      ```
      </details>
 
-1. Build your solution and run the unit tests. Make sure that the tests pass.
+1. Build your solution and run the unit tests. Make sure that the tests pass
 
-1. Use Azure DevOps project
+1. Commit your code to your favourite git provider (GitHub / VSTS / etc.)
+
+1. Go to your Azure Portal and create a new DevOps Project. Make sure it meets the following demands:
+    - Using your own code
+    - WebApp on Windows
+    - Linked to your VSTS account
 
 1. Configure unit test in build with argument !Integration
-   - Stretch: what should be added is ARM which can be reverse engineered.
+   - Stretch: what should be added is ARM which can be reverse engineered
 
 ## Next steps
 
