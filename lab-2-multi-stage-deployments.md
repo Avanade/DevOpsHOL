@@ -2,6 +2,8 @@
 
 In this lab, we setup our multi-stage continuous deployment process by adding approvals and gates.
 
+Based on [this](https://docs.microsoft.com/en-us/vsts/build-release/actions/define-multistage-release-process) tutorial.
+
 ## Prerequisites
 
 - Complete [Lab 1 - Create a CI/CD pipeline for .NET with the Azure DevOps Project](lab-1-azure-devops-project-pipeline.md).
@@ -18,9 +20,9 @@ First, let's define the QA environment:
 
 Use approvals and gates to control your deployment
 
-1. Add pre deployment gates on work item count
+1. Add pre deployment approval to control promotion from QA to Production
 
-1. Add pre/post deployment approvals to control promotion to next environments
+1. Add gate on 'Active Bugs' = 0
 
 ## Next steps
 
