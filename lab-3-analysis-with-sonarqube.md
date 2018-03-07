@@ -2,8 +2,7 @@
 
 In this lab, we enable SonarQube for analysis of our code.
 
-Based on:
-https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Extension+for+VSTS-TFS
+Based on [this](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Extension+for+VSTS-TFS) tutorial.
 
 ## Prerequisites
 
