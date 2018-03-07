@@ -72,8 +72,15 @@ Based on [this](https://docs.microsoft.com/en-us/vsts/build-release/apps/cd/azur
     - WebApp on Windows
     - Linked to your VSTS account
 
+1. When the azure resources are created, go to your VSTS account and make sure that your first Build and Release are successful. If any errors occur, try and fix them by yourself or team up with your neighbour
+
+## Stretch goals
+
+1. Configure Application Insights on your Web App through the Azure Portal
+
+1. Export the ARM template to set up the Web App in Azure, integrate it in your Release definition
+
 1. Configure unit test in build with argument !Integration
-   - Stretch: what should be added is ARM which can be reverse engineered
 
 ## Next steps
 
