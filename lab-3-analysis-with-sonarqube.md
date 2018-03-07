@@ -12,12 +12,8 @@ Based on [this](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube
 
 1. Create a new project in SonarQube and save the project key
 
-1. Edit build definition
-
-1. Add task "Prepare analysis on SonarQube" before any Msbuild or VSBuild task
-   - Install from marketplace if not already in your account
-
-1. Enter the project key and other details
+1. Edit your build definition and add task "Prepare analysis on SonarQube" before any Msbuild or VSBuild task
+   - Install from marketplace if the task is not already in your account
 
 1. Add task "Run Code Analysis" and "Publish Analysis Results" to your build
 
@@ -28,7 +24,7 @@ Based on [this](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube
 
 1. Save and Queue the build
 
-1. Log on to SonarQube and view the results
+1. Log on to SonarQube and review the results
 
 ## Next steps
 
