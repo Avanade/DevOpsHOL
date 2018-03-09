@@ -2,7 +2,7 @@
 
 In this lab, we build a Feature Toggle mechanism in our code.
 
-Based on: https://microsoft.github.io/PartsUnlimited/apm/200.6x-APM-FeatureFlagforWebapps.html
+Based on [this](https://microsoft.github.io/PartsUnlimited/apm/200.6x-APM-FeatureFlagforWebapps.html) article and [this](https://github.com/jason-roberts/FeatureToggle/tree/master/src/Examples/AspDotNetCoreExample) example.
 
 ## Prerequisites
 
@@ -10,9 +10,12 @@ Based on: https://microsoft.github.io/PartsUnlimited/apm/200.6x-APM-FeatureFlagf
 
 ## Tasks
 
-1. Use framework: https://github.com/jason-roberts/FeatureToggle
+1. Add the following package to your Web Application:
+    - FeatureToggle (by Jason Roberts)
 
-1. Example: https://github.com/jason-roberts/FeatureToggle/tree/master/src/Examples/AspDotNetCoreExample
+1. Apply the following modifications to your Web Application:
+    - Add feature class "CheckPhoneNumberFeature"
+    - Add model class "Contact"
 
 1. Use config to store feature toggle config
 
