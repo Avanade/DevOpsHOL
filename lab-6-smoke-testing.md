@@ -20,4 +20,4 @@ In this lab, we add smoke tests to our test project.
 
 ## Next steps
 
-Done!
+Continue with [Lab 7 - Security Verification Tests in your CD pipeline](lab-7-security-verification-tests.md).
