@@ -1,4 +1,4 @@
-# Avanade DevOps HOL - Getting Started
+# Avanade DevOps HOL - Prerequisites
 
 In this lab, we will be installing the required development components to setup your lab environment.
 

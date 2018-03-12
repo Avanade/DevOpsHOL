@@ -6,7 +6,7 @@ Based on [this](https://docs.microsoft.com/en-us/vsts/build-release/apps/cd/azur
 
 ## Prerequisites
 
-- Complete [Getting Started](getting-started.md).
+- Complete the [Prerequisites](prerequisites.md) lab.
 
 ## Tasks
 
@@ -84,4 +84,4 @@ Based on [this](https://docs.microsoft.com/en-us/vsts/build-release/apps/cd/azur
 
 ## Next steps
 
-Continue with [Lab 2 - Define your multi-stage continuous deployment process with approvals and gates](lab-2-multi-stage-deployments.md).
+Continue with [Lab 2 - Add QA environment and define your multi-stage continuous deployment process with approvals and gates](lab-2-multi-stage-deployments.md).
