@@ -27,7 +27,7 @@ Based on [this](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube
    - Run Code Analysis task after the Visual Studio Test task
    - Publish Analysis Result task after the Run Code Analysis task
 
-1. Save the build, do not queue it. Now edit your Web Application csproj file and add a ProjectGuid. Commit this change to queue the next build. (The dotnet build task will come up with the following warning: The project does not have a valid ProjectGuid. Analysis results for this project will not be uploaded to SonarQube)
+1. Save the build, do not queue it. Now edit your Web Application csproj file and add a ProjectGuid. Commit this change to queue the next build. (This is a workaround for the SonarQube runner to work with dotnet core projects, because the dotnet build task will come up with the following warning: The project does not have a valid ProjectGuid. Analysis results for this project will not be uploaded to SonarQube)
    - <details><summary>Click here for an example</summary>
 
         ```xml
@@ -39,6 +39,12 @@ Based on [this](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube
      </details>
 
 1. When the build passes, view the detailed SonarQube report
+
+## Stretch goals
+
+1. Set up own SonarQube server to use in this lab
+
+1. Resolve technical debt or issues reported by SonarQube
 
 ## Next steps
 
