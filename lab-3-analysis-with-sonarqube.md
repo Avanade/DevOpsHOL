@@ -43,8 +43,11 @@ Based on [this](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube
 ## Stretch goals
 
 1. Set up own SonarQube server to use in this lab
-
-1. Resolve technical debt or issues reported by SonarQube
+2. Install 'SonarLint for Visual Studio 2017' via 'Tools/Extensions and Updates...'
+3. Configure your Sonar server via Team Explorer/SonarQube
+4. Build your application and see the Sonar issues appear in the Error List of Visaul Studio
+5. Mark an issue in SonarQube as false positive and rebuild your application
+3. Resolve technical debt or issues reported by SonarQube
 
 ## Next steps
 
