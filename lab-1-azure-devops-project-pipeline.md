@@ -76,6 +76,8 @@ Based on [this](https://docs.microsoft.com/en-us/vsts/build-release/apps/cd/azur
 
 ## Stretch goals
 
+1. Configure Code Coverage in the build. Update the Visual Studio Test task, queue a build, download the code coverage file and see what code is covered and what is not.
+
 1. Configure Application Insights on your Web App through the Azure Portal
 
 1. Export the ARM template to set up the Web App in Azure, integrate it in your Release definition
