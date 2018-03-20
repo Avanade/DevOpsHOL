@@ -41,7 +41,7 @@ Execute the following steps:
     $VmAdminUserName = "<VmAdminUserName>"
     $VmAdminPassword ="<TopSecretPassword>"
     $ResourceGroupName = "DevOpsHOL"
-    $ResourceGroupLocation = "East US 2"
+    $ResourceGroupLocation = "West Europe"
     $SecureStringPwd = ConvertTo-SecureString $VmAdminPassword -AsPlainText -Force
     New-AzureRmResourceGroup -Name $ResourceGroupName -Location $ResourceGroupLocation -Verbose -Force
     New-AzureRmResourceGroupDeployment -ResourceGroupName $ResourceGroupName `
