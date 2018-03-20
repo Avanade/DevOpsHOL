@@ -6,7 +6,7 @@ You can either configure an Azure development environment on your own, or use a 
 
 ## Prerequisites
 
-1. An active Azure subscription
+1. An active Azure subscription on a personal AD (Not the Avanade AD).
    - Visit the [Azure Portal](https://portal.azure.com)
 
 1. An active Visual Studio Team Services account.
