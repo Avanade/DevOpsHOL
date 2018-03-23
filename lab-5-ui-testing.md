@@ -13,7 +13,7 @@ Based on the following tutorials:
 
 ## Tasks for local UI Testing
 
-1. Add a new Unit Test Project (.NET Framework 4.7.1) and add the following NuGet packages:
+1. Add a new Unit Test Project "Tests" (.NET Framework 4.7.1) and add the following NuGet packages:
    - Selenium.Support (Includes Selenium.WebDriver)
    - Selenium.WebDriver.PhantomJS
    - (optional)Selenium.WebDriver.IEDriver
@@ -142,7 +142,7 @@ Based on the following tutorials:
     using System;
     using System.Drawing;
     using System.IO;
-    using UITests.PageObjects;
+    using Tests.PageObjects;
 
     [TestClass]
     public class UITests
@@ -244,11 +244,11 @@ Based on the following tutorials:
 
 1. Edit your Build Definition (save, do not queue)
     1. Add task "NuGet restore":
-        - Set the path to your UITest project's packages.config
+        - Set the path to your Test project's packages.config
         - Advanced > Destination: ../packages
     1. Change the Test task by adding the following argument: --filter TestCategory!=UI
     1. Add task "Publish build artifact" with the following settings:
-        - Path: UITests/bin/$(BuildConfiguration)
+        - Path: Tests/bin/$(BuildConfiguration)
         - Artifact name: tests
         - Location: VSTS
 
