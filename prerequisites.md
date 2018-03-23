@@ -21,6 +21,7 @@ You can either configure an Azure development environment on your own, or use a 
      - ASP.NET and web development
      - Azure development (including PowerShell tools)
      - .NET Core cross-platform development
+     - .NET Framework 4.7.1 SDK
 
 ## Optional: Setup through PowerShell
 
