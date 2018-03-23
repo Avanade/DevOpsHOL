@@ -1,6 +1,6 @@
 # Avanade DevOps HOL - Lab 1 - Create a CI/CD pipeline for .NET with the Azure DevOps Project
 
-In this lab, we create our own application in Visual Studio with Unit Tests and setup a DevOps Project in Azure to create our CI/CD pipeline.
+In this lab, we setup our DevOps Project in Azure to create our CI/CD pipeline. This will provide us with a standard code base to work with.
 
 Based on [this](https://docs.microsoft.com/en-us/vsts/build-release/apps/cd/azure/azure-devops-project-aspnetcore) tutorial.
 
@@ -10,10 +10,19 @@ Based on [this](https://docs.microsoft.com/en-us/vsts/build-release/apps/cd/azur
 
 ## Tasks
 
-1. Create a new project in visual studio:
-   - ASP.NET Core 2.0 Web Application (MVC)
+1. Go to your Azure Portal and create a new DevOps Project. Make sure it meets the following demands:
+    - ASP.NET Core Web App on Windows
+    - Linked to your existing VSTS account
 
-1. Add new Unit Test Project (.NET Core) + unit test
+1. When the azure resources are created, go to your VSTS account and make sure that:
+   - The first Build and Release are successful
+   - The App is deployed and accessable
+
+1. Clone your code repository to your development environment and edit your solution in Visual Studio:
+   - Upgrade the project to ASP.NET Core 2.0
+   - Update all NuGet packages to their 2.x counterparts
+
+1. Add a new Unit Test Project (.NET Core) + unit test
    - <details><summary>Click here to expand the sample unit test code</summary>
 
      ```csharp
@@ -65,14 +74,9 @@ Based on [this](https://docs.microsoft.com/en-us/vsts/build-release/apps/cd/azur
 
 1. Build your solution and run the unit tests. Make sure that the tests pass
 
-1. Commit your code to your favourite git provider (GitHub / VSTS / etc.)
+1. In VSTS, edit your build definition to support .NET Core 2.0
 
-1. Go to your Azure Portal and create a new DevOps Project. Make sure it meets the following demands:
-    - Using your own code
-    - WebApp on Windows
-    - Linked to your VSTS account
-
-1. When the azure resources are created, go to your VSTS account and make sure that your first Build and Release are successful. If any errors occur, try and fix them by yourself or team up with your neighbour
+1. Commit your code to trigger a build/release
 
 ## Stretch goals
 
@@ -81,8 +85,6 @@ Based on [this](https://docs.microsoft.com/en-us/vsts/build-release/apps/cd/azur
 1. Configure Application Insights on your Web App through the Azure Portal
 
 1. Export the ARM template to set up the Web App in Azure, integrate it in your Release definition
-
-1. Configure unit test in build with argument !Integration
 
 ## Next steps
 
