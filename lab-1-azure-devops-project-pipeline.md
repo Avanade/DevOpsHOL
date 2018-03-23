@@ -22,7 +22,7 @@ Based on [this](https://docs.microsoft.com/en-us/vsts/build-release/apps/cd/azur
    - Upgrade the project to ASP.NET Core 2.0
    - Update all NuGet packages to their 2.x counterparts
 
-1. Add a new Unit Test Project (.NET Core) + unit test
+1. Add a new Unit Test Project (.NET Core) + unit test class HomeControllerTest
    - <details><summary>Click here to expand the sample unit test code</summary>
 
      ```csharp

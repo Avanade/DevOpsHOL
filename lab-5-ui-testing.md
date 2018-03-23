@@ -13,7 +13,7 @@ Based on the following tutorials:
 
 ## Tasks for local UI Testing
 
-1. Add a new Unit Test Project (.NET Framework 4.7.1) + unit test and add the following NuGet packages:
+1. Add a new Unit Test Project (.NET Framework 4.7.1) and add the following NuGet packages:
    - Selenium.Support (Includes Selenium.WebDriver)
    - Selenium.WebDriver.PhantomJS
    - (optional)Selenium.WebDriver.IEDriver
