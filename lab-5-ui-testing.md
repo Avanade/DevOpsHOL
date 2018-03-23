@@ -236,13 +236,16 @@ Based on the following tutorials:
     <?xml version="1.0" encoding="utf-8" ?>
     <RunSettings>
         <TestRunParameters>
-            <Parameter name="siteUrl" value="__SiteUrl__" />
+            <Parameter name="siteUrl" value="#{SiteUrl}#" />
         </TestRunParameters>
     </RunSettings>
     ```
     </details>
 
 1. Edit your Build Definition (save, do not queue)
+    1. Add task "NuGet restore":
+        - Set the path to your UITest project's packages.config
+        - Advanced > Destination: ../packages
     1. Change the Test task by adding the following argument: --filter TestCategory!=UI
     1. Add task "Publish build artifact" with the following settings:
         - Path: UITests/bin/$(BuildConfiguration)
@@ -250,12 +253,16 @@ Based on the following tutorials:
         - Location: VSTS
 
 1. Edit your Release Definition, QA environment
-    1. Add task: Visual Studio Test Platform Installer
+    1. Add task: Replace Tokens
+        - Root directory: $(System.DefaultWorkingDirectory)/Drop/tests
+        - Target files: **/*.runsettings
+        - Token prefix: #{
+        - Token suffic: }#
     1. Add task: Visual Studio Test
-        - Search folder: $(System.DefaultWorkingDirectory)/tests
-        - Settings file: vsts.runsettings
+        - Search folder: $(System.DefaultWorkingDirectory)/Drop/tests
         - Test filter criteria: TestCategory=UI
-    1. Add variable "SiteUrl" with Scope "QA" and url "\<yourappservice\>-qa.azurewebsites.net/Home/Contact"
+        - Settings file: $(System.DefaultWorkingDirectory)/Drop/tests/vsts.runsettings
+    1. Add variable "SiteUrl" with Scope "QA" and url "\<yourappservice\>-qa.azurewebsites.net"
 
 1. Commit your code to trigger a build and release
 
