@@ -262,7 +262,7 @@ Based on the following tutorials:
         - Search folder: $(System.DefaultWorkingDirectory)/Drop/tests
         - Test filter criteria: TestCategory=UI
         - Settings file: $(System.DefaultWorkingDirectory)/Drop/tests/vsts.runsettings
-    1. Add variable "SiteUrl" with Scope "QA" and url "\<yourappservice\>-qa.azurewebsites.net"
+    1. Add variable "SiteUrl" with Scope "QA" and url "https://\<yourappservice\>-qa.azurewebsites.net"
 
 1. Commit your code to trigger a build and release
 
