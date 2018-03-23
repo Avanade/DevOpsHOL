@@ -266,6 +266,8 @@ Based on the following tutorials:
 
 1. Commit your code to trigger a build and release
 
+1. Upon Release completion, review the Test results and the uploaded screenshots
+
 ## Stretch goals
 
 1. Run the same UI test with a different driver (Chrome, Internet Explorer)
