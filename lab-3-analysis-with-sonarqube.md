@@ -10,15 +10,14 @@ Based on [this](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube
 
 ## Tasks
 
-1. Go to your SonarQube site and start the tutorial for creating a new project. Make sure you save the Project Key somewhere safe for later use in VSTS
+1. Login to SonarQube and start the tutorial for creating a new project. Make sure you save the Token and Project Key somewhere safe for later use in VSTS
 
 1. Edit your build definition and add task "Prepare analysis on SonarQube" before any Msbuild or VSBuild task
-   - Install SonarQube extension from marketplace if the task is not yet available on your VSTS account
-   - Enter the Project Key and make up a name for your Project
-
-1. Let the SonarQube scanner use the following additional properties:
-   - sonar.exclusions=wwwroot/lib/**
-   - d:sonar.login="\<your token\>"
+    - Install SonarQube extension from marketplace if the task is not yet available on your VSTS account
+    - Enter the Project Key and make up a name for your Project
+    - Use the following additional properties:
+        - sonar.exclusions=wwwroot/lib/**
+        - d:sonar.login="\<your token\>"
 
 1. Add task "Run Code Analysis" and "Publish Analysis Results" to your build
 
@@ -47,7 +46,7 @@ Based on [this](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube
 3. Build your application and see the Sonar issues appear in the Error List of Visaul Studio
 4. Mark an issue in SonarQube as false positive and rebuild your application
 5. Resolve technical debt or issues reported by SonarQube
-6. Set up own SonarQube server to use in this lab using Bitname
+6. Set up own SonarQube server to use in this lab using Bitnami
 
 ## Next steps
 
