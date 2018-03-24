@@ -6,7 +6,7 @@ You can either configure an Azure development environment on your own, or use a 
 
 ## Prerequisites
 
-1. An active Azure subscription
+1. An active Azure subscription on a personal AD (Not the Avanade AD).
    - Visit the [Azure Portal](https://portal.azure.com)
 
 1. An active Visual Studio Team Services account.
@@ -42,7 +42,7 @@ Execute the following steps:
     $VmAdminUserName = "<VmAdminUserName>"
     $VmAdminPassword ="<TopSecretPassword>"
     $ResourceGroupName = "DevOpsHOL"
-    $ResourceGroupLocation = "East US 2"
+    $ResourceGroupLocation = "West Europe"
     $SecureStringPwd = ConvertTo-SecureString $VmAdminPassword -AsPlainText -Force
     New-AzureRmResourceGroup -Name $ResourceGroupName -Location $ResourceGroupLocation -Verbose -Force
     New-AzureRmResourceGroupDeployment -ResourceGroupName $ResourceGroupName `
