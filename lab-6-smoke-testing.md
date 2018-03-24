@@ -38,7 +38,7 @@ In this lab, we add smoke tests to our test project.
                 _siteUrl = TestContext.Properties["siteUrl"].ToString();
             }
 
-            _timeout = 30000;
+            _timeout = 60000;
         }
 
         [TestMethod]

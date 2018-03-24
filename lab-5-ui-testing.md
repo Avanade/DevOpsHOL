@@ -248,7 +248,7 @@ Based on the following tutorials:
         - Advanced > Destination: ../packages
     1. Change the Test task by adding the following argument: --filter TestCategory!=UI
     1. Add task "Publish build artifact" with the following settings:
-        - Path: Tests/bin/$(BuildConfiguration)
+        - Path: \<yourtestprojectfolder\>/bin/$(BuildConfiguration)
         - Artifact name: tests
         - Location: VSTS
 
