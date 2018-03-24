@@ -257,7 +257,7 @@ Based on the following tutorials:
         - Root directory: $(System.DefaultWorkingDirectory)/Drop/tests
         - Target files: **/*.runsettings
         - Token prefix: #{
-        - Token suffic: }#
+        - Token suffix: }#
     1. Add task: Visual Studio Test
         - Search folder: $(System.DefaultWorkingDirectory)/Drop/tests
         - Test filter criteria: TestCategory=UI
