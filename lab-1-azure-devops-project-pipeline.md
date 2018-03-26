@@ -78,7 +78,7 @@ Based on [this](https://docs.microsoft.com/en-us/vsts/build-release/apps/cd/azur
 1. Build your solution and run the unit tests. Make sure that the tests pass
 
 1. In VSTS, edit your build definition to support .NET Core 2.0.3
-   - Open task "NET Core Tool Installer" and change version to 2.0.3
+   - Open task "NET Core Tool Installer" and change the version field to 2.0.3 (Do not change task version)
 
 1. Push your code to trigger a build/release
 
