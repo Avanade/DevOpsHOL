@@ -18,30 +18,20 @@ Based on [this](https://microsoft.github.io/PartsUnlimited/apm/200.6x-APM-Featur
     - <details><summary>Add the feature class "CheckPhoneNumber" in a folder named "Feature"</summary>
 
         ```csharp
-        using FeatureToggle;
-
-        namespace <yourprojectname>.Features
-        {
-            public class CheckPhoneNumber : SimpleFeatureToggle { }
-        }
+        public class CheckPhoneNumber : SimpleFeatureToggle { }
         ```
     </details>
 
     - <details><summary>Add a model class "ContactViewModel", which will be used to bring the Feature Toggle setting to the Contact page</summary>
 
         ```csharp
-        using FeatureToggle;
-
-        namespace <yourprojectname>.Models
+        public class ContactViewModel
         {
-            public class ContactViewModel
-            {
-                public IFeatureToggle CheckPhoneNumber { get; set; }
+            public IFeatureToggle CheckPhoneNumber { get; set; }
 
-                public string Name { get; set; }
+            public string Name { get; set; }
 
-                public int PhoneNumber { get; set; }
-            }
+            public int PhoneNumber { get; set; }
         }
         ```
     </details>
@@ -71,7 +61,7 @@ Based on [this](https://microsoft.github.io/PartsUnlimited/apm/200.6x-APM-Featur
         ```
     </details>
 
-    - <details><summary>Modify "Views/Home/Contact"</summary>
+    - <details><summary>Modify "Views/Home/Contact" to include a reference to your model class, and to add a new form to the page. Make sure you replace "yourprojectname"</summary>
 
         ```csharp
         @model <yourprojectname>.Models.ContactViewModel
