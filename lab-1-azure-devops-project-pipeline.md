@@ -25,7 +25,7 @@ Based on [this](https://docs.microsoft.com/en-us/vsts/build-release/apps/cd/azur
 1. Edit your project file
    - Remove the line "\<PackageTargetFallback\>$(PackageTargetFallback);portable-net45+win8+wp8+wpa81;\</PackageTargetFallback\>"
 
-1. Add a new Unit Test Project (.NET Core) + unit test class HomeControllerTest
+1. Add a new MSTest Test Project (.NET Core) and add a unit test class named "HomeControllerTest"
    - <details><summary>Click here to expand the sample unit test code</summary>
 
      ```csharp
