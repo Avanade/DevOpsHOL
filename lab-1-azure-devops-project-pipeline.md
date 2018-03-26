@@ -22,6 +22,9 @@ Based on [this](https://docs.microsoft.com/en-us/vsts/build-release/apps/cd/azur
    - Upgrade the project to ASP.NET Core 2.0
    - Update all NuGet packages to their 2.x counterparts
 
+1. Edit your project file
+   - Remove the line "\<PackageTargetFallback\>$(PackageTargetFallback);portable-net45+win8+wp8+wpa81;\</PackageTargetFallback\>"
+
 1. Add a new Unit Test Project (.NET Core) + unit test class HomeControllerTest
    - <details><summary>Click here to expand the sample unit test code</summary>
 
@@ -74,15 +77,16 @@ Based on [this](https://docs.microsoft.com/en-us/vsts/build-release/apps/cd/azur
 
 1. Build your solution and run the unit tests. Make sure that the tests pass
 
-1. In VSTS, edit your build definition to support .NET Core 2.0
+1. In VSTS, edit your build definition to support .NET Core 2.0.3
+   - Open task "NET Core Tool Installer" and change version to 2.0.3
 
-1. Commit your code to trigger a build/release
+1. Push your code to trigger a build/release
 
 ## Stretch goals
 
 1. Configure Code Coverage in the build. Update the Visual Studio Test task, queue a build, download the code coverage file and see what code is covered and what is not.
 
-1. Configure Application Insights on your Web App through the Azure Portal
+1. Add custom logging to Application Insights through your Web App
 
 1. Export the ARM template to set up the Web App in Azure, integrate it in your Release definition
 
