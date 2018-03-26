@@ -20,7 +20,7 @@ Based on [this](https://microsoft.github.io/PartsUnlimited/apm/200.6x-APM-Featur
         ```csharp
         using FeatureToggle;
 
-        namespace MyDevOpsApp.Features
+        namespace <yourprojectname>.Features
         {
             public class CheckPhoneNumber : SimpleFeatureToggle { }
         }
@@ -32,7 +32,7 @@ Based on [this](https://microsoft.github.io/PartsUnlimited/apm/200.6x-APM-Featur
         ```csharp
         using FeatureToggle;
 
-        namespace MyDevOpsApp.Models
+        namespace <yourprojectname>.Models
         {
             public class ContactViewModel
             {
@@ -74,7 +74,7 @@ Based on [this](https://microsoft.github.io/PartsUnlimited/apm/200.6x-APM-Featur
     - <details><summary>Modify "Views/Home/Contact"</summary>
 
         ```csharp
-        @model MyDevOpsApp.Models.ContactViewModel
+        @model <yourprojectname>.Models.ContactViewModel
 
         ...
 
@@ -145,7 +145,7 @@ Based on [this](https://microsoft.github.io/PartsUnlimited/apm/200.6x-APM-Featur
     </details>
 
 
-1. Use a json config file to store the feature toggle setting
+1. Add the feature toggle configuration to the appsettings:
 
     - <details><summary>Modify config file "appsettings.json" with the feature toggle activated</summary>
 
@@ -165,13 +165,13 @@ Based on [this](https://microsoft.github.io/PartsUnlimited/apm/200.6x-APM-Featur
     </details>
 
 1. Run the web application locally and test the new Contact form:
-    1. Disable the feature by editing the config, reload the page:
-        1. Enter any phone number. Notice how no validation error is given
+    1. Disable the feature by editing the config, set it to false, reload the page:
+        1. Enter any phone number and hit submit. Notice how no validation error is given
     1. Enable the feature, reload the page:
         1. Enter phone number 0123456789, hit submit, and notice the validation error
         1. Enter phone number 123-123-5678, submit and notice the page refreshes without error
 
-1. Commit your code changes and let your pipeline do it's job
+1. Push your code changes and let your pipeline do it's job
 
 ## Next steps
 
