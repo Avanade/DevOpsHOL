@@ -18,11 +18,11 @@ Based on [this](https://docs.microsoft.com/en-us/vsts/build-release/apps/cd/azur
    - The first Build and Release are successful
    - The App is deployed and accessable
 
-1. Clone your code repository to your development environment and edit your solution in Visual Studio:
-   - Upgrade the project to ASP.NET Core 2.0
-   - Update all NuGet packages to their 2.x counterparts
+1. Clone your code repository to your development environment and open your solution in Visual Studio:
+   - Upgrade the project to ASP.NET Core 2.0 (Right-click project > Properties)
+   - Update all NuGet packages to their 2.x counterparts (Right-click project > Manage NuGet packages)
 
-1. Edit your project file
+1. Right-click the project and Unload it. Now edit your project file:
    - Remove the line "\<PackageTargetFallback\>$(PackageTargetFallback);portable-net45+win8+wp8+wpa81;\</PackageTargetFallback\>"
 
 1. Add a new MSTest Test Project (.NET Core) and add a unit test class named "HomeControllerTest"
@@ -83,8 +83,6 @@ Based on [this](https://docs.microsoft.com/en-us/vsts/build-release/apps/cd/azur
 1. Push your code to trigger a build/release
 
 ## Stretch goals
-
-1. Configure Code Coverage in the build. Update the Visual Studio Test task, queue a build, download the code coverage file and see what code is covered and what is not.
 
 1. Add custom logging to Application Insights through your Web App
 

@@ -14,9 +14,11 @@ Based on the following tutorials:
 
 First, let's define the QA environment:
 
-1. Add a QA slot to your App Service in Azure
+1. Add a QA Deployment Slot to your App Service in Azure
 
-1. Add QA environment in VSTS, configure for QA slot in the same App Service
+1. Add a QA environment to your Release Definiton in VSTS
+
+1. Configure the deployment step for the QA slot in the same App Service
 
 1. Run a new Release
 
