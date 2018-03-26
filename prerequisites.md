@@ -14,80 +14,29 @@ You can either configure an Azure development environment on your own, or use a 
 
 1. Install [Azure PowerShell](https://docs.microsoft.com/nl-nl/powershell/azure/install-azurerm-ps) on your local machine
 
-## Environment requirements
+## Set up your environment with Azure DevTestLabs
 
-1. [Visual Studio 2017](http://go.microsoft.com/fwlink/?LinkId=517106)
-   - Select the following workloads:
-     - ASP.NET and web development
-     - Azure development (including PowerShell tools)
-     - .NET Core cross-platform development
-     - .NET Framework 4.7.1 SDK
+1. Download the [devtestlabs demo](./demos/devtestlabs) directory or clone this entire repository to your local filesystem with Git.
 
-## Optional: Setup through PowerShell
+1. Run Windows PowerShell ISE as an administrator and open [ProvisionDemoLab.ps1](./demos/devtestlabs/ProvisionDemoLab.ps1).
 
-In case you chose not to set up your own environment through the Azure Portal, this section is just for you!
-
-Execute the following steps:
-
-1. Run PowerShell ISE as an administrator.
-
-1. Paste the following PowerShell code in the script pane:
-
+1. Edit the ResourceGroup variables in the top of this script to your personal preference. Make sure the subscription name is the name of an actual subscription on your Azure account:
     ```PowerShell
-    Login-AzureRmAccount
-    Select-AzureRmSubscription -SubscriptionName <MyAzureSubscriptionName>
-    $VmName = "DevOpsHOL"
-    $DnsLabelPrefix = "<UniqueDNSName>"
-    $VmIPName = $VmName+"-ip"
-    $VmAdminUserName = "<VmAdminUserName>"
-    $VmAdminPassword ="<TopSecretPassword>"
-    $ResourceGroupName = "DevOpsHOL"
+    $ResourceGroupName = "rg-ADP2018"
     $ResourceGroupLocation = "West Europe"
-    $SecureStringPwd = ConvertTo-SecureString $VmAdminPassword -AsPlainText -Force
-    New-AzureRmResourceGroup -Name $ResourceGroupName -Location $ResourceGroupLocation -Verbose -Force
-    New-AzureRmResourceGroupDeployment -ResourceGroupName $ResourceGroupName `
-        -TemplateUri "https://raw.githubusercontent.com/Avanade/DevOpsHOL/master/azure-rm/azuredeploy.json" `
-        -VmName $VmName `
-        -VmSize "Standard_D2s_v3" `
-        -VmVisualStudioVersion "VS-2017-Comm-Latest-Win10-N" `
-        -VmAdminUserName $VmAdminUserName `
-        -VmAdminPassword $SecureStringPwd `
-        -DnsLabelPrefix $DnsLabelPrefix `
-        -ChocoPackages 'visualstudiocode;googlechrome' `
-        -Force -Verbose
+    $subscriptionName = "Visual Studio Enterprise"
     ```
 
-    **Note:** Sometimes this all works great but other times, the Chocolatey packages do not install when the VM is first created so you may need to run choco install for the individual packages to complete the environment setup.
+1. Run the script (F5) to start deploying this template to Azure. Wait for the operation to complete before closing the PowerShell ISE.
 
-1. Replace all the \<placeholders\> with your own values and run the script.
+1. Go to [your Azure Portal](https://portal.azure.com) and open your DevTestLab.
 
-1. Once the script above completes, you can use the following to start the VM and check to see that everything was installed correctly.
+1. Go to "My virtual machines" to add a new VM to your lab.
+    ![Add new DevTestLab VM](./images/prereq-addvm.png)
 
-    ```PowerShell
-    Start-AzureRmVM -ResourceGroupName $ResourceGroupName -Name $VmName
-    while((Get-AzureRmVM -ResourceGroupName $ResourceGroupName -Name $VmName -Status | `
-        select -ExpandProperty Statuses | `
-        ?{ $_.Code -match "PowerState" } | `
-        select -ExpandProperty DisplayStatus) -ne "VM running")
-    {
-        Start-Sleep -s 2
-    }
-    Start-Sleep -s 5 ## Give the VM time to come up so it can accept remote requests
-    $vmip = Get-AzureRmPublicIpAddress -Name $VmIPName -ResourceGroupName $ResourceGroupName
-    $hostdns = $vmip.IpAddress.ToString() ## $vmip.DnsSettings.Fqdn
-    cmdkey /generic:TERMSRV/$hostdns /user:"$VmName\$VmAdminUserName" /pass:$VmAdminPassword
-    Start-Process "mstsc" -ArgumentList "/V:$hostdns /f" ## use /span to use both monitors
-    ```
+1. Choose the formula that was created as part of your Lab (Developer) as base.
+    ![Vsts](./images/prereq-choosevmbase.png)
 
-## Optional: Cleanup resources
+1. Enter a name for your Virtual Machine and click "Create" to begin creating the VM.
 
-Finally, when you are done, you can use the following code to:
-
-- Shut down the VM to minimize Azure charges
-    ```PowerShell
-    Stop-AzureRmVM -ResourceGroupName $ResourceGroupName -Name $VmName -Force
-    ```
-- Delete the entire resource group when done with the labs or to start fresh.
-    ```PowerShell
-    Remove-AzureRmResourceGroup -Name $ResourceGroupName
-    ```
+1. One eternity later, your VM has been created.

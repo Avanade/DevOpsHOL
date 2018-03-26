@@ -197,35 +197,11 @@
             },
             "artifacts": [
               {
-                "artifactId": "/artifactsources/public repo/artifacts/windows-chrome",
-                "parameters": []
-              },
-              {
-                "artifactId": "/artifactsources/public repo/artifacts/windows-azurepowershell",
-                "parameters": []
-              },
-              {
-                "artifactId": "/artifactsources/public repo/artifacts/windows-git",
-                "parameters": []
-              },
-              {
-                "artifactId": "/artifactsources/public repo/artifacts/windows-vscode",
-                "parameters": []
-              },
-              {
-                "artifactId": "/artifactsources/public repo/artifacts/windows-visualstudio",
-                "parameters": [
+                "artifactId": "/artifactsources/public repo/artifacts/windows-chocolatey",
+                "parameters":[
                   {
-                    "name": "version",
-                    "value": "2017"
-                  },
-                  {
-                    "name": "sku",
-                    "value": "Enterprise"
-                  },
-                  {
-                    "name": "installerArgs",
-                    "value": ""
+                    "name": "packages",
+                    "value": "git.install,7zip.install,googlechrome,postman,visualstudiocode,dotnet4.7.1"
                   }
                 ]
               }
