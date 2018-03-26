@@ -10,40 +10,51 @@ Based on [this](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube
 
 ## Tasks
 
-1. Login to SonarQube and start the tutorial for creating a new project. Make sure you save the Token and Project Key somewhere safe for later use in VSTS
+1. Login to SonarQube and open the Help menu. This menu can be found here:
+    ![Tutorial steps](images/lab-3-tutorial.png)
 
-1. Edit your build definition and add task "Prepare analysis on SonarQube" before any Msbuild or VSBuild task
+1. Start the "Analyze a new project" tutorial and follow the steps. Make sure you save the Token and Project Key somewhere safe for later use in VSTS.
+
+1. Edit your build definition and add task "Prepare analysis on SonarQube" before any Msbuild or VSBuild task.
     - Install SonarQube extension from marketplace if the task is not yet available on your VSTS account
-    - Enter the Project Key and make up a name for your Project
-    - Use the following additional properties:
+    - Add a new SonarQube endpoint if you don't have one yet (Use the saved Token)
+    - Enter the saved Project Key and make up a name for your Project
+    - Under Advanced, use the following additional properties:
         - sonar.exclusions=wwwroot/lib/**
         - d:sonar.login="\<your token\>"
 
-1. Add task "Run Code Analysis" and "Publish Analysis Results" to your build
+1. Add task "Run Code Analysis" and "Publish Analysis Results" to your build.
 
 1. Reorder the tasks to respect the following order:
-   - Prepare Analysis Configuration task before any MSBuild or Visual Studio Build task
+   - Prepare Analysis task before any MSBuild or Visual Studio Build task
    - Run Code Analysis task after the Visual Studio Test task
    - Publish Analysis Result task after the Run Code Analysis task
 
-1. Save the build, do not queue it. Now edit your Web Application csproj file and add a ProjectGuid. Commit this change to queue the next build. (This is a workaround for the SonarQube runner to work with dotnet core projects, because the dotnet build task will come up with the following warning: The project does not have a valid ProjectGuid. Analysis results for this project will not be uploaded to SonarQube)
-   - <details><summary>Click here for an example</summary>
+1. Save the build, do not queue it.
+
+1. Edit your Web Application's Project file (csproj) and add a ProjectGuid. This is a workaround for the SonarQube runner to work with dotnet core projects, because the dotnet build task will come up with the following warning: "```The project does not have a valid ProjectGuid. Analysis results for this project will not be uploaded to SonarQube```".
+   - <details><summary>Click here for the project file change</summary>
 
         ```xml
         <PropertyGroup>
             <TargetFramework>netcoreapp2.0</TargetFramework>
+
+            ...
+
             <ProjectGuid>c1182fc3-8c56-4d10-b550-965843e9e9b4</ProjectGuid>
         </PropertyGroup>
         ```
      </details>
 
-1. When the build passes, view the detailed SonarQube report
+1. Once the project file is updated, push these changes to queue the next build.
+
+1. When the build process has finished, open the latest build and click on "Detailed SonarQube report" in the build Summary tab. Review the project analysis on the SonarQube site.
 
 ## Stretch goals
 
 1. Install 'SonarLint for Visual Studio 2017' via 'Tools/Extensions and Updates...'
 2. Configure your Sonar server via Team Explorer/SonarQube
-3. Build your application and see the Sonar issues appear in the Error List of Visaul Studio
+3. Build your application and see the Sonar issues appear in the Error List of Visual Studio
 4. Mark an issue in SonarQube as false positive and rebuild your application
 5. Resolve technical debt or issues reported by SonarQube
 6. Set up own SonarQube server to use in this lab using Bitnami
