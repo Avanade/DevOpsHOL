@@ -14,7 +14,7 @@ Based on [this](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube
 1. Login to SonarQube and open the Help menu. This menu can be found here:
     ![Tutorial steps](images/lab-3-tutorial.png)
 
-1. Start the "Analyze a new project" tutorial and follow steps 1 and 2. For step 2 do not run the manual command line instructions. Make sure you save the Token and Project Key somewhere safe for later use in VSTS.
+1. Start the "Analyze a new project" tutorial and follow steps 1 and 2. For step 2 do not run the manual command line instructions from the tutorial. Make sure you save the Token and Project Key somewhere safe for later use in VSTS.
 
 1. Edit your build definition and add task "Prepare analysis on SonarQube" before any Msbuild or VSBuild task.
     - Install SonarQube extension from marketplace if the task is not yet available on your VSTS account
