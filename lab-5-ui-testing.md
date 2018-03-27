@@ -15,13 +15,13 @@ Based on the following tutorials:
 
 ## Tasks for local UI Testing
 
-1. Add a new Unit Test Project "Tests" (.NET Framework 4.7.1) and add the following NuGet packages:
+1. Add a new Unit Test Project "**Tests**" (.NET Framework 4.7.1) and add the following NuGet packages:
    - Selenium.Support (Includes Selenium.WebDriver)
    - Selenium.WebDriver.PhantomJS
    - (optional)Selenium.WebDriver.IEDriver
    - (optional)Selenium.Chrome.WebDriver
 
-1. Add new file local.runsettings
+1. Add new file local.runsettings to the **Tests** project.
     <details><summary>Click here to view the contents</summary>
 
     ```xml
@@ -34,7 +34,7 @@ Based on the following tutorials:
     ```
     </details>
 
-1. Add folder PageObjects and add classes for all the pages
+1. Add folder PageObjects and add classes for all the pages to the **Tests** project.
    - <details><summary>Code for BasePage</summary>
 
         ```csharp
@@ -133,7 +133,7 @@ Based on the following tutorials:
    </details>
 
 
-1. Add new class UITests
+1. Add new class UITests to the **Tests** project.
     <details><summary>Click here to view the code</summary>
 
     ```csharp
@@ -231,7 +231,7 @@ Based on the following tutorials:
 
 ## Tasks for UI Testing in the QA environment
 
-1. Add new file vsts.runsettings with "Copy to Output directory" set to "Copy always". Notice the different value of the parameter. This is a token that will be replaced by an actual Url during the Release in VSTS.
+1. Add new file vsts.runsettings to the **Tests** project, with "Copy to Output directory" set to "Copy always". Notice the different value of the parameter. This is a token that will be replaced by an actual Url during the Release in VSTS.
     <details><summary>Click here to view the contents</summary>
 
     ```xml
