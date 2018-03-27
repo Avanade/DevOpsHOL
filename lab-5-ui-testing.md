@@ -231,7 +231,7 @@ Based on the following tutorials:
 
 ## Tasks for UI Testing in the QA environment
 
-1. Add new file vsts.runsettings with "Copy to Output directory" set to "Copy always"
+1. Add new file vsts.runsettings with "Copy to Output directory" set to "Copy always". Notice the different value of the parameter. This is a token that will be replaced by an actual Url during the Release in VSTS.
     <details><summary>Click here to view the contents</summary>
 
     ```xml
@@ -245,17 +245,17 @@ Based on the following tutorials:
     </details>
 
 1. Edit your Build Definition (save, do not queue)
-    1. Add task "NuGet restore":
+    1. Add task "NuGet restore" after the "Restore" task:
         - Set the path to your Test project's packages.config
-        - Advanced > Destination: ../packages
+        - Under Advanced, set the destination to: ../packages
     1. Change the Test task by adding the following argument: --filter TestCategory!=UI
-    1. Add task "Publish build artifact" with the following settings:
-        - Path: \<yourtestprojectfolder\>/bin/$(BuildConfiguration)
+    1. Add task "Publish build artifact" after the other Publish task, with the following settings:
+        - Path to publish: \<yourtestprojectfolder\>/bin/$(BuildConfiguration)
         - Artifact name: tests
-        - Location: VSTS
+        - Artifact publish location: VSTS
 
 1. Edit your Release Definition, QA environment
-    1. Add task: Replace Tokens
+    1. Add task: Replace Tokens (by Guillaume Rouchon)
         - Root directory: $(System.DefaultWorkingDirectory)/Drop/tests
         - Target files: **/*.runsettings
         - Token prefix: #{
@@ -264,7 +264,7 @@ Based on the following tutorials:
         - Search folder: $(System.DefaultWorkingDirectory)/Drop/tests
         - Test filter criteria: TestCategory=UI
         - Settings file: $(System.DefaultWorkingDirectory)/Drop/tests/vsts.runsettings
-    1. Add variable "SiteUrl" with Scope "QA" and url "https://\<yourappservice\>-qa.azurewebsites.net"
+    1. Go to the Variables tab, add variable "SiteUrl" with Scope "QA" and url "https://\<yourappservice\>-qa.azurewebsites.net"
 
 1. Commit your code to trigger a build and release
 
