@@ -7,7 +7,7 @@ Based on [this](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube
 ## Prerequisites
 
 - Complete [Lab 2 - Add QA environment and define your multi-stage continuous deployment process with approvals and gates](lab-2-multi-stage-deployments.md).
-- Your VSTS Agent Machine needs Java 8 installed.
+- Your VSTS Agent Machine needs Java 8 installed, because the VSTS SonarQube Extension has that [requirement](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Extension+for+VSTS-TFS).
 
 ## Tasks
 
