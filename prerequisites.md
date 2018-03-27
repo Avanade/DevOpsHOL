@@ -37,4 +37,4 @@ In this lab, we will be setting up your lab environment by using DevTestLabs on 
 
 1. Enter a name for your Virtual Machine and click "Create" to begin creating the VM.
 
-1. One eternity later, your VM has been created.
+1. After this step, your VM has been created.
