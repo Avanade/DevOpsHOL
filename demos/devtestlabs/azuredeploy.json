@@ -192,13 +192,13 @@
               "ostype": "[parameters('osType')]",
               "version": "latest"
             },
-            "networkInterface":{
+            "networkInterface": {
               "virtualNetworkId": "[variables('labVirtualNetworkId')]"
             },
             "artifacts": [
               {
                 "artifactId": "/artifactsources/public repo/artifacts/windows-chocolatey",
-                "parameters":[
+                "parameters": [
                   {
                     "name": "packages",
                     "value": "git.install,7zip.install,googlechrome,postman,visualstudiocode,dotnet4.7.1"

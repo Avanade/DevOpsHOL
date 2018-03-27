@@ -31,6 +31,15 @@
     },
     "vmPassword": {
       "value": "ADP#2018"
+    },
+    "vmOffer": {
+      "value": "VisualStudio"
+    },
+    "vmPublisher": {
+      "value": "MicrosoftVisualStudio"
+    },
+    "vmSku": {
+      "value": "VS-2017-Ent-Latest-WS2016"
     }
   }
 }

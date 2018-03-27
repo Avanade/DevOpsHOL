@@ -13,7 +13,7 @@ Based on [this](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube
 1. Login to SonarQube and open the Help menu. This menu can be found here:
     ![Tutorial steps](images/lab-3-tutorial.png)
 
-1. Start the "Analyze a new project" tutorial and follow the steps. Make sure you save the Token and Project Key somewhere safe for later use in VSTS.
+1. Start the "Analyze a new project" tutorial and follow steps 1 and 2. For step 2 do not run the manual command line instructions. Make sure you save the Token and Project Key somewhere safe for later use in VSTS.
 
 1. Edit your build definition and add task "Prepare analysis on SonarQube" before any Msbuild or VSBuild task.
     - Install SonarQube extension from marketplace if the task is not yet available on your VSTS account
@@ -23,12 +23,12 @@ Based on [this](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube
         - sonar.exclusions=wwwroot/lib/**
         - d:sonar.login="\<your token\>"
 
-1. Add task "Run Code Analysis" and "Publish Analysis Results" to your build.
+1. Add task "Run Code Analysis" and "Publish Quality Gate Result" to your build.
 
 1. Reorder the tasks to respect the following order:
    - Prepare Analysis task before any MSBuild or Visual Studio Build task
    - Run Code Analysis task after the Visual Studio Test task
-   - Publish Analysis Result task after the Run Code Analysis task
+   - Publish Quality Gate Result task after the Run Code Analysis task
 
 1. Save the build, do not queue it.
 
