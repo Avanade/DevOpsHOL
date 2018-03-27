@@ -15,14 +15,14 @@ Based on [this](https://microsoft.github.io/PartsUnlimited/apm/200.6x-APM-Featur
 
 1. Apply the following code changes to your Web Application:
 
-    - <details><summary>Add the feature class "CheckPhoneNumber" in a folder named "Feature"</summary>
+    - <details><summary>Add class "CheckPhoneNumber" in a folder named "Feature"</summary>
 
         ```csharp
         public class CheckPhoneNumber : SimpleFeatureToggle { }
         ```
     </details>
 
-    - <details><summary>Add a model class "ContactViewModel", which will be used to bring the Feature Toggle setting to the Contact page</summary>
+    - <details><summary>Add class "ContactViewModel" in a folder named "Models". This class will be used to bring the Feature Toggle setting to the Contact page</summary>
 
         ```csharp
         public class ContactViewModel
@@ -36,7 +36,7 @@ Based on [this](https://microsoft.github.io/PartsUnlimited/apm/200.6x-APM-Featur
         ```
     </details>
 
-    - <details><summary>Modify "Controllers/HomeController" to bind the new viewmodel to the Contact page</summary>
+    - <details><summary>Modify "Controllers/HomeController" to bind the new viewmodel to the Contact page. The Contact method already exists, so replace it entirely.</summary>
 
         ```csharp
         ...
@@ -96,7 +96,7 @@ Based on [this](https://microsoft.github.io/PartsUnlimited/apm/200.6x-APM-Featur
         ```
     </details>
 
-    - <details><summary>Modify "Startup"</summary>
+    - <details><summary>Modify the "Startup" class. Replace the ConfigureServices method with the code below</summary>
 
         ```csharp
         public class Startup
@@ -121,7 +121,7 @@ Based on [this](https://microsoft.github.io/PartsUnlimited/apm/200.6x-APM-Featur
         ```
     </details>
 
-    - <details><summary>Modify Unit Tests</summary>
+    - <details><summary>Modify your Unit Test class</summary>
 
         Change every occurrence of:
         ```csharp
