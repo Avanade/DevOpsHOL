@@ -12,6 +12,8 @@ In this lab, we will be setting up your lab environment by using DevTestLabs on 
 
 1. Install [Azure PowerShell](https://docs.microsoft.com/nl-nl/powershell/azure/install-azurerm-ps) on your local machine
 
+1. A private VSTS agent on a VS2017 VM, using [this Microsoft tutorial](https://docs.microsoft.com/en-us/vsts/build-release/actions/agents/v2-windows?view=vsts).
+
 ## Set up your environment with Azure DevTestLabs
 
 1. Download the [devtestlabs demo](./demos/devtestlabs) directory or clone this entire repository to your local filesystem with Git.
