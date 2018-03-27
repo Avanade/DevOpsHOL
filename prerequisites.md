@@ -1,8 +1,6 @@
 # Avanade DevOps HOL - Prerequisites
 
-In this lab, we will be installing the required development components to setup your lab environment.
-
-You can either configure an Azure development environment on your own, or use a simple PowerShell script provided in this document. The script will create a new Azure resource group and then configure an Azure VM with Windows 10 and Visual Studio 2017 Community edition. It will also use Chocolatey to install a collection of other tools and applications. **Review and modify the script to suit your own needs before executing such as changing to VS Enterprise and Windows Server 2016 (VS-2017-Ent-Latest-WS2016)**
+In this lab, we will be setting up your lab environment by using DevTestLabs on Azure.
 
 ## Prerequisites
 

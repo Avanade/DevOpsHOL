@@ -9,7 +9,9 @@ Based on the following tutorials:
 
 ## Prerequisites
 
+- A Virtual Machine on Azure. Follow [prerequisites](prerequisites.md) to set it up.
 - Complete [Lab 4 - Feature Toggle](lab-4-feature-toggle.md).
+- Set up a private VSTS agent using [this Microsoft tutorial](https://docs.microsoft.com/en-us/vsts/build-release/actions/agents/v2-windows?view=vsts).
 
 ## Tasks for local UI Testing
 

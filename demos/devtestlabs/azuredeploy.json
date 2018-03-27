@@ -87,7 +87,7 @@
     },
     "vmSku": {
       "type": "string",
-      "defaultvalue": "2016-Datacenter"
+      "defaultvalue": "VS-2017-Ent-Latest-WS2016"
     },
     "osType": {
       "type": "string",
