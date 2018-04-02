@@ -2,9 +2,6 @@
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "newLabName": {
-      "value": "DevOpsDemoLab"
-    },
     "timeZoneId": {
       "value": "W. Europe Standard Time"
     },
@@ -12,10 +9,10 @@
       "value": "21:00"
     },
     "maxAllowedVmsPerUser": {
-      "value": 3
+      "value": 2
     },
     "maxAllowedVmsPerLab": {
-      "value": 100
+      "value": 50
     },
     "allowedVmSizes": {
       "value": "Standard_D1,Standard_D2,Standard_DS2"
@@ -26,12 +23,6 @@
     "vmStorageType": {
       "value": "Standard"
     },
-    "vmUsername": {
-      "value": "demo"
-    },
-    "vmPassword": {
-      "value": "ADP#2018"
-    },
     "vmOffer": {
       "value": "VisualStudio"
     },
@@ -40,6 +31,9 @@
     },
     "vmSku": {
       "value": "VS-2017-Ent-Latest-WS2016"
+    },
+    "osType": {
+      "value": "Windows"
     }
   }
 }

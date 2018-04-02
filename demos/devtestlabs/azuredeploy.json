@@ -2,111 +2,84 @@
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "newLabName": {
-      "type": "string",
-      "defaultValue": "FabrikamDemoLab",
-      "metadata": {
-        "description": "The name of the new lab instance to be created."
-      }
+    "labName": {
+      "type": "string"
     },
     "timeZoneId": {
-      "type": "string",
-      "defaultValue": "UTC",
-      "metadata": {
-        "description": "The timezone of the lab."
-      }
+      "type": "string"
     },
     "labVmShutDownTime": {
       "type": "string",
       "minLength": 5,
-      "maxLength": 5,
-      "defaultValue": "21:00",
-      "metadata": {
-        "description": "Set 'Auto Shutdown' policy: The UTC time at which the Lab VMs will be automatically shutdown (E.g. 17:30, 20:00, 09:00)."
-      }
+      "maxLength": 5
     },
     "maxAllowedVmsPerUser": {
       "type": "int",
-      "minValue": 0,
-      "defaultValue": 10,
-      "metadata": {
-        "description": "Set 'max VM allowed per user' policy: The maximum number of VMs allowed per user."
-      }
+      "minValue": 0
     },
     "maxAllowedVmsPerLab": {
       "type": "int",
-      "minValue": 0,
-      "defaultValue": 100,
-      "metadata": {
-        "description": "Set 'Total VMs allowed in Lab' policy: The maximum number of VMs allowed per lab."
-      }
+      "minValue": 0
     },
     "allowedVmSizes": {
       "type": "string",
-      "defaultValue": "\"Standard_D1\"",
-      "minLength": 3,
-      "metadata": {
-        "description": "Set 'allowed VM sizes' policy: A comma-separated list of VM sizes that are allowed in the lab."
-      }
+      "minLength": 3
     },
     "vmSize": {
-      "type": "string",
-      "defaultValue": "Standard_D1",
-      "metadata": {
-        "description": "The size of all the VMs to be created in the lab."
-      }
+      "type": "string"
     },
     "vmStorageType": {
-      "type": "string",
-      "defaultValue": "Premium",
-      "metadata": {
-        "description": "The storage type ('Premium' or 'Standard') of all the VMs to be created in the lab."
-      }
+      "type": "string"
     },
     "vmUsername": {
-      "type": "string",
-      "defaultValue": "demolab",
-      "metadata": {
-        "description": "The username for the local account that will be created on all the new VMs."
-      }
+      "type": "string"
     },
     "vmPassword": {
-      "type": "securestring",
-      "defaultValue": "<3DevTestLabs!",
-      "metadata": {
-        "description": "The password for the local account that will be created on all the new VMs."
-      }
+      "type": "securestring"
     },
     "vmOffer": {
-      "type": "string",
-      "defaultValue": "WindowsServer"
+      "type": "string"
     },
     "vmPublisher": {
-      "type": "string",
-      "defaultValue": "MicrosoftWindowsServer"
+      "type": "string"
     },
     "vmSku": {
-      "type": "string",
-      "defaultvalue": "VS-2017-Ent-Latest-WS2016"
+      "type": "string"
     },
     "osType": {
-      "type": "string",
-      "defaultValue": "Windows"
+      "type": "string"
+    },
+    "vstsAccountName": {
+      "type": "string"
+    },
+    "vstsPassword": {
+      "type": "string"
+    },
+    "vstsAgentPoolName": {
+      "type": "string"
+    },
+    "vstsAgentVmName": {
+      "type": "string"
     }
   },
   "variables": {
-    "newLabId": "[resourceId('Microsoft.DevTestLab/labs', parameters('newLabName'))]",
-    "labVirtualNetworkName": "[concat('Dtl', parameters('newLabName'))]",
+    "labId": "[resourceId('Microsoft.DevTestLab/labs', parameters('labName'))]",
     "labSubnetName": "[concat(variables('labVirtualNetworkName'), 'Subnet')]",
-    "labVirtualNetworkId": "[concat('/virtualnetworks/', variables('labVirtualNetworkName'))]",
-    "vmFormulaName": "[concat(parameters('newLabName'), '/Developer')]",
-    "vmFormulaDescription": "[concat('Formula for lab VMs in ', parameters('newLabName'))]"
+    "labVirtualNetworkName": "[concat('Dtl', parameters('labName'))]",
+    "labVirtualNetworkId": "[resourceId('Microsoft.DevTestLab/labs/virtualNetworks', parameters('labName'), variables('labVirtualNetworkName'))]",
+    "chocoBasicNeeds": "git.install,7zip.install,googlechrome,postman,visualstudiocode",
+    "chocoVsNetweb": "visualstudio2017-workload-netweb --includeOptional",
+    "chocoVsDesktop": "visualstudio2017-workload-manageddesktop --includeOptional",
+    "chocoVsAzure": "visualstudio2017-workload-azure --includeOptional",
+    "chocoVsNetcore": "visualstudio2017-workload-netcoretools --includeOptional",
+    "chocolateyArtifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'Public Repo', 'windows-chocolatey')]",
+    "vstsAgentArtifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'Public Repo', 'windows-vsts-build-agent')]"
   },
   "resources": [
     {
       "apiVersion": "2017-04-26-preview",
       "type": "Microsoft.DevTestLab/labs",
-      "name": "[parameters('newLabName')]",
+      "name": "[parameters('labName')]",
       "location": "[resourceGroup().location]",
       "resources": [
         {
@@ -114,7 +87,7 @@
           "name": "[variables('labVirtualNetworkName')]",
           "type": "virtualnetworks",
           "dependsOn": [
-            "[variables('newLabId')]"
+            "[variables('labId')]"
           ]
         },
         {
@@ -122,7 +95,7 @@
           "name": "LabVmsShutdown",
           "type": "schedules",
           "dependsOn": [
-            "[variables('newLabId')]"
+            "[variables('labId')]"
           ],
           "properties": {
             "status": "Enabled",
@@ -138,7 +111,7 @@
           "name": "default/MaxVmsAllowedPerUser",
           "type": "policysets/policies",
           "dependsOn": [
-            "[variables('newLabId')]"
+            "[variables('labId')]"
           ],
           "properties": {
             "description": "",
@@ -153,7 +126,7 @@
           "name": "default/MaxVmsAllowedPerLab",
           "type": "policysets/policies",
           "dependsOn": [
-            "[variables('newLabId')]"
+            "[variables('labId')]"
           ],
           "properties": {
             "description": "",
@@ -168,13 +141,13 @@
     {
       "apiVersion": "2017-04-26-preview",
       "type": "Microsoft.DevTestLab/labs/formulas",
-      "name": "[variables('vmFormulaName')]",
+      "name": "[concat(parameters('labName'), '/Development-Machine')]",
       "location": "[resourceGroup().location]",
       "dependsOn": [
-        "[variables('newLabId')]"
+        "[variables('labVirtualNetworkId')]"
       ],
       "properties": {
-        "description": "[variables('vmFormulaDescription')]",
+        "description": "[concat('Formula for lab VMs in ', parameters('labName'))]",
         "osType": "[parameters('osType')]",
         "formulaContent": {
           "properties": {
@@ -197,11 +170,47 @@
             },
             "artifacts": [
               {
-                "artifactId": "/artifactsources/public repo/artifacts/windows-chocolatey",
+                "artifactId": "[variables('chocolateyArtifactId')]",
                 "parameters": [
                   {
                     "name": "packages",
-                    "value": "git.install,7zip.install,googlechrome,postman,visualstudiocode,dotnet4.7.1"
+                    "value": "[variables('chocoBasicNeeds')]"
+                  }
+                ]
+              },
+              {
+                "artifactId": "[variables('chocolateyArtifactId')]",
+                "parameters": [
+                  {
+                    "name": "packages",
+                    "value": "[variables('chocoVsNetweb')]"
+                  }
+                ]
+              },
+              {
+                "artifactId": "[variables('chocolateyArtifactId')]",
+                "parameters": [
+                  {
+                    "name": "packages",
+                    "value": "[variables('chocoVsDesktop')]"
+                  }
+                ]
+              },
+              {
+                "artifactId": "[variables('chocolateyArtifactId')]",
+                "parameters": [
+                  {
+                    "name": "packages",
+                    "value": "[variables('chocoVsAzure')]"
+                  }
+                ]
+              },
+              {
+                "artifactId": "[variables('chocolateyArtifactId')]",
+                "parameters": [
+                  {
+                    "name": "packages",
+                    "value": "[variables('chocoVsNetcore')]"
                   }
                 ]
               }
@@ -209,12 +218,72 @@
           }
         }
       }
+    },
+    {
+      "apiVersion": "2017-04-26-preview",
+      "type": "Microsoft.DevTestLab/labs/virtualmachines",
+      "name": "[concat(parameters('labName'), '/', parameters('vstsAgentVmName'))]",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[variables('labVirtualNetworkId')]"
+      ],
+      "properties": {
+        "size": "[parameters('vmSize')]",
+        "userName": "[parameters('vmUsername')]",
+        "password": "[parameters('vmPassword')]",
+        "labSubnetName": "[variables('labSubnetName')]",
+        "labVirtualNetworkId": "[variables('labVirtualNetworkId')]",
+        "allowClaim": true,
+        "storageType": "[parameters('vmStorageType')]",
+        "galleryimagereference": {
+          "offer": "[parameters('vmOffer')]",
+          "publisher": "[parameters('vmPublisher')]",
+          "sku": "[parameters('vmSku')]",
+          "ostype": "[parameters('osType')]",
+          "version": "latest"
+        },
+        "artifacts": [
+          {
+            "artifactId": "[variables('vstsAgentArtifactId')]",
+            "parameters": [
+              {
+                "name": "vstsAccount",
+                "value": "[parameters('vstsAccountName')]"
+              },
+              {
+                "name": "vstsPassword",
+                "value": "[parameters('vstsPassword')]"
+              },
+              {
+                "name": "agentName",
+                "value": ""
+              },
+              {
+                "name": "agentNameSuffix",
+                "value": ""
+              },
+              {
+                "name": "poolName",
+                "value": "[parameters('vstsAgentPoolName')]"
+              },
+              {
+                "name": "windowsLogonAccount",
+                "value": "NT AUTHORITY\\NetworkService"
+              },
+              {
+                "name": "driveLetter",
+                "value": "C"
+              }
+            ]
+          }
+        ]
+      }
     }
   ],
   "outputs": {
     "labId": {
       "type": "string",
-      "value": "[resourceId('Microsoft.DevTestLab/labs', parameters('newLabName'))]"
+      "value": "[variables('labId')]"
     }
   }
 }
