@@ -9,7 +9,7 @@ In this lab, we add smoke tests to our test project.
 ## Tasks
 
 1. Edit your build definition. Let the Test task ignore both "UI" and "Smoke" categories
-    - Change the filter argument to the following: --filter "TestCategory!=UI&TestCategory!=Smoke"
+    - Change the filter argument to the following: --filter TestCategory!=UI&TestCategory!=Smoke
 
 1. Edit your release definition, Production environment:
     1. Add task "Replace Tokens", similar to the one in QA
@@ -66,6 +66,8 @@ In this lab, we add smoke tests to our test project.
     }
     ```
     </details>
+
+1. Build your solution and run your Web App (F5). Run all your Tests locally and make sure they all succeed.
 
 1. Commit your code change and make sure your build and release succeed. Both your QA and Production environment should be updated. QA should have run a Smoke and UI Test, with resulting screenshots from the UI Test. Production should have run a Smoke test only
 
