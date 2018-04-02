@@ -10,7 +10,9 @@ Based on [this](https://github.com/azsdk/azsdk-docs/blob/master/03-Security-In-C
 
 ## Tasks
 
-1. Follow the tutorial to set up Security Verification Tests
+1. Follow the tutorial to set up Security Verification Tests.
+
+1. Try to resolve the security warnings/errors.
 
 ## Next steps
 
