@@ -71,6 +71,7 @@ For more flexibility in the build (and for a more in depth learning experience),
 >- Publish Build Artifacts<br>
 	Path to publish: $(build.artifactstagingdirectory)<br>
 	Artifact name: drop<br>
+	Artifact publish location: Visual Studio Team Services/TFS<br>
 
 ![](<media/CI2.png>)
 
