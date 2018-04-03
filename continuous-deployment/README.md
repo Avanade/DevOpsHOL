@@ -27,9 +27,9 @@ In this lab, you have an example MVC application, committed to a Git repository 
 3. This will create a new project in the solution that contains the files for deployment to Azure. The **Website.json** file will be used to create the deployment environments in task III below.<br>
 NOTE: There are a number of ways that the ARM template could have been created and added to the solution.  However, since a deployment project also automatically creates a PowerShell script for deployment and a template parameters file, this can also be used to manually deploy the solution if desired (but not in this lab).
 
-4. Open the **WebSite.json** file and replace the contents with the content of(https://raw.githubusercontent.com/nagroma/DevOpsHOL/master/source/deploy/azuredeploy.json).  This adds additional features to the deployment such as deployment slots which will be used later in the lab.
+4. Open the **WebSite.json** file and replace the contents with the content of(https://raw.githubusercontent.com/Avanade/DevOpsHOL/master/source/deploy/azuredeploy.json).  This adds additional features to the deployment such as deployment slots which will be used later in the lab.
 
-5. Open the **WebSite.parameters.json** file and replace the contents with the content of(https://raw.githubusercontent.com/nagroma/DevOpsHOL/master/source/deploy/azuredeploy.parameters.json).  This matches the parameters with the azuredeploy.json file.
+5. Open the **WebSite.parameters.json** file and replace the contents with the content of(https://raw.githubusercontent.com/Avanade/DevOpsHOL/master/source/deploy/azuredeploy.parameters.json).  This matches the parameters with the azuredeploy.json file.
 
 4. Check in the solution and push to VSTS (Team Explorer -> Changes -> Commit All and Push).  This checks in the ARM template into source control both locally and in the VSTS repository.  This will also trigger a new build (check to make sure this happened and was successful).
 
