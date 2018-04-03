@@ -22,7 +22,7 @@
       },
       "vmAdminUserName": {
         "type": "string",
-        "defaultValue": "andrewmo",
+        "defaultValue": "avanadeholuser",
         "metadata": {
           "description": "VM admin user name"
         }
@@ -63,7 +63,7 @@
       },
       "dnsLabelPrefix": {
         "type": "string",
-        "defaultValue": "andrewmo-choco",
+        "defaultValue": "avanadehol-choco",
         "metadata": {
         "description": "DNS Label for the unique Public IP. Must be lowercase. It should match with the following regular expression: ^[a-z][a-z0-9-]{1,61}[a-z0-9]$ or it will raise an error."
         }
@@ -84,7 +84,7 @@
       },
       "setupChocolatelyScriptLocation": {
         "type": "string",
-        "defaultValue": "https://raw.githubusercontent.com/snagrom/azure-rm-templates/master/dev-chocolatey/scripts/",
+        "defaultValue": "https://raw.githubusercontent.com/Avanade/DevOpsHOL/master/azure-rm/scripts/",
         "metadata": {
           "description": "Public uri location of PowerShell Chocolately setup script"
         }
