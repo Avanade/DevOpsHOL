@@ -37,7 +37,7 @@ In this lab, we will be installing the required development components and verif
     + Solution: Add to solution<br>
 
 6. Rename **UnitTest.cs** to **HomeControllerTest.cs** and replace the file contents with the content in the details section below.
- - <details><summary>Click here to expand the sample unit test code</summary>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<details><summary>Click here to expand the sample unit test code</summary>
 
      ```csharp
       [TestClass]
@@ -85,7 +85,7 @@ In this lab, we will be installing the required development components and verif
       }
      ```
      </details>
-NOTE: This source is also available here: [HomeControllerTest.cs](../source/tests/HomeControllerTest.cs)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NOTE: This source is also available here: [HomeControllerTest.cs](../source/tests/HomeControllerTest.cs)
 
 7. Add the "DevOpsHOL" as a reference to the DevOpsHOL.Tests project. Tip: Use quick refactoring.
 
