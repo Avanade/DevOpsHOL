@@ -1,6 +1,6 @@
 # Avanade DevOps HOL - Prerequisites
 
-In this lab, we will be setting up your lab environment by using DevTestLabs on Azure.
+In this lab, we will be setting up your lab environment by using DevTestLabs on Azure. To do this, you will be using an [Azure Resource Manager](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-overview) template which will provision the DevTest Lab for you, together with your very first Virtual Machine with Visual Studio and a private VSTS agent.
 
 ## Prerequisites
 
