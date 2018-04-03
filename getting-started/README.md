@@ -32,7 +32,7 @@ In this lab, we will be installing the required development components and verif
     + Do a quick smoke test to verify that the solution built and runs correctly.<br>
     + Close browser and stop debugging<br>
 
-5. Choose File -> New -> Project... and add a Unit Test Project (.NET Core) project, to the solution *not the .NET Framework unit test project*.
+5. Choose File -> New -> Project... and add a MSTest Test Project (.NET Core) project, to the solution *not the .NET Framework unit test project*.
     + Name: DevOpsHOL.Tests<br>
     + Solution: Add to solution<br>
 
