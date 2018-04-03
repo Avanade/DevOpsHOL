@@ -36,9 +36,58 @@ In this lab, we will be installing the required development components and verif
     + Name: DevOpsHOL.Tests<br>
     + Solution: Add to solution<br>
 
-6. Rename **UnitTest.cs** to **HomeControllerTest.cs** and replace the file contents with the content of this file [HomeControllerTest.cs](../source/tests/HomeControllerTest.cs)
+6. Rename **UnitTest.cs** to **HomeControllerTest.cs** and replace the file contents with the content in the details section below.
+ - <details><summary>Click here to expand the sample unit test code</summary>
 
-7. Add the "DevOpsHOL" and "Microsoft.AspNetCore.Mvc.ViewFeatures.dll" as references to the DevOpsHOL.Tests project. Tip: Use quick refactoring.
+     ```csharp
+      [TestClass]
+      public class HomeControllerTest
+      {
+          [TestMethod]
+          public void Index()
+          {
+              // Arrange
+              HomeController controller = new HomeController();
+
+              // Act
+              ViewResult result = controller.Index() as ViewResult;
+
+              // Assert
+              Assert.IsNotNull(result);
+          }
+
+          [TestMethod]
+          public void About()
+          {
+              // Arrange
+              HomeController controller = new HomeController();
+
+              // Act
+              ViewResult result = controller.About() as ViewResult;
+
+              // Assert
+              Assert.IsNotNull(result);
+              Assert.AreEqual("Your application description page.", result.ViewData["Message"]);
+          }
+
+          [TestMethod]
+          public void Contact()
+          {
+              // Arrange
+              HomeController controller = new HomeController();
+
+              // Act
+              ViewResult result = controller.Contact() as ViewResult;
+
+              // Assert
+              Assert.IsNotNull(result);
+          }
+      }
+     ```
+     </details>
+NOTE: This source is also available here: [HomeControllerTest.cs](../source/tests/HomeControllerTest.cs)
+
+7. Add the "DevOpsHOL" as a reference to the DevOpsHOL.Tests project. Tip: Use quick refactoring.
 
 8. Build, run unit tests and run the solution to make sure everything is OK to this point.
     + Test -> Run -> All Tests (Ctrl+R,A)<br>
