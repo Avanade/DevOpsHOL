@@ -55,7 +55,7 @@ This will take you to the project dashboard page.  Click on the Setting icon (ge
 
 2. Near the top of the **Select a Template** panel, choose **Empty process**.  As in the previous lab, you normally would choose a template that closely matches the type of deployment you are doing (or import an existing template), but for this lab we are building it from scratch to see more of the process.
 
-3. Near the top of the page next to **New Release Definition**, click on the pencil icon and rename the release to **DevOpsHOL-CI - CD**
+3. Near the top of the page next to **New Release Definition**, click on the pencil icon and rename the release to **DevOpsHOL-CD**
 
 4. On the **Environment** panel, rename the environment to Dev (this will be the development integration environment).
 
