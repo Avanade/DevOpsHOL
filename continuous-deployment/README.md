@@ -134,13 +134,15 @@ NOTE: The website address can be seen on the Azure portal on the WebApp
 15. Now go back into Visual Studio and make a change to the code that will be visible in the application.  Observe the status of the Build and Release and verify that all the items configured in the CI and CD labs complete successfully.<br>
 NOTE: If the Release fails with error "ERROR_FILE_IN_USE", execute [these steps](#errors).
 
+	
+# Shortcut
+Just like in the previous lab, you can use the import functionality with the [DevOpsHOL-CD.json](../source/deploy/DevOpsHOL-CD.json) file to import the release definition to keep from having to create this by hand but you miss out on the joy of learning.
+
 # Next steps
 
 In this lab you created a series of environments using an Azure ARM template and automatically deployed to each of these environments.
 
-1. Next do the [Feature Flag](../feature-flag/README.md) lab
-
-2. Explore other options.  Here are some additional tasks that you may want to try to expand your knowledge further.
+1. Explore other options.  Here are some additional tasks that you may want to try to expand your knowledge further.
 >+ By default, the releases automatically move from environment to environment upon successful deployment to the previous deployment.  Go back to the release definition
 and modify the settings to require approvals prior to deploying to the next environment.
 >+ Modify the ARM template (Website.json) to modify some of the properties (e.g. change the worker size or tier; modify the app settings per slot)
@@ -149,11 +151,10 @@ and modify the settings to require approvals prior to deploying to the next envi
 >+ Delete the DevOpsHOL resource group and re-release the same build to make sure that the environments can be dynamically re-created.
 >+ Export the build and release definitions.  Check them into source control.  Delete these definitions and restore from the source files.
 
+2. Next do the [Feature Flag](../feature-flag/README.md) lab
+
 # Common errors and solutions
 
 - <a name="errors">ERROR_FILE_IN_USE</a>: Web Deploy cannot modify the file 'DevOpsHOL.dll' on the destination because it is locked by an external program.
 	> Solution: Open the Release definition Editor and go to the Additional Deployment Options for every environment (Dev/Stage/Prod). Change the values to the following:<br>
 	![](<media/CD_ERROR_FILE_IN_USE.png>)
-	
-# Shortcut
-Just like in the previous lab, you can use the import functionality with the [DevOpsHOL-CD.json](../source/deploy/DevOpsHOL-CD.json) file to import the release definition to keep from having to create this by hand but you miss out on the joy of learning.
