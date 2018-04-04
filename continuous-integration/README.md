@@ -115,3 +115,10 @@ This allows you to get feedback as to whether your changes made breaking syntax
 changes, or if they broke one or more automated tests, or if your changes are a okay.
 
 Next do the [Continuous Deployment](../continuous-deployment/README.md) lab
+
+## Shortcut ##
+1. Download the [DevOpsHOL-CI.json](../source/build/DevOpsHOL-CI.json) file locally
+2. Go to your project home page and select the **Build and Release** menu item.
+3. Click the **+Import** button and select the file downloaded in step 1 and click Import.
+4. After the import choose the Hosted VS2017 agent and click on the "Get Sources" process step and verify that it is correctly configured as described above.
+5. Choose "Save & queue" to verify that the import and build were successful.
