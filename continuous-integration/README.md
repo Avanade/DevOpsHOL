@@ -61,13 +61,7 @@ For more flexibility in the build (and for a more in depth learning experience),
 	Display name: Test Assemblies<br>
 	Command: test<br>
 	Project(s): **/\*test\*.csproj<br>
-	Arguments: -l "trx"<br>
-	Continue on error: Checked<br>
->- Publish Test Results<br>
-	Display name: Publish Test Result<br>
-	Test result format: VSTest<br>
-	Test results files: **\\*.trx<br>
-	Search folder: $(System.DefaultWorkingDirectory)<br>
+	Publish test results: Checked<br>
 >- Publish Build Artifacts<br>
 	Path to publish: $(build.artifactstagingdirectory)<br>
 	Artifact name: drop<br>
