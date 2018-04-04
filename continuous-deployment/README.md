@@ -111,7 +111,7 @@ NOTE: The website address can be seen on the Azure portal on the WebApp
 
 12.  Once the initial deployment has been verified, go back and edit the release to add staging and production releases.
 >+ Navigate to Build and Release -> Releases
->+ Hover over the **DevOpsHOL-CI - CD** Release Definition and right click on the ellipse (...) and select the Edit menu option.
+>+ Hover over the **DevOpsHOL-CD** Release Definition and right click on the ellipse (...) and select the Edit menu option.
 >+ Hover over the **Dev** environment and select the **Clone** link.
 
 ![](<media/CD8.png>)
@@ -154,3 +154,6 @@ and modify the settings to require approvals prior to deploying to the next envi
 - <a name="errors">ERROR_FILE_IN_USE</a>: Web Deploy cannot modify the file 'DevOpsHOL.dll' on the destination because it is locked by an external program.
 	> Solution: Open the Release definition Editor and go to the Additional Deployment Options for every environment (Dev/Stage/Prod). Change the values to the following:<br>
 	![](<media/CD_ERROR_FILE_IN_USE.png>)
+	
+# Shortcut
+Just like in the previous lab, you can use the import functionality with the [DevOpsHOL-CD.json](../source/deploy/DevOpsHOL-CD.json) file to import the release definition to keep from having to create this by hand but you miss out on the joy of learning.
