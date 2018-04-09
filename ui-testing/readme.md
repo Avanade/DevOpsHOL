@@ -274,7 +274,7 @@ Based on the following tutorials:
         - Search folder: $(System.DefaultWorkingDirectory)/DevOpsHOL-CI/tests
         - Test filter criteria: TestCategory=UI
         - Settings file: $(System.DefaultWorkingDirectory)/DevOpsHOL-CI/tests/Release/vsts.runsettings
-    1. Go to the Variables tab, add variable "SiteUrl" with Scope "QA" and url "https://\<yourappservice\>-staging.azurewebsites.net"
+    1. Go to the Variables tab, add variable "SiteUrl" with Scope "Staging" and url "https://\<yourappservice\>-staging.azurewebsites.net"
 
 1. Commit your code to trigger a build and release
 
