@@ -166,6 +166,6 @@ Based on [this](https://microsoft.github.io/PartsUnlimited/apm/200.6x-APM-Featur
 
 ## Next steps
 
-Continue with [Lab 5 - UI Testing](lab-5-ui-testing.md).
+Continue with [Lab 5 - UI Testing](../ui-testing/README.md).
 
 
