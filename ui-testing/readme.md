@@ -11,7 +11,7 @@ Based on the following tutorials:
 
 - A Virtual Machine on Azure. Follow [prerequisites](../getting-started/README.md) to set it up.
 - Set up a private VSTS agent using [this tutorial](../private-agent/README.md).
-- Optional: complete [Feature Toggle](../feature-flag/README.md) lab.
+- Optional: complete [Feature Flag](../feature-flag/README.md) lab.
 
 ## Tasks for local UI Testing
 
