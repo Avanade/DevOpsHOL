@@ -151,7 +151,7 @@ and modify the settings to require approvals prior to deploying to the next envi
 >+ Delete the DevOpsHOL resource group and re-release the same build to make sure that the environments can be dynamically re-created.
 >+ Export the build and release definitions.  Check them into source control.  Delete these definitions and restore from the source files.
 
-2. Next do the [Feature Flag](../feature-flag/README.md) lab
+2. Next do the [UI Testing](../ui-testing/README.md) lab
 
 # Common errors and solutions
 
