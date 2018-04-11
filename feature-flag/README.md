@@ -166,6 +166,6 @@ Based on [this](https://microsoft.github.io/PartsUnlimited/apm/200.6x-APM-Featur
 
 ## Next steps
 
-Continue with [UI Testing](../ui-testing/README.md).
+Future labs will include A/B testing and telemetry labs.
 
 
