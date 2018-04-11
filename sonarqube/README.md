@@ -61,4 +61,4 @@ Based on [this](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube
 
 ## Next steps
 
-Continue with [Lab 4 - Feature Toggle](lab-4-feature-toggle.md).
+Continue with [Feature Flag](../feature-flag/README.md) lab.
