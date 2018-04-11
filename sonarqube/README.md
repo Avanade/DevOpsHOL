@@ -6,23 +6,22 @@ Based on [this](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube
 
 ## Prerequisites
 
-- Complete [Continuous Deployment with Visual Studio Release Management](../continuous-deployment/README.md) lab.
+- Complete [Continuous Deployment with Visual Studio Release Management](../continuous-deployment/README.md) lab with a private agent.
 - Your VSTS Agent Machine needs Java 8 installed, because the VSTS SonarQube Extension has that [requirement](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Extension+for+VSTS-TFS).
+- SonarQube server installed and configured.  For the purposes of the Avanade DevOps class, the address and login for the SonarQube server to be used will be supplied by the instructor.  If you are doing this lab on your own, use the Azure portal to create a SonarQube server using the "SonarQube Certified by Bitnami" template from the marketplace.
+- Install the [SonarQube extension](https://marketplace.visualstudio.com/items?itemName=SonarSource.sonarqube) into your VSTS environment.
 
 ## Tasks
 
-1. Login to SonarQube and open the Help menu. This menu can be found here:
-    ![Tutorial steps](images/lab-3-tutorial.png)
-
-1. Start the "Analyze a new project" tutorial and follow steps 1 and 2. For step 2 do not run the manual command line instructions from the tutorial. Make sure you save the Token and Project Key somewhere safe for later use in VSTS.
+1. For the class, the instructor will provide you with a project name and token.  If doing this lab with your own server, create a new project and save away the token for use in the next steps.
 
 1. Edit your build definition and add task "Prepare analysis on SonarQube" before any Msbuild or VSBuild task.
     - Install SonarQube extension from marketplace if the task is not yet available on your VSTS account
-    - Add a new SonarQube endpoint if you don't have one yet (Use the saved Token)
+    - Add a new SonarQube service endpoint if you don't have one yet (Use the saved Token or token provided by the instructor)
     - Enter the saved Project Key and make up a name for your Project
     - Under Advanced, use the following additional properties:
         - sonar.exclusions=wwwroot/lib/**
-        - d:sonar.login="\<your token\>"
+        - d:sonar.login="\<saved SonarQube project token\>"
 
 1. Add task "Run Code Analysis" and "Publish Quality Gate Result" to your build.
 
