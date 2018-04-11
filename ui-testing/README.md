@@ -287,4 +287,4 @@ Based on the following tutorials:
 
 ## Next steps
 
-Continue with [Lab 6 - Smoke Testing](lab-6-smoke-testing.md).
+Continue with [SonarQube](../sonarqube/README.md) lab.
