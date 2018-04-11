@@ -7,6 +7,7 @@ For more information on using private agents for VSTS builds, see the [Build and
 - Complete [Getting Started](../getting-started/README.md) task.
 -   An active Visual Studio Team Services account.<br>
 	 [Sign up for Visual Studio Team Services](https://www.visualstudio.com/en-us/docs/setup-admin/team-services/sign-up-for-visual-studio-team-services)
+- In order to do the SonarQube lab, your VSTS Agent Machine needs Java 8 installed, because the VSTS SonarQube Extension has that requirement.
 
 
 ### I. Configure Private Build Agent
