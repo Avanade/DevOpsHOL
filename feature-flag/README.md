@@ -108,7 +108,7 @@ Based on [this](https://microsoft.github.io/PartsUnlimited/apm/200.6x-APM-Featur
             public void ConfigureServices(IServiceCollection services)
             {
                 // Set provider config so file is read from content root path
-                var provider = new AppSettingsProvider { Configuration = Configuration };
+                var provider = new AppSettingsProvider { Configuration = (IConfiguration)Configuration };
 
                 // Add your feature here
                 services.AddSingleton(new CheckPhoneNumber { ToggleValueProvider = provider });
