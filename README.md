@@ -2,14 +2,18 @@
 These are the hands on labs associated with the Avanade DevOps Practitioners course.  This is based to a large part on the [PartsUnlimitedHOL](https://microsoft.github.io/PartsUnlimited/basic/GettingStarted.html) but simplified to use the Visual Studio MVC sample application.  It does not use the PartsUnlimited HOL, but we want to acknowledge that project's contribution to this project.
 
 ## Course Pre-requisites ##
-If you are taking the Avanade DevOps Practitioners course, then the following are pre-requisites for the beginning of the course.  The pre-requisites are straightforward but a few of the tasks take some time so doing this before the class will save time during the course and allow you to get the maxium value from the class.
+If you are taking the Avanade DevOps Practitioners course, then the following are pre-requisites for the beginning of the course.  The pre-requisites are straightforward but a few of the tasks take some time so doing this before the class will save time during the course and allow you to get the maximum value from the class.
 1. Make sure your Azure subscription is enabled and you can log in and create resources.<br>
-	[Azure Portal](https://portal.azure.com)
-2. An active Visual Studio Team Services account.<br>
+	[Azure Portal](https://portal.azure.com)<br>
+	If you are using your Avanade email to access the Azure portal, then you will need to create a new Active Directory instance.  This is because the labs require creating an enterprise application id and individual users do not have permissions to create enterprise applications on the Avanade AD instance.
+	- In the [Azure Portal](https://portal.azure.com), *Create a Resource* of *Azure Active Directory* with a meaningful name. This is probably something you will use as a general purpose AD instance (i.e. not just for the class) so you may want to name it appropriately.
+	- Once the AD instance is created, click on the *All services* menu item and search for *Subscriptions*.  Choose the subscription tht is tied to your MSDN account (this is the one you will use for the class).  If you don't see the correct subscripiton, you might need to switch directories.
+	- On the Subscriptions' Overview panel, choose the ->Change directory link and select the new AD instance that you just created.
+1. An active Visual Studio Team Services account.<br>
 	[Sign up for Visual Studio Team Services](https://www.visualstudio.com/en-us/docs/setup-admin/team-services/sign-up-for-visual-studio-team-services)
-3. Using an Azure development environment is strongly encouraged.  Complete the steps listed below in the Azure Development Environment.
-4. Complete the [Getting Started](getting-started/README.md) lab.  This will make sure that your environment is correctly configured and ready to execute the remaining labs in the course.
-5.  Configure a private VSTS agent from the [Private Agent](private-agent/README.md) lab.
+1. Using an Azure development environment is strongly encouraged.  This avoids conflicts with your existing development environment.  Complete the steps listed below in the Azure Development Environment.
+1. Complete the [Getting Started](getting-started/README.md) lab.  This will make sure that your environment is correctly configured and ready to execute the remaining labs in the course.
+1.  Configure a private VSTS agent from the [Private Agent](private-agent/README.md) lab.
 
 ## Azure Development Environment ##
 You can accomplish these labs using Visual Studio 2017 on your local computer, but you may want to consider doing the labs using an Azure VM as the development machine.  This not only keeps you from having to make changes to your local environment, but it gives you additional experience using Azure.  You can either configure an Azure development environment on your own or an easy way to do this is to use PowerShell ISE and execute the following commands.  This will create a new Azure resource group and then configure an Azure VM with Windows 10 and Visual Studio 2017 Community edition.  It will also use Chocolatey to install a collection of other tools and applications.  **Review and modify the script to suit your own needs before executing such as changing to VS Enterprise and Window Server 2016 (VS-2017-Ent-Latest-WS2016)**
