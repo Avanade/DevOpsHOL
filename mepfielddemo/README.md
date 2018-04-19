@@ -29,7 +29,7 @@ The objective of this lab is to prepare the students to be able to demonstrate t
 			Import-Module Azure 
 			Import-Module AzureRM```
 1.	Navigate to the extracted folder
-	- cd C:\Users\bhtq\Downloads\Configure-MEPVSTSDemo
+	- cd C:\Users\\<your-user-id\>\Downloads\Configure-MEPVSTSDemo
 1.	Run the PowerShell script to start the deployment configuration
 	- .\Start-Deployment.ps1
 		- Target VSTS account name: (this is just the first part of the VSTS account you’ve been using in the class; i.e. not the .visualstudio.com part)
