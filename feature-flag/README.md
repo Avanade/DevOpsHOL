@@ -157,6 +157,7 @@ Based on [this](https://microsoft.github.io/PartsUnlimited/apm/200.6x-APM-Featur
 
 1. Run the web application locally and test the new Contact form:
     1. Disable the feature by editing the config, set it to false, reload the page:
+
         1. Enter any phone number and hit submit. Notice how no validation error is given
     1. Enable the feature, reload the page:
         1. Enter phone number 0123456789, hit submit, and notice the validation error
@@ -167,5 +168,5 @@ Based on [this](https://microsoft.github.io/PartsUnlimited/apm/200.6x-APM-Featur
 ## Next steps
 
 Future labs will include A/B testing and telemetry labs.
-
+For Avanade folks taking the class, the next lab is setting up the [MEPFieldDemo](../mepfielddemo/README.md)
 
