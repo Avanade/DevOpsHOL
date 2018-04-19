@@ -6,10 +6,11 @@ If you are taking the Avanade DevOps Practitioners course, then the following ar
 1. Make sure your Azure subscription is enabled and you can log in and create resources.<br>
 	[Azure Portal](https://portal.azure.com)<br>
 	If you are using your Avanade email to access the Azure portal, then you will need to create a new Active Directory instance.  This is because the labs require creating an enterprise application id and individual users do not have permissions to create enterprise applications on the Avanade AD instance.
-	- In the [Azure Portal](https://portal.azure.com), *Create a Resource* of *Azure Active Directory* with a meaningful name. This is probably something you will use as a general purpose AD instance (i.e. not just for the class) so you may want to name it appropriately.
-	- Once the AD instance is created, click on the *All services* menu item and search for *Subscriptions*.  Choose the subscription tht is tied to your MSDN account (this is the one you will use for the class).  If you don't see the correct subscripiton, you might need to switch directories.
+	- In the [Azure Portal](https://portal.azure.com), *Create a Resource* of *Azure Active Directory* with a meaningful name. This is probably something you will use as a general purpose AD instance (i.e. not just for the class) so you may want to name it appropriately. 
+		- For more information, you can reference [Create an Azure Active Directory tenant](https://docs.microsoft.com/en-us/power-bi/developer/create-an-azure-active-directory-tenant#create-an-azure-active-directory-tenant). **DO NOT** execute steps in *Create some users in your Azure Active Directory tenant* section. 	
+	- Once the AD instance is created, click on the *All services* menu item and search for *Subscriptions*.  Choose the subscription that is tied to your MSDN account (this is the one you will use for the class).  If you don't see the correct subscripiton, you might need to switch directories.
 	- On the Subscriptions' Overview panel, choose the ->Change directory link and select the new AD instance that you just created.
-	- For more information, check out [Associate an existing subscription to your Azure AD directory](https://docs.microsoft.com/en-us/azure/active-directory/active-directory-how-subscriptions-associated-directory#to-associate-an-existing-subscription-to-your-azure-ad-directory)
+		- For more information, you can reference [Associate an existing subscription to your Azure AD directory](https://docs.microsoft.com/en-us/azure/active-directory/active-directory-how-subscriptions-associated-directory#to-associate-an-existing-subscription-to-your-azure-ad-directory)
 1. An active Visual Studio Team Services account.<br>
 	[Sign up for Visual Studio Team Services](https://www.visualstudio.com/en-us/docs/setup-admin/team-services/sign-up-for-visual-studio-team-services)
 1. Verify that PowerShell v5+ is installed along with the AzureRM modules.
