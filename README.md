@@ -9,6 +9,7 @@ If you are taking the Avanade DevOps Practitioners course, then the following ar
 	- In the [Azure Portal](https://portal.azure.com), *Create a Resource* of *Azure Active Directory* with a meaningful name. This is probably something you will use as a general purpose AD instance (i.e. not just for the class) so you may want to name it appropriately.
 	- Once the AD instance is created, click on the *All services* menu item and search for *Subscriptions*.  Choose the subscription tht is tied to your MSDN account (this is the one you will use for the class).  If you don't see the correct subscripiton, you might need to switch directories.
 	- On the Subscriptions' Overview panel, choose the ->Change directory link and select the new AD instance that you just created.
+	- For more information, check out [Associate an existing subscription to your Azure AD directory](https://docs.microsoft.com/en-us/azure/active-directory/active-directory-how-subscriptions-associated-directory#to-associate-an-existing-subscription-to-your-azure-ad-directory)
 1. An active Visual Studio Team Services account.<br>
 	[Sign up for Visual Studio Team Services](https://www.visualstudio.com/en-us/docs/setup-admin/team-services/sign-up-for-visual-studio-team-services)
 1. Using an Azure development environment is strongly encouraged.  This avoids conflicts with your existing development environment.  Complete the steps listed below in the Azure Development Environment.
