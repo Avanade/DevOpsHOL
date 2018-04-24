@@ -46,7 +46,7 @@ The objective of this lab is to prepare the students to be able to demonstrate t
 		- The next prompt will ask for the target Azure subscription.  Use the one you’ve been using for the class if you have more than one.
 		- Globally unique name: Pick a unique name for the demo website; something like billpayui\<your name\> (no spaces or special characters unless you want a challenge)
 		- Passphrase/key: A new password you make up.  Remember this, you might need it later 😊.
-		- The deployment will start.  If there are errors, look at the error output and see what might have gone wrong (there should be no errors, debugging the errors is not part of the exercise)
+		- The deployment will start.  If there are errors, look at the error output and see what might have gone wrong (there should be no errors, debugging the errors is not part of the exercise).  If there are errors, it seems that just re-running the installation seems to allow the installation to complete the second or third time through (no idea yet why this is but it seems to work).  First try to figure out the error looking at the output but if it isn't pretty obvious what the problem is, try running the configuration again.
 		- When the deployment script completes without error, log into VSTS account and look at the Build and watch the builds complete (investigate what these builds are doing – this is the DevOps stuff).  When the builds complete, take a look at the Releases (investigate these)
 	- This build/release process can take 45 min to an hour.
 	- Once the releases are done, log into the Azure portal and investigate the resources that have been deployed.
