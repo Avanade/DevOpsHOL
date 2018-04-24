@@ -1,4 +1,4 @@
-# Avanade DevOps HOL
+# Avanade DevOps HOL Modern Engineering Platform Field Demo
 These are the hands on labs associated with the Avanade DevOps Practitioners course.  This lab installs the Avanade Modern Engineering Platform (MEP) Field Demo as the labs for the second day of the course.
 
 Once the installation is complete, examples of CI/CD, Telemetry, etc. can be demonstrated.
