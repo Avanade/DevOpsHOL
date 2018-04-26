@@ -13,7 +13,10 @@ The objective of this lab is to prepare the students to be able to demonstrate t
 1. Pull together the information you are going to need to configure the MEPFieldDemo
 	- Configure a password for the Avanade InnerSource source repository
 		- Click on the orange Access Source button on the above site. (log in with your Avanade credentials)
-		- Navigate to the Git code files and click on the “clone” link.  You may need to switch from the TFS repository to the Git repository by clicking on the dropdown in the upper left corner of the repository page.![TFS-Git](TFS-Git.png)
+		- Navigate to the Git code files in the Fielddemo repository (not $/MEPFielddemo). Click on the “clone” link.</br>
+		NOTE: You may need to switch from the TFS repository to the Git repository by clicking on the dropdown in the upper 
+		left corner of the repository page.</br>
+		![TFS-Git](TFS-Git.png)
 		- Click on the “Generate Git Credentials”.  
 		- Fill out the password fields (this is a new password you make up for InnerSource Git, not your Avanade password)
 		- Click “Save Git Credentials” (your done now, don’t actually clone the repository)
