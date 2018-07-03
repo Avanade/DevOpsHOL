@@ -1,6 +1,8 @@
 # Avanade DevOps HOL
 These are the hands on labs associated with the Avanade DevOps Practitioners course.  This is based to a large part on the [PartsUnlimitedHOL](https://microsoft.github.io/PartsUnlimited/basic/GettingStarted.html) but simplified to use the Visual Studio MVC sample application.  It does not use the PartsUnlimited HOL, but we want to acknowledge that project's contribution to this project.
 
+**NOTE: JULY 2018 - Microsoft is previewing a new look for VSTS so if you are using this new look, the instructions may be different and the screen shots will definitely be different.**
+
 ## Course Pre-requisites ##
 If you are taking the Avanade DevOps Practitioners course, then the following are pre-requisites for the beginning of the course.  The pre-requisites are straightforward but a few of the tasks take some time so doing this before the class will save time during the course and allow you to get the maximum value from the class.
 1. Make sure your Azure subscription is enabled and you can log in and create resources.<br>
