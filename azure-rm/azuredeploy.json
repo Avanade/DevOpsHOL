@@ -219,7 +219,7 @@
                   "fileUris": [
                     "[variables('ChocolateyInstallURL')]"
                   ],
-                 "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', variables('ChocolateyInstallScriptFolder'), '/', variables('ChocolateyInstallScriptFileName'))]"
+                 "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', variables('ChocolateyInstallScriptFolder'), '/', variables('ChocolateyInstallScriptFileName'),' -chocoPackages ',parameters('chocoPackages'))]"
                 }
               }
             }
