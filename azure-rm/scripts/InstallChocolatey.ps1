@@ -5,10 +5,7 @@ Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://cho
 #Assign Packages to Install
 $Packages = 'googlechrome',`
             'visualstudiocode',`
-            'git',`
-            'visualstudio2017community',`
-            'visualstudio2017-workload-azure',`
-            'visualstudio2017-workload-netweb'
+            'git'
 
 #Install Packages
 ForEach ($PackageName in $Packages)
