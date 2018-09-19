@@ -207,6 +207,9 @@
               "dependsOn": [
                 "[parameters('vmName')]"
               ],
+              "tags": {
+                "displayName": "Install Chocolatey Applications"
+              },
               "properties": {
                 "publisher": "Microsoft.Compute",
                 "type": "CustomScriptExtension",
