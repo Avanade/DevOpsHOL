@@ -74,20 +74,6 @@
         "metadata": {
           "description": "List of Chocolatey packages to install separated by a semi-colon. Can not be empty. eg. nodejs-lts;python2;visualstudiocode;notepadplusplus;googlechrome;dotnetcore --version 1.1.2"
         }
-      },
-      "setupChocolateyScriptFileName": {
-        "type": "string",
-        "defaultValue": "SetupChocolatey.ps1",
-        "metadata": {
-          "description": "PowerShell script name to execute"
-        }
-      },
-      "setupChocolatelyScriptLocation": {
-        "type": "string",
-        "defaultValue": "https://raw.githubusercontent.com/Avanade/DevOpsHOL/master/azure-rm/scripts/",
-        "metadata": {
-          "description": "Public uri location of PowerShell Chocolately setup script"
-        }
       }
     },
       "variables": {
@@ -103,7 +89,10 @@
         "vmSubnetRef": "[concat(variables('vmVnetID'), '/subnets/', variables('Vnet01Subnet1Name'))]",
         "vmStorageAccountContainerName": "vhds",
         "vmNicName": "[concat(parameters('vmName'), '-nic')]",
-        "vmIP01Name": "[concat(parameters('vmName'), '-ip')]"
+        "vmIP01Name": "[concat(parameters('vmName'), '-ip')]",
+        "ChocolateyInstallScriptFolder": ".",
+        "ChocolateyInstallScriptFileName": "InstallChocolatey.ps1",
+        "ChocolateyInstallURL": "https://raw.githubusercontent.com/Avanade/DevOpsHOL/master/azure-rm/scripts/InstallChocolatey.ps1"
       },
       "resources": [
         {
@@ -225,9 +214,9 @@
                 "autoUpgradeMinorVersion": true,
                 "settings": {
                   "fileUris": [
-                    "[concat(parameters('setupChocolatelyScriptLocation'),parameters('setupChocolateyScriptFileName'))]"
+                    "[variables('ChocolateyInstallURL')]"
                   ],
-                  "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ',parameters('setupChocolateyScriptFileName'),' -chocoPackages ',parameters('chocoPackages'))]"
+                 "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', variables('ChocolateyInstallScriptFolder'), '/', variables('ChocolateyInstallScriptFileName'))]"
                 }
               }
             }
