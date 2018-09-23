@@ -30,14 +30,15 @@ have created against it.
 1. Go to your **account’s homepage**:
 	https://\<your-alias\>.visualstudio.com
 2. Select the DevOpsHOL team project that was created in the [Getting Started](../getting-started/README.md) lab.  
-This will take you to the project dashboard page.  Click on "Set up Build".
+This will take you to the project dashboard page.  Click on "Set up Build".  **NOTE:** This page may say "Set up Pipeline".  Microsoft changes the way things work all the time so you may have to figure some of this out as the screens may not exactly follow but the princimples are the same.
 
 ![](<media/CI1.png>)
 
-3. Select the **Empty process** link near the top to create a build definition.  
+3. Select the **Empty process**  (or **Empty job**) link near the top to create a build definition.  
 >**Note:** Normally you would just select one of the available templates that is closest to the type of solution you are 
 deploying but for this lab we want to walk through a few extra steps to allow you to become more familiar with the process.
 
+>> "Beware of knowledge you did not earn"
 
 4. After clicking the **Empty process** link you'll need to fill out the build definition starting with the Process task and it's children.
 >- Process<br>
