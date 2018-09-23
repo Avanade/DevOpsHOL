@@ -57,13 +57,13 @@ This will take you to the project dashboard page.  Click on the Setting icon (ge
 
 3. Near the top of the page next to **New Release Definition**, click on the pencil icon and rename the release to **DevOpsHOL-CD**
 
-4. On the **Environment** panel, rename the environment to Dev (this will be the development integration environment).
+4. On the **Stages** panel, rename the stage to Dev (this will be the development integration environment).
 
 5. Click on the Artifacts +Add link and select the DevOpsHOL-CI as the Source.  Leave the version at "Latest" so the release will deploy the latest build.  Click Add button to add the build to the release artifacts list.
 
-6. In the Environments box, click on the 1 phase, 0 task link under the Dev environment name.  This will open a panel to allow adding of tasks to the release.
+6. In the Stages box, click on the 1 job, 0 task link under the Dev environment name.  This will open a panel to allow adding of tasks to the release.
 
-6. Click on the **Agent phase** accordion item and review the options for this phase of the release.  Leave these settings as is for now. Click on the + icon to the right of Agent phase and add the following two tasks: **Azure Resource Group Deployment** and **Azure App Service Deploy**.
+6. Click on the **Agent job** accordion item and review the options for this phase of the release.  Leave these settings as is for now. Click on the + icon to the right of Agent phase and add the following two tasks: **Azure Resource Group Deployment** and **Azure App Service Deploy**.
 
 7. Click on the **Azure Deployment:Create Or Update Resource Group...** accordion and fill out the settings as follows:
 >+ Azure Subscription: DevOpsHOLDeployment
@@ -137,6 +137,8 @@ NOTE: If the Release fails with error "ERROR_FILE_IN_USE", execute [these steps]
 	
 # Shortcut
 Just like in the previous lab, you can use the import functionality with the [DevOpsHOL-CD.json](../source/deploy/DevOpsHOL-CD.json) file to import the release definition to keep from having to create this by hand but you miss out on the joy of learning.
+
+NOTE: Even if you use this import file, you'll have to go through each job and task to make sure the settings are appropriate since the values in the import file may not match what is in your environment.
 
 # Next steps
 
