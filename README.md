@@ -3,6 +3,8 @@ These are the hands on labs associated with the Avanade DevOps Practitioners cou
 
 **NOTE: JULY 2018 - Microsoft is previewing a new look for VSTS so if you are using this new look, the instructions may be different and the screen shots will definitely be different.**
 
+**NOTE: SEPT 2018 - Microsoft has rebranded VSTS as Azure DevOps (the marketing team wanted to use the buzword).  Some of the materials in these labs still refer to VSTS and/or may have references to older UI.  This is the new reality of development.  What worked last week may not work today so it is important that you understand the principles behind the tools, not just the ability to blindly follow the steps.**
+
 ## Course Pre-requisites ##
 If you are taking the Avanade DevOps Practitioners course, then the following are pre-requisites for the beginning of the course.  The pre-requisites are straightforward but a few of the tasks take some time so doing this before the class will save time during the course and allow you to get the maximum value from the class.
 1. Make sure your Azure subscription is enabled and you can log in and create resources.<br>
@@ -13,8 +15,8 @@ If you are taking the Avanade DevOps Practitioners course, then the following ar
 	- Once the AD instance is created, click on the *All services* menu item and search for *Subscriptions*.  Choose the subscription that is tied to your MSDN account (this is the one you will use for the class).  If you don't see the correct subscripiton, you might need to switch directories.
 	- On the Subscriptions' Overview panel, choose the ->Change directory link and select the new AD instance that you just created.
 		- For more information, you can reference [Associate an existing subscription to your Azure AD directory](https://docs.microsoft.com/en-us/azure/active-directory/active-directory-how-subscriptions-associated-directory#to-associate-an-existing-subscription-to-your-azure-ad-directory)
-1. An active Visual Studio Team Services account.<br>
-	[Sign up for Visual Studio Team Services](https://www.visualstudio.com/en-us/docs/setup-admin/team-services/sign-up-for-visual-studio-team-services)
+1. An active Azure DevOps account.<br>
+	[Sign up for Azure DevOps](https://azure.microsoft.com/en-us/services/devops/)
 1. Verify that PowerShell v5+ is installed along with the AzureRM modules.
     - Install-Module Powershellget -Force
     - Install-Module -Name AzureRm -AllowClobber
