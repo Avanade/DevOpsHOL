@@ -1,11 +1,11 @@
 
 # Avanade DevOps HOL - Getting Started
-In this lab, we will be installing the required development components and verifying that the solution builds and is able to be pushed to VSTS.
+In this lab, we will be installing the required development components and verifying that the solution builds and is able to be pushed to Azure DevOps.
 ## Pre-requisites ##
 1. An active Azure subscription<br>
 	[Azure Portal](https://portal.azure.com)
-2. An active Visual Studio Team Services account.<br>
-	[Sign up for Visual Studio Team Services](https://www.visualstudio.com/en-us/docs/setup-admin/team-services/sign-up-for-visual-studio-team-services)
+2. An active Azure DevOps account.<br>
+	[Sign up for Visual Studio Team Services](https://azure.microsoft.com/en-us/services/devops/)
 
 ## Set up your machine ##
 1. Install [Visual Studio 2017](http://go.microsoft.com/fwlink/?LinkId=517106)<br>
