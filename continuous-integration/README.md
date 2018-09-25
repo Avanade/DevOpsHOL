@@ -120,4 +120,5 @@ Next do the [Continuous Deployment](../continuous-deployment/README.md) lab
 3. Click the **+Import** button and select the file downloaded in step 1 and click Import.
 4. After the import choose the Hosted VS2017 agent and click on the "Get Sources" process step and verify that it is correctly configured as described above.
 5. Choose "Save & queue" to verify that the import and build were successful.
-**NOTE: Due to constant changes in Azure DevOps, the import file may not successfully import all the required settings.  You'll still need to go through each setting and verify that it is valid. This may not really be much of a shortcut after all but it does illustrate that you can export and import build and release configurations to some extent. **
+
+**NOTE: Due to constant changes in Azure DevOps, the import file may not successfully import all the required settings.  You'll still need to go through each setting and verify that it is valid. This may not really be much of a shortcut after all but it does illustrate that you can export and import build and release configurations to some extent.**
