@@ -22,6 +22,7 @@ In this lab, we will be installing the required development components and verif
     + Location: *where ever you put project source*<br>
     + Create Directory for solution: Checked<br>
     + Create new Git repository: Checked<br>
+    + Configure for https: UnChecked (unless you are up for the challenge)<br>
     + Click OK<br>
     + On the next dialog, choose Web Application (Model-View-Controller) as the application type, No Authentication<br>
     + Click OK<br>
