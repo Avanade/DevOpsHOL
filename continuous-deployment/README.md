@@ -49,17 +49,17 @@ This will take you to the project dashboard page.  Click on the Project Settings
 4. Next sign in to your Azure account to complete the endpoint creation process.
 
 ### III. Create Release
-1. In the DevOpsHOL project in VSTS, navigate to **Build and Release** -> **Releases** and choose the + icon to create a new release definition.
+1. In the DevOpsHOL project in Azure DevOps, navigate to **Pipelines** -> **Releases** and click the **New Pipeline** button to create a new release definition.
 
 ![](<media/CD5.png>)
 
-2. Near the top of the **Select a Template** panel, choose **Empty process**.  As in the previous lab, you normally would choose a template that closely matches the type of deployment you are doing (or import an existing template), but for this lab we are building it from scratch to see more of the process.
+2. Near the top of the **Select a Template** panel, choose **Empty job**.  As in the previous lab, you normally would choose a template that closely matches the type of deployment you are doing (or import an existing template), but for this lab we are building it from scratch to see more of the process.
 
-3. Near the top of the page next to **New Release Definition**, click on the pencil icon and rename the release to **DevOpsHOL-CD**
+3. Near the top of the page next to **New release pipeline**, click on the pencil icon and rename the release to **DevOpsHOL-CD**
 
-4. On the **Stages** panel, rename the stage to Dev (this will be the development integration environment).
+4. On the **Stage** panel, rename the stage to Dev (this will be the development integration environment).
 
-5. Click on the Artifacts +Add link and select the DevOpsHOL-CI as the Source.  Leave the version at "Latest" so the release will deploy the latest build.  Click Add button to add the build to the release artifacts list.
+5. Click on the Artifacts +Add link and select the DevOpsHOL-CI as the Source.  Set the version to "Latest" so the release will deploy the latest build.  Click Add button to add the build to the release artifacts list.
 
 6. In the Stages box, click on the 1 job, 0 task link under the Dev environment name.  This will open a panel to allow adding of tasks to the release.
 
@@ -71,7 +71,7 @@ This will take you to the project dashboard page.  Click on the Project Settings
 >+ Resource Group: $(ResourceGroupName)
 >>+ this is a variable set up in the next step
 >+ Location: $(SiteLocation)
->+ Template: $(System.DefaultWorkingDirectory)/DevOpsHOL-CI/drop/DevOpsHOL.Deployment/WebSite.json
+>+ Template: $(System.DefaultWorkingDirectory)/\_DevOpsHOL-CI/drop/DevOpsHOL.Deployment/WebSite.json
 >+ Override Template Parameters: Click on the ellipsis to the right of the edit box and enter the following names and values:<br>
 NOTE: ARM parameters are case sensitive so the name much match the case of the parameters in the ARM template.
 ```PowerShell
@@ -97,14 +97,14 @@ workerSize "0"
 9. Click **Variables** link and add the following variables and values.
 	* **AppServicePlan**: DevOpsHOL *(or any name you would like)*
 	* **ResourceGroupName**: DevOpsHOL *(or any name you would like)*
-	* **SiteLocation**: *Choose a valid Azure location such as "centralus"*
+	* **SiteLocation**: *Choose a valid Azure location such as "centralus" or "eastus2"*
 	* **WebsiteName**: *Unique name of the website in Azure*
 
 		> **Note**: Use a unique value for your WebsiteName by adding something custom at the end like your initials. Example for WebsiteName : devopshol-am 
 
 10. Click **Save** and then click **Release -> Create Release**, click **Create**.  Inside the Green notification bar, click on the *Release-1* link to be taken to a page to show the release progress.  If this page doesn't refresh automatically, periodically refresh the page until the release succeeds (if the release fails, review the error message and go back and make adjustments and re-release).
 
-11. Open a browser page and navigate to the website in Azure.  The url will depend on the $(WebsiteName).  For example, if the $(WebsiteName) was devopshol-am, then navigate to https://devopshol-am-dev.azurewebsites.net/.<br>
+11. Open a browser page and navigate to the website in Azure.  The url will depend on the $(WebsiteName).  For example, if the $(WebsiteName) was devopshol-batman, then navigate to https://devopshol-batman-dev.azurewebsites.net/.<br>
 NOTE: The website address can be seen on the Azure portal on the WebApp
 
 ![](<media/CD7.png>)
