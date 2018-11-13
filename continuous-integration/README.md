@@ -8,6 +8,8 @@ get fast feedback. To do so, we are going to be setting up a Continuous Integrat
 will allow us to compile and run unit tests on our code every time a commit is
 pushed to Visual Studio Team Services.
 
+**NOTE:** Microsoft changes the way things work all the time so you may have to figure some of this out as the screens may not exactly follow but the principles are the same.
+
 ## Pre-requisites: ##
 - Complete [Getting Started](../getting-started/README.md) hands on lab.
 
@@ -25,9 +27,9 @@ we checked in can compile and will successfully pass any automated tests that we
 have created against it.
 
 1. Go to your **account’s homepage**:
-	https://\<your-alias\>.visualstudio.com
+	https://dev.azure.com/<your-alias\>
 2. Select the DevOpsHOL team project that was created in the [Getting Started](../getting-started/README.md) lab.  
-This will take you to the project dashboard page.  Click on "Set up Build".  **NOTE:** This page may say "Set up Pipeline".  Microsoft changes the way things work all the time so you may have to figure some of this out as the screens may not exactly follow but the princimples are the same.
+This will take you to the project dashboard page.  From the menu on the left side of the page, choose Pipelines -> Builds. Now click on the **New Pipeline** button.  On the "Select Your Repository" page, make sure everything is correct and then click **Continue**. 
 
 ![](<media/CI1.png>)
 
