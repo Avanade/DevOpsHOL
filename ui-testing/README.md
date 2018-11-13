@@ -183,6 +183,16 @@ Based on the following tutorials:
             // Shared driver settings
             _driver.Manage().Window.Size = new Size(1920, 1080);
             _driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(10);
+            
+            // UITest working locally but not in VSTS with the PhantomJSDriver
+            // Test results in VSTS always showed a timeout exception with VS2017 hosted agent
+            // and with local agent in dev machine. Test method UITests.Test threw exception: OpenQA.Selenium.WebDriverTimeoutException: 
+            // To fix this I have increased the timeouts on pageload as well as implicit wait time as shown below
+            // Shared driver settings
+            // _driver.Manage().Window.Size = new Size(1920, 1080);
+            // _driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(20);
+            // _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
+
         }
 
         [TestMethod]
