@@ -29,43 +29,44 @@ have created against it.
 1. Go to your **account’s homepage**:
 	https://dev.azure.com/<your-alias\>
 2. Select the DevOpsHOL team project that was created in the [Getting Started](../getting-started/README.md) lab.  
-This will take you to the project dashboard page.  From the menu on the left side of the page, choose Pipelines -> Builds. Now click on the **New Pipeline** button.  On the "Select Your Repository" page, make sure everything is correct and then click **Continue**. 
+This will take you to the project dashboard page.  From the menu on the left side of the page, choose Pipelines -> Builds. Now click on the **New Pipeline** button.  On the "Select your repository" page, make sure everything is correct and then click **Continue**. 
 
 ![](<media/CI1.png>)
 
-3. Select the **Empty process**  (or **Empty job**) link near the top to create a build definition.  
+3. Select the **Empty job**  link near the top to create a build definition.  
 >**Note:** Normally you would just select one of the available templates that is closest to the type of solution you are 
 deploying but for this lab we want to walk through a few extra steps to allow you to become more familiar with the process.
 
 >> "Beware of knowledge you did not earn"
 
-4. After clicking the **Empty process** link you'll need to fill out the build definition starting with the Process task and it's children.
+4. After clicking the **Empty job** link you'll need to fill out the build definition starting with the Process task and it's children.
 >- Process<br>
 	Name: **DevOpsHOL-CI**<br>
 	Agent queue: **Hosted VS2017**<br>
 > **Note:** This will use a hosted (i.e. built in) build server.  
 For more flexibility in the build (and for a more in depth learning experience), a private agent can be configured and used following the steps in the [Private Agent](../private-agent/README.md) lab.  This is not necessary for this lab, but you can do this if you are up for the adventure.
 >- Process -> Get Sources<br>
-	From: This project<br>
+	Azure Repos Git<br>
+	Team Project: DevOpsHOL<br>
 	Repository: DevOpsHOL
-5. To the right of the **Phase 1** item click on the + sign and add the following tasks:<br>
+5. To the right of the **Agent job 1** item click on the + sign and add the following tasks:<br>
     For each of the tasks, the settings for that task (if different than the default) are listed below<br>
  (*Hint: use the search box to filter in order to find the tasks in the list*)
 >- NuGet Tool Installer (Use NuGet 4.3.0)
 >- NuGet (NuGet restore)
 >- Visual Studio Build<br>
-	MSBuild Arguments: /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)\\\\"<br>
+	MSBuild Arguments: /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)"<br>
 	Platform: $(BuildPlatform)<br>
 	Configuration: $(BuildConfiguration)
 >- .NET Core<br>
 	Display name: Test Assemblies<br>
 	Command: test<br>
-	Project(s): **/\*test\*.csproj<br>
+	Path to project(s): **/\*test\*.csproj<br>
 	Publish test results: Checked<br>
 >- Publish Build Artifacts<br>
 	Path to publish: $(build.artifactstagingdirectory)<br>
 	Artifact name: drop<br>
-	Artifact publish location: Visual Studio Team Services/TFS<br>
+	Artifact publish location: Azure Pipelines/TFS<br>
 
 ![](<media/CI2.png>)
 
@@ -94,7 +95,7 @@ We will now test the **Continuous Integration build (CI)** build we created by c
 
 ![](<media/CI5.png>)
 
-3. Build and test the solution locally.
+3. Build and test the solution locally.  NOTE: You may have to **Accept** the cookie policy to see the menu for the **About** page if you made the suggested change above.
 
 ![](<media/CI6.png>)
 
