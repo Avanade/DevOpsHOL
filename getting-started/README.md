@@ -22,9 +22,9 @@ In this lab, we will be installing the required development components and verif
     + Location: *where ever you put project source*<br>
     + Create Directory for solution: Checked<br>
     + Create new Git repository: Checked<br>
-    + Configure for https: UnChecked (unless you are up for the challenge)<br>
     + Click OK<br>
     + On the next dialog, choose Web Application (Model-View-Controller) as the application type, No Authentication<br>
+    + Configure for https: UnChecked (unless you are up for the challenge)<br>
     + Click OK<br>
 
 4.  Build and run the solution to make sure everything is OK to this point.
@@ -90,7 +90,7 @@ In this lab, we will be installing the required development components and verif
 
 7. Add the "DevOpsHOL" as a reference to the DevOpsHOL.Tests project. Tip: Use quick refactoring.
 
-8. Add references to Microsoft.AspNetCore.Mvc.Abstractions and Microsoft.AspNetCore.Mvc.ViewFeatues as well.
+8. Add references to Microsoft.AspNetCore.Mvc.Abstractions and Microsoft.AspNetCore.Mvc.ViewFeatures as well.  Use the NuGet package manager to add these libraries to the project.
 
 9. Build, run unit tests and run the solution to make sure everything is OK to this point.
     + Test -> Run -> All Tests (Ctrl+R,A)<br>
@@ -105,7 +105,7 @@ In this lab, we will be installing the required development components and verif
 
 ![](<media/GS1.png>)
 
-11. Create the first commit for your project (Team Explorer -> Changes -> Commit All and Push)
+11. Create the first commit for your project (Team Explorer -> Changes -> Commit All and Push).  NOTE: This could be automatically staged so choose Commit Staged and Push.
 
 12. Log in to VSTS with browser and verify that DevOpsHOL project was created and source code is uploaded.
 
