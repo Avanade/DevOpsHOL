@@ -51,8 +51,6 @@ This will take you to the project dashboard page.  Click on the Project Settings
 ### III. Create Release
 1. In the DevOpsHOL project in Azure DevOps, navigate to **Pipelines** -> **Releases** and click the **New Pipeline** button to create a new release definition.
 
-![](<media/CD5.png>)
-
 2. Near the top of the **Select a Template** panel, choose **Empty job**.  As in the previous lab, you normally would choose a template that closely matches the type of deployment you are doing (or import an existing template), but for this lab we are building it from scratch to see more of the process.
 
 3. Near the top of the page next to **New release pipeline**, click on the pencil icon and rename the release to **DevOpsHOL-CD**
