@@ -35,13 +35,13 @@ NOTE: There are a number of ways that the ARM template could have been created a
 
 ### II. Create Service Endpoint
 1. Go to your **account’s homepage**:
-	https://\<your-alias\>.visualstudio.com
+	https://dev.azure.com/<your-alias\>
 2. Select the DevOpsHOL team project that was created in the [Getting Started](../getting-started/README.md) lab.  
-This will take you to the project dashboard page.  Click on the Setting icon (gear) in the project menu bar and select Services.  Choose **New Service Endpoint** and select **Azure Resource Manager** from the drop down.
+This will take you to the project dashboard page.  Click on the Project Settings (gear) in the bottom left menu bar and select Service connnections.  Choose **New service connection** and select **Azure Resource Manager** from the drop down.
 
 ![](<media/CD3.png>)
 
-3. This will open the **Add Azure Resource Manager Service Endpoint** dialog.  Set the Connection Name to "DevOpsHOLDeployment", choose your subscription and click **OK**.<br>
+3. This will open the **Add Azure Resource Manager Service Endpoint** dialog.  Set the Connection Name to "DevOpsHOLDeployment", choose your subscription and click **OK**.<br>  Leaving the Resource Group blank will allow this to work for multiple resource groups so you don't have to worry about setting this up again if you drop and recreate your Azure resource group.  The service endpoint won't work even if the new resource group has the same name as the one selected when it was created.<br>
 **NOTE:** You will need to allow popups in the browser, otherwise the popup to authenticate to Azure will fail to appear.
 
 ![](<media/CD4.png>)
