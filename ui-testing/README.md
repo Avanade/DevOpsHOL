@@ -18,7 +18,7 @@ Based on the following tutorials:
 1. Add a new Unit Test Project "**Tests**" (.NET Framework 4.7.1) and add the following NuGet packages:
    - Selenium.Support (Includes Selenium.WebDriver)
    - Selenium.WebDriver.PhantomJS
-   - (optional)Selenium.Chrome.WebDriver
+   - (optional but recommended)Selenium.Chrome.WebDriver
    - (optional)Selenium.WebDriver.IEDriver
 
 1. Add new file local.runsettings to the **Tests** project.
@@ -276,14 +276,14 @@ Based on the following tutorials:
 
 1. Edit your Release Definition, Staging environment
     1. Add task: Replace Tokens (by Guillaume Rouchon) (You'll need to add this to VSTS, then re-edit to add this task type)
-        - Root directory: $(System.DefaultWorkingDirectory)/DevOpsHOL-CI/tests
+        - Root directory: $(System.DefaultWorkingDirectory)/_DevOpsHOL-CI/tests
         - Target files: **/*.runsettings
         - Token prefix: #{
         - Token suffix: }#
     1. Add task: Visual Studio Test
-        - Search folder: $(System.DefaultWorkingDirectory)/DevOpsHOL-CI/tests
+        - Search folder: $(System.DefaultWorkingDirectory)/_DevOpsHOL-CI/tests
         - Test filter criteria: TestCategory=UI
-        - Settings file: $(System.DefaultWorkingDirectory)/DevOpsHOL-CI/tests/Release/vsts.runsettings
+        - Settings file: $(System.DefaultWorkingDirectory)/_DevOpsHOL-CI/tests/Release/vsts.runsettings
     1. Go to the Variables tab, add variable "SiteUrl" with Scope "Staging" and url "https://\<yourappservice\>-staging.azurewebsites.net"
 
 1. Commit your code to trigger a build and release
