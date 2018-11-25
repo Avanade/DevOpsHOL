@@ -2,7 +2,7 @@
 
 This lab focuses on adding Security Verification Tests to your existing CD pipeline.
 
-Based on [this](https://github.com/azsdk/azsdk-docs/blob/master/03-Security-In-CICD/Readme.md#enable-azsk-extension-for-your-vsts) tutorial.
+Based on [this](https://github.com/azsk/DevOpsKit-docs/blob/master/03-Security-In-CICD/Readme.md#enable-azsk-extension-for-your-vsts) tutorial.
 
 ## Prerequisites
 
