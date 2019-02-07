@@ -3,7 +3,7 @@ These are the hands on labs associated with the Avanade DevOps Practitioners cou
 
 **NOTE: JULY 2018 - Microsoft is previewing a new look for VSTS so if you are using this new look, the instructions may be different and the screen shots will definitely be different.**
 
-**NOTE: SEPT 2018 - Microsoft has rebranded VSTS as Azure DevOps (the marketing team wanted to use the buzword).  Some of the materials in these labs still refer to VSTS and/or may have references to older UI.  This is the new reality of development.  What worked last week may not work today so it is important that you understand the principles behind the tools, not just the ability to blindly follow the steps.**
+**NOTE: SEPT 2018 - Microsoft has rebranded VSTS as Azure DevOps (the marketing team wanted to use the buzzword).  Some of the materials in these labs still refer to VSTS and/or may have references to older UI.  This is the new reality of development.  What worked last week may not work today so it is important that you understand the principles behind the tools, not just the ability to blindly follow the steps.**
 
 ## Course Pre-requisites ##
 If you are taking the Avanade DevOps Practitioners course, then the following are pre-requisites for the beginning of the course.  The pre-requisites are straightforward but a few of the tasks take some time so doing this before the class will save time during the course and allow you to get the maximum value from the class.
