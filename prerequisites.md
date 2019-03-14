@@ -42,6 +42,9 @@ Select-AzureRmSubscription -SubscriptionId <your Subscription Id>
 $locName="West Europe"
 Get-AzureRMVMImageSku -Location $locName -Publisher "MicrosoftVisualStudio" -Offer "VisualStudio" | Select Skus
 ```
+
+```PowerShell
+>**Note:** The following power shell command is for creating the Virual Machine
 Select-AzureRmSubscription -SubscriptionName <yourSubscriptionName>
 $VmName = "DevOpsHOL"
 $DnsLabelPrefix = "<uniqueDNSName>"
