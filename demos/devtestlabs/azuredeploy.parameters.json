@@ -8,6 +8,9 @@
     "labVmShutDownTime": {
       "value": "21:00"
     },
+    "labName": {
+      "value": "DevLab"
+    },
     "maxAllowedVmsPerUser": {
       "value": 2
     },
@@ -15,10 +18,10 @@
       "value": 50
     },
     "allowedVmSizes": {
-      "value": "Standard_D1,Standard_D2,Standard_DS2"
+      "value": "Standard_DS1_v2,,Standard_DS2_v2"
     },
     "vmSize": {
-      "value": "Standard_DS2"
+      "value": "Standard_DS2_v2"
     },
     "vmStorageType": {
       "value": "Standard"

@@ -1,6 +1,6 @@
 # Avanade DevOps HOL
 
-These are the hands on labs associated with the Avanade DevOps Practitioners course.  This is based to a large part on the [PartsUnlimitedHOL](https://microsoft.github.io/PartsUnlimited/basic/GettingStarted.html) but simplified to use the Azure DevOps Project sample application.
+These are the hands on labs associated with the Avanade DevOps Practitioners course.  This is based to a large part on the [PartsUnlimitedHOL](https://github.com/Microsoft/PartsUnlimitedE2E/blob/master/PartsUnlimited-aspnet45/docs/GettingStarted.md) but simplified to use the Azure DevOps Project sample application.
 
 You can accomplish these labs using an Azure VM as the development machine. This not only keeps you from having to make changes to your local environment, but it gives you additional experience using Azure and PowerShell.
 
