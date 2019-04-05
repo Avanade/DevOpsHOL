@@ -1,12 +1,12 @@
-# Avanade DevOps HOL - Lab 4 - Feature Toggle
+# Avanade DevOps HOL - Feature Flag for Web Application
+Feature flags provide the ability to turn features of your application on and off at a moments notice, no code deployments required. In this lab, we will add code to the project to demonstrate the use of feature flags to allow selectively turning on and off features to expose functionality. 
 
 In this lab, we add a Feature Toggle mechanism to our web application. The toggle will be enabled by json config and tested locally.
 
 Based on [this](https://microsoft.github.io/PartsUnlimited/advanced/FeatureFlagWeb.html) article and [this](https://github.com/jason-roberts/FeatureToggle/tree/master/src/Examples/AspDotNetCoreExample) example.
 
-## Prerequisites
-
-- Complete [Lab 3 - Analysis with SonarQube](lab-3-analysis-with-sonarqube.md).
+## Pre-requisites: ##
+- Complete [Getting Started](../getting-started/README.md) hands on lab.
 
 ## Tasks
 
@@ -107,7 +107,7 @@ Based on [this](https://microsoft.github.io/PartsUnlimited/advanced/FeatureFlagW
             public void ConfigureServices(IServiceCollection services)
             {
                 // Set provider config so file is read from content root path
-                var provider = new AppSettingsProvider { Configuration = Configuration };
+                var provider = new AppSettingsProvider { Configuration = (IConfiguration)Configuration };
 
                 // Add your feature here
                 services.AddSingleton(new CheckPhoneNumber { ToggleValueProvider = provider });
@@ -156,6 +156,7 @@ Based on [this](https://microsoft.github.io/PartsUnlimited/advanced/FeatureFlagW
 
 1. Run the web application locally and test the new Contact form:
     1. Disable the feature by editing the config, set it to false, reload the page:
+
         1. Enter any phone number and hit submit. Notice how no validation error is given
     1. Enable the feature, reload the page:
         1. Enter phone number 0123456789, hit submit, and notice the validation error
@@ -164,5 +165,4 @@ Based on [this](https://microsoft.github.io/PartsUnlimited/advanced/FeatureFlagW
 1. Push your code changes and let your pipeline do it's job
 
 ## Next steps
-
-Continue with [Lab 5 - UI Testing](lab-5-ui-testing.md).
+Return to [the lab index](../README.md) and continue with the next lab.

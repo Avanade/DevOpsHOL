@@ -1,10 +1,10 @@
-# Avanade DevOps HOL - Lab 6 - Smoke Testing
+# Avanade DevOps HOL - Smoke Testing
 
 In this lab, we add smoke tests to our test project.
 
 ## Prerequisites
 
-- Complete [Lab 5 - UI Testing](lab-5-ui-testing.md).
+- Complete [UI Testing](../ui-testing/README.md).
 
 ## Tasks
 
@@ -76,5 +76,4 @@ In this lab, we add smoke tests to our test project.
 1. Refactor all the hardcoded timeout values to a variable in the runsettings file. Make them tokenized for replacement during the Release
 
 ## Next steps
-
-Continue with [Lab 7 - Security Verification Tests in your CD pipeline](lab-7-security-verification-tests.md).
+Return to [the lab index](../README.md) and continue with the next lab.

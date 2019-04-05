@@ -1,4 +1,4 @@
-# Avanade DevOps HOL - Lab 1 - Create a CI/CD pipeline for .NET with the Azure DevOps Project
+# Avanade DevOps HOL - Create a CI/CD pipeline for .NET with the Azure DevOps Project
 
 In this lab, we setup our DevOps Project in Azure to create our CI/CD pipeline. This will provide us with a standard code base to work with.
 
@@ -79,7 +79,7 @@ Based on [this](https://docs.microsoft.com/en-us/azure/devops-project/azure-devo
 
 1. In VSTS, edit your build definition to support .NET Core 2.0.3
    - Open task "NET Core Tool Installer" and change the version field to 2.0.3 (Do not change task version)
-   ![Lab 1 netcore version](images/lab-1-netcoreversion.png)
+   ![Lab 1 netcore version](../images/lab-1-netcoreversion.png)
 
 1. Push your code to trigger a build/release
 
@@ -90,5 +90,4 @@ Based on [this](https://docs.microsoft.com/en-us/azure/devops-project/azure-devo
 1. Export the ARM template to set up the Web App in Azure, integrate it in your Release definition
 
 ## Next steps
-
-Continue with [Lab 2 - Add QA environment and define your multi-stage continuous deployment process with approvals and gates](lab-2-multi-stage-deployments.md).
+Return to [the lab index](../README.md) and continue with the next lab.
