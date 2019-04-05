@@ -12,7 +12,7 @@ Based on the following tutorials:
 
 ## Tasks
 
-First, let's define the QA environment:
+Let's define the QA environment:
 
 1. Add a QA Deployment Slot to your App Service in Azure
 
@@ -20,15 +20,11 @@ First, let's define the QA environment:
 
 1. Configure the deployment step for the QA slot in the same App Service
 
+1. Add pre deployment approval to control promotion from QA to Production
+
 1. Run a new Release
 
 1. Review the new QA website is live on \<yourappservice\>-qa.azurewebsites.net
-
-Use approvals and gates to control your deployment
-
-1. Add pre deployment approval to control promotion from QA to Production
-
-1. Add gate on 'Active Bugs' = 0
 
 ## Next steps
 Return to [the lab index](../README.md) and continue with the next lab.

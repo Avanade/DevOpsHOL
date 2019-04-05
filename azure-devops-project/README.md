@@ -54,7 +54,5 @@ Based on [this](https://docs.microsoft.com/en-us/azure/devops-project/azure-devo
 
 1. Add custom logging to Application Insights through your Web App
 
-1. Export the ARM template to set up the Web App in Azure, integrate it in your Release definition
-
 ## Next steps
 Return to [the lab index](../README.md) and continue with the next lab.
