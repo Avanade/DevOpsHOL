@@ -42,6 +42,10 @@ Based on [this](https://docs.microsoft.com/en-us/azure/devops-project/azure-devo
     },
     ```
 
+1. Go to your Azure Devops project site and edit the Release definition
+    - In the step "Deploy Azure App Service" change the Runtime Stack to .NET Core 2.1
+    ![](../images/dotnetcore-runtime-stack.png)
+
 1. Push your code to trigger a build/release
 
 1. When the Release is finished, visit your web app url to verify it is still working
