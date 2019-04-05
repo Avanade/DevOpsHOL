@@ -33,6 +33,15 @@ Based on [this](https://docs.microsoft.com/en-us/azure/devops-project/azure-devo
 
 1. Build your solution and run the unit tests. Make sure that the tests pass
 
+1. Open the folder "ArmTemplates" in your source, and edit the file "linux-webapp-template.json":
+    - Change the dotnetcore version to 2.1:
+    ```json
+    "linuxFxVersion": {
+        "type": "string",
+        "defaultValue": "dotnetcore|2.1"
+    },
+    ```
+
 1. Push your code to trigger a build/release
 
 1. When the Release is finished, visit your web app url to verify it is still working
