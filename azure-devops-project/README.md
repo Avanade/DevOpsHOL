@@ -11,8 +11,10 @@ Based on [this](https://docs.microsoft.com/en-us/azure/devops-project/azure-devo
 ## Tasks
 
 1. Go to your Azure Portal and create a new DevOps Project. Make sure it meets the following demands:
-    - ASP.NET Core Web App on Windows
-    - Linked to your existing VSTS account
+    - .NET Runtime
+    - ASP.NET Core application
+    - Linux Web App
+    - Linked to your existing Azure DevOps account
 
 1. When the azure resources are created, go to your VSTS account and make sure that:
    - The first Build and Release are successful
