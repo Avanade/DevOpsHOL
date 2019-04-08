@@ -1,9 +1,7 @@
 # Avanade DevOps HOL - Feature Flag for Web Application
 Feature flags provide the ability to turn features of your application on and off at a moments notice, no code deployments required. In this lab, we will add code to the project to demonstrate the use of feature flags to allow selectively turning on and off features to expose functionality. 
 
-In this lab, we add a Feature Toggle mechanism to our web application. The toggle will be enabled by json config and tested locally.
-
-Based on [this](https://microsoft.github.io/PartsUnlimited/advanced/FeatureFlagWeb.html) article and [this](https://github.com/jason-roberts/FeatureToggle/tree/master/src/Examples/AspDotNetCoreExample) example.
+In this lab, we add a Feature Toggle mechanism to our web application. The toggle will be enabled by json config and tested locally. To implement this, we use the [FeatureToggle.Net](https://github.com/jason-roberts/FeatureToggle) framework by Jason Roberts. This lab is based on the [Parts Unlimited](https://microsoft.github.io/PartsUnlimited/advanced/FeatureFlagWeb.html) reference project and the [example implementation](https://github.com/jason-roberts/FeatureToggle/tree/master/src/Examples/AspDotNetCoreExample) by Jason Roberts.
 
 ## Pre-requisites: ##
 - Complete [Getting Started](../getting-started/README.md) hands on lab.
@@ -18,20 +16,30 @@ Based on [this](https://microsoft.github.io/PartsUnlimited/advanced/FeatureFlagW
     - <details><summary>Add class "CheckPhoneNumber" in a folder named "Feature"</summary>
 
         ```csharp
-        public class CheckPhoneNumber : SimpleFeatureToggle { }
+        using FeatureToggle;
+
+        namespace aspnet_core_dotnet_core.Features
+        {
+            public class CheckPhoneNumber : SimpleFeatureToggle { }
+        }
         ```
     </details>
 
     - <details><summary>Add class "ContactViewModel" in a folder named "Models". This class will be used to bring the Feature Toggle setting to the Contact page</summary>
 
         ```csharp
-        public class ContactViewModel
+        using FeatureToggle;
+
+        namespace aspnet_core_dotnet_core.Models
         {
-            public IFeatureToggle CheckPhoneNumber { get; set; }
+            public class ContactViewModel
+            {
+                public IFeatureToggle CheckPhoneNumber { get; set; }
 
-            public string Name { get; set; }
+                public string Name { get; set; }
 
-            public int PhoneNumber { get; set; }
+                public int? PhoneNumber { get; set; }
+            }
         }
         ```
     </details>
@@ -107,7 +115,7 @@ Based on [this](https://microsoft.github.io/PartsUnlimited/advanced/FeatureFlagW
             public void ConfigureServices(IServiceCollection services)
             {
                 // Set provider config so file is read from content root path
-                var provider = new AppSettingsProvider { Configuration = (IConfiguration)Configuration };
+                var provider = new AppSettingsProvider { Configuration = Configuration };
 
                 // Add your feature here
                 services.AddSingleton(new CheckPhoneNumber { ToggleValueProvider = provider });
@@ -155,11 +163,15 @@ Based on [this](https://microsoft.github.io/PartsUnlimited/advanced/FeatureFlagW
     </details>
 
 1. Run the web application locally and test the new Contact form:
+
     1. Disable the feature by editing the config, set it to false, reload the page:
 
         1. Enter any phone number and hit submit. Notice how no validation error is given
+
     1. Enable the feature, reload the page:
+
         1. Enter phone number 0123456789, hit submit, and notice the validation error
+
         1. Enter phone number 123-123-5678, submit and notice the page refreshes without error
 
 1. Push your code changes and let your pipeline do it's job
