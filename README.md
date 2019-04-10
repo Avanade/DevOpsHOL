@@ -11,7 +11,7 @@ The course contains the following labs:
 | [Prerequisites - Set up your development environment with PowerShell and ARM](azure-rm/README.md) | 30 |
 | [Lab 1 - Continuous Integration with Azure DevOps](azure-devops-project/README.md) | 60 |
 | [Lab 2 - Multi-stage deployments with Azure DevOps](multi-stage-deployments/README.md) | 45 |
-| [Lab 3 - UI Testing with Selenium and Azure DevOps](ui-testing/README.md) | 90 minutes |
+| [Lab 3 - UI Testing with Selenium and Azure DevOps](ui-testing/README.md) | 90 |
 | [Lab 4 - Static code analysis with SonarQube](sonarqube/README.md) | 45 |
 | [Lab 5 - Feature Toggles](feature-flag/README.md) | 45 |
 | [[**Optional**] Lab 6 - Security Verification Tests in your CD pipeline](security-testing/README.md) | 45 |
