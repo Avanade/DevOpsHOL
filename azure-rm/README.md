@@ -1,11 +1,16 @@
-# Avanade DevOps HOL - Prerequisites - Set up your development environment with PowerShell and ARM
-If you are taking the Avanade DevOps Practitioners course, then the following are pre-requisites for the beginning of the course.  The pre-requisites are straightforward but a few of the tasks take some time so doing this before the class will save time during the course and allow you to get the maximum value from the class.
+# Prerequisites lab - Set up your development environment
+Follow this lab to set up a development environment for the course labs. Creating the environment can take some time, so it is recommended to complete this before attending the course.
 
-## Preparing your Azure subscription
+## Prepare Azure DevOps and Azure subscription
 
-Make sure your Azure subscription is enabled and you can log in and create resources. Visit the [Azure Portal](https://portal.azure.com) to verify.
+1. Make sure you have an active Azure DevOps account.\
+[Sign up for Azure DevOps](https://dev.azure.com/)
 
-If you are using your Avanade email to access the Azure portal, then you will need to create a new Active Directory instance. This is because the labs require creating an enterprise application id and individual users do not have permissions to create enterprise applications on the Avanade AD instance.
+2. Make sure you have an active Azure subscription.\
+Sign in to the [Azure Portal](https://portal.azure.com) to verify you can log in and create resources.\
+If you used a (Avanade) organization MDSN account, go to the next step.
+
+3. (only for organization accounts) If you are using your Avanade email to access the Azure portal, then you will need to create a new Active Directory instance. This is because the labs require creating an enterprise application id and individual users do not have permissions to create enterprise applications on the Avanade AD instance.
 
 - In the [Azure Portal](https://portal.azure.com), *Create a Resource* of *Azure Active Directory* with a meaningful name. This is probably something you will use as a general purpose AD instance (i.e. not just for the class) so you may want to name it appropriately.
 
@@ -14,44 +19,33 @@ If you are using your Avanade email to access the Azure portal, then you will ne
 	- On the Subscriptions' Overview panel, choose the -> Change directory link and select the new AD instance that you just created.
 		- For more information, you can reference [Associate an existing subscription to your Azure AD directory](https://docs.microsoft.com/en-us/azure/active-directory/active-directory-how-subscriptions-associated-directory#to-associate-an-existing-subscription-to-your-azure-ad-directory)
 
-## Preparing a Development environment
+## Prepare development environment
 
-1. Make sure you have an active Azure DevOps account.<br>
-[Sign up for Azure DevOps](https://dev.azure.com/)
+1. Create a DevTest lab\
+Follow instructions from [Create a lab in Azure DevTest Labs](https://docs.microsoft.com/azure/lab-services/devtest-lab-create-lab). Ensure the following settings:
+   - Lab name: devopslab
+   - Resource group: devopslab (new)
+   - Location: West Europe
+   - Auto-shutdown: default (Enabled, 19:00)
 
-2. Verify that PowerShell v5+ is installed along with the AzureRM modules.
-    - Install-Module Powershellget -Force
-    - Install-Module -Name AzureRm -AllowClobber
-    - Import-Module -Name AzureRM
+2. Add a Virtual Machine to your DevTest lab\
+Follow instructions from [Add a VM to a lab in Azure DevTest Labs](https://docs.microsoft.com/azure/lab-services/devtest-lab-add-vm). Ensure the following settings:
+   - Choose a base: Visual Studio 2019 Community on Windows 10 Enterprise N (x64)
+   - Virtual machine name: devopsvm
+   - User name: devopshol
+   - Password: ADP#2019
+   - Virtual machine size: Standard_B8ms
+   - OS disk type: Standard SSD
+   - Artifacts selection: Install Chocolatey Packages, configuration:
+     - Packages: git,vscode,googlechrome
+     - Allow Empty Checksums: true
+     - Ignore Checksums: true
 
-3. Using an Azure development environment is strongly encouraged. This avoids conflicts with your existing development environment.  Complete the steps listed below in the [Azure Development Environment](#azure-development-environment).
-
-4. Complete the [Getting Started](getting-started/README.md) lab. This will make sure that your environment is correctly configured and ready to execute the remaining labs in the course.
-
-5. Configure a private Build/Release agent from the [Private Agent](private-agent/README.md) lab.
-
-## Set up the Azure Development Environment
-You can either configure an Azure development environment on your own or use the PowerShell script provided by this lab. This will create a DevTestLab in a new Azure Resource Group and then configure an Azure VM with Windows 10 and the latest Visual Studio Community edition. It will also use Chocolatey to install a collection of other tools and applications.
-
->**Note:** Not all VM SKUs are available in every region.  You can get the list of SKUs in a particular location with the following PowerShell commands.
-```PowerShell
-$locName="South Central US"
-Get-AzureRMVMImageSku -Location $locName -Publisher "MicrosoftVisualStudio" -Offer "VisualStudio" | Select Skus
-```
-
-To start setting up your environment, follow these steps:
-
-1. Clone this repository or download the [azure-rm](../azure-rm) folder and extract the files on your system.
-
-1. Open **ProvisionEnvironment.ps1** and modify the following lines of PowerShell code in the top of the file:
-    ```PowerShell
-    $subscriptionName = "Services"  # Change to the name of your azure subscription
-    $ResourceGroupName = "adp2019"  # Change if you want to name the resource group differently
-    ```
-
-1. Then open a PowerShell console in the same folder and execute the file: .\ProvisionEnvironment.ps1
-
-1. Watch how the script will create your required resources in Azure. **The  process may take 20 minutes.**
+3. Verify connection to the Virtual Machine
+   - Wait untill the virtual machine is fully provisioned and the artifacts are applied.\
+   *(this can take up to 20 minutes)*
+   - Verify you can use the virtual machine by connecting to it:\
+   Select 'Connect' in the Virtual machine Overview in the portal and provide the credentials you used in the previous step. 
 
 ## Next steps
-Return to [the lab index](../README.md) and continue with the next lab.
+Return to the [Lab index](../README.md) to continue with the course labs.
