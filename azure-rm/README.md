@@ -22,28 +22,27 @@ If you used a (Avanade) organization MDSN account, go to the next step.
 ## Prepare development environment
 
 1. Create a DevTest lab\
-[Create a lab in Azure DevTest Labs](https://docs.microsoft.com/azure/lab-services/devtest-lab-create-lab). Use settings:
-        
-        Lab name: devopslab
-        Resource group: devopslab (new)
-        Location: West Europe
-        Auto-shutdown: default (Enabled, 19:00)
+Follow instructions from [Create a lab in Azure DevTest Labs](https://docs.microsoft.com/azure/lab-services/devtest-lab-create-lab). Ensure the following settings:
+   - Lab name: devopslab
+   - Resource group: devopslab (new)
+   - Location: West Europe
+   - Auto-shutdown: default (Enabled, 19:00)
 
-2. Add a Virtual Machine to your DevTest lab lab\
-[Add a VM to a lab in Azure DevTest Labs](https://docs.microsoft.com/azure/lab-services/devtest-lab-add-vm). Use settings:
+2. Add a Virtual Machine to your DevTest lab\
+Follow instructions from [Add a VM to a lab in Azure DevTest Labs](https://docs.microsoft.com/azure/lab-services/devtest-lab-add-vm). Ensure the following settings:
+   - Choose a base: Visual Studio 2019 Community on Windows 10 Enterprise N (x64)
+   - Virtual machine name: devopsvm
+   - User name: devopshol
+   - Password: ADP#2019
+   - Virtual machine size: Standard_B8ms
+   - OS disk type: Standard SSD
+   - Artifacts selection: Git, Visual Studio Code, Chrome
 
-        Choose a base: Visual Studio 2019 Community on Windows 10 Enterprise N (x64)
-        Virtual machine name: devopsvm
-        User name: devopshol
-        Password: ADP#2019
-        Virtual machine size: Standard_B8ms
-        OS disk type: Standard SSD
-        Artifacts selection: Git, Visual Studio Code, Chrome
-
-3. Verify connection to the Virtual Machine\
-*Wait untill the virtual machine is fully provisioned and the artifacts are applied\
-(this can take up to 20 minutes).*\
-Verify you can use the virtual machine by connecting to it: Select 'Connect' in the Virtual machine Overview in the portal and provide the credentials you used in the previous step. 
+3. Verify connection to the Virtual Machine
+   - Wait untill the virtual machine is fully provisioned and the artifacts are applied.\
+   *(this can take up to 20 minutes)*
+   - Verify you can use the virtual machine by connecting to it:\
+   Select 'Connect' in the Virtual machine Overview in the portal and provide the credentials you used in the previous step. 
 
 ## Next steps
 Return to the [Lab index](../README.md) to continue with the course labs.
