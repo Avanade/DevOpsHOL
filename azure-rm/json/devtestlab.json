@@ -1,0 +1,239 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "newLabName": {
+      "type": "string",
+      "defaultValue": "FabrikamDemoLab",
+      "metadata": {
+        "description": "The name of the new lab instance to be created."
+      }
+    },
+    "timeZoneId": {
+      "type": "string",
+      "defaultValue": "UTC",
+      "metadata": {
+        "description": "The timezone of the lab."
+      }
+    },
+    "labVmShutDownTime": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 5,
+      "defaultValue": "21:00",
+      "metadata": {
+        "description": "Set 'Auto Shutdown' policy: The UTC time at which the Lab VMs will be automatically shutdown (E.g. 17:30, 20:00, 09:00)."
+      }
+    },
+    "maxAllowedVmsPerUser": {
+      "type": "int",
+      "minValue": 0,
+      "defaultValue": 10,
+      "metadata": {
+        "description": "Set 'max VM allowed per user' policy: The maximum number of VMs allowed per user."
+      }
+    },
+    "maxAllowedVmsPerLab": {
+      "type": "int",
+      "minValue": 0,
+      "defaultValue": 100,
+      "metadata": {
+        "description": "Set 'Total VMs allowed in Lab' policy: The maximum number of VMs allowed per lab."
+      }
+    },
+    "vmSize": {
+      "type": "string",
+      "defaultValue": "Standard_D1",
+      "metadata": {
+        "description": "The size of all the VMs to be created in the lab."
+      }
+    },
+    "vmStorageType": {
+      "type": "string",
+      "defaultValue": "Premium",
+      "metadata": {
+        "description": "The storage type ('Premium' or 'Standard') of all the VMs to be created in the lab."
+      }
+    },
+    "vmUsername": {
+      "type": "string",
+      "defaultValue": "demolab",
+      "metadata": {
+        "description": "The username for the local account that will be created on all the new VMs."
+      }
+    },
+    "vmPassword": {
+      "type": "securestring",
+      "defaultValue": "<3DevTestLabs!",
+      "metadata": {
+        "description": "The password for the local account that will be created on all the new VMs."
+      }
+    },
+    "offer": {
+      "type": "string",
+      "defaultValue": "visualstudio2019"
+    },
+    "publisher": {
+      "type": "string",
+      "defaultValue": "microsoftvisualstudio"
+    },
+    "sku": {
+      "type": "string",
+      "defaultValue": "vs-2019-comm-win10-n"
+    },
+    "osType": {
+      "type": "string",
+      "defaultValue": "Windows"
+    },
+    "version": {
+      "type": "string",
+      "defaultValue": "latest"
+    },
+    "chocolatey_packages": {
+      "type": "string",
+      "defaultValue": "git,vscode,googlechrome",
+      "metadata": {
+        "description": "The packages that will be installed by chocolatey on the new vm."
+      }
+    },
+    "chocolatey_allowEmptyChecksums": {
+      "type": "bool",
+      "defaultValue": true
+    },
+    "chocolatey_ignoreChecksums": {
+      "type": "bool",
+      "defaultValue": true
+    }
+  },
+  "variables": {
+    "newLabId": "[resourceId('Microsoft.DevTestLab/labs', parameters('newLabName'))]",
+    "labVirtualNetworkName": "[concat('Dtl', parameters('newLabName'))]",
+    "labSubnetName": "[concat(variables('labVirtualNetworkName'), 'Subnet')]",
+    "labVirtualNetworkId": "[concat('/virtualnetworks/', variables('labVirtualNetworkName'))]",
+    "vmFormulaName": "[concat(parameters('newLabName'), '/Developer')]",
+    "vmFormulaDescription": "[concat('Formula for lab VMs in ', parameters('newLabName'))]"
+  },
+  "resources": [
+    {
+      "apiVersion": "2017-04-26-preview",
+      "type": "Microsoft.DevTestLab/labs",
+      "name": "[parameters('newLabName')]",
+      "location": "[resourceGroup().location]",
+      "resources": [
+        {
+          "apiVersion": "2017-04-26-preview",
+          "name": "[variables('labVirtualNetworkName')]",
+          "type": "virtualnetworks",
+          "dependsOn": [
+            "[variables('newLabId')]"
+          ]
+        },
+        {
+          "apiVersion": "2017-04-26-preview",
+          "name": "LabVmsShutdown",
+          "type": "schedules",
+          "dependsOn": [
+            "[variables('newLabId')]"
+          ],
+          "properties": {
+            "status": "Enabled",
+            "timeZoneId": "[parameters('timeZoneId')]",
+            "taskType": "LabVmsShutdownTask",
+            "dailyRecurrence": {
+              "time": "[replace(parameters('labVmShutDownTime'),':','')]"
+            }
+          }
+        },
+        {
+          "apiVersion": "2017-04-26-preview",
+          "name": "default/MaxVmsAllowedPerUser",
+          "type": "policysets/policies",
+          "dependsOn": [
+            "[variables('newLabId')]"
+          ],
+          "properties": {
+            "description": "",
+            "factName": "UserOwnedLabVmCount",
+            "threshold": "[string(parameters('maxAllowedVmsPerUser'))]",
+            "evaluatorType": "MaxValuePolicy",
+            "status": "enabled"
+          }
+        },
+        {
+          "apiVersion": "2017-04-26-preview",
+          "name": "default/MaxVmsAllowedPerLab",
+          "type": "policysets/policies",
+          "dependsOn": [
+            "[variables('newLabId')]"
+          ],
+          "properties": {
+            "description": "",
+            "factName": "LabVmCount",
+            "threshold": "[string(parameters('maxAllowedVmsPerLab'))]",
+            "evaluatorType": "MaxValuePolicy",
+            "status": "enabled"
+          }
+        }
+      ]
+    },
+    {
+      "apiVersion": "2017-04-26-preview",
+      "type": "Microsoft.DevTestLab/labs/formulas",
+      "name": "[variables('vmFormulaName')]",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[variables('newLabId')]"
+      ],
+      "properties": {
+        "description": "[variables('vmFormulaDescription')]",
+        "osType": "[parameters('osType')]",
+        "formulaContent": {
+          "properties": {
+            "size": "[parameters('vmSize')]",
+            "userName": "[parameters('vmUsername')]",
+            "password": "[parameters('vmPassword')]",
+            "labSubnetName": "[variables('labSubnetName')]",
+            "labVirtualNetworkId": "[variables('labVirtualNetworkId')]",
+            "allowClaim": true,
+            "storageType": "[parameters('vmStorageType')]",
+            "galleryimagereference": {
+              "Sku": "[parameters('sku')]",
+              "OsType": "[parameters('osType')]",
+              "Publisher": "[parameters('publisher')]",
+              "Offer": "[parameters('offer')]",
+              "Version": "[parameters('version')]"
+            },
+            "networkInterface": {
+              "virtualNetworkId": "[variables('labVirtualNetworkId')]"
+            },
+            "artifacts": [
+              {
+                "artifactid": "/artifactsources/public repo/artifacts/windows-chocolatey",
+                "parameters": [
+                  {
+                    "name": "packages",
+                    "value": "[parameters('chocolatey_packages')]"
+                  },
+                  {
+                    "name": "allowEmptyChecksums",
+                    "value": "[parameters('chocolatey_allowEmptyChecksums')]"
+                  },
+                  {
+                    "name": "ignoreChecksums",
+                    "value": "[parameters('chocolatey_ignoreChecksums')]"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "outputs": {
+    "labId": {
+      "type": "string",
+      "value": "[resourceId('Microsoft.DevTestLab/labs', parameters('newLabName'))]"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "newVMName": {
+            "value": "devopsvm"
+        },
+        "existingLabName": {
+            "value": "devopslab"
+        },
+        "newVMSize": {
+            "value": "Standard_B8ms"
+        },
+        "userName": {
+            "value": "devopshol"
+        },
+        "password": {
+            "value": "ADP#2019"
+        },
+        "chocolatey_packages": {
+            "value": "git,vscode,googlechrome"
+        },
+        "offer": {
+            "value": "visualstudio2019"
+        },
+        "publisher": {
+            "value": "microsoftvisualstudio"
+        },
+        "sku": {
+            "value": "vs-2019-comm-win10-n"
+        },
+        "osType": {
+            "value": "Windows"
+        },
+        "version": {
+            "value": "latest"
+        }
+    }
+}
