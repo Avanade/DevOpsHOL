@@ -8,11 +8,11 @@ The course contains the following labs:
 
 | Lab       | Estimated Effort |
 | --------- |:--------------------------:|
-| [Prerequisites lab - Set up your development environment](azure-rm/README.md) | 30 minutes |
-| [Lab 1 - Create a CI/CD pipeline for .NET with the Azure DevOps Project](azure-devops-project/README.md) | 60 minutes |
-| [Lab 2 - Add QA environment and define your multi-stage continuous deployment process with approvals and gates](multi-stage-deployments/README.md) | 45 minutes |
-| [Lab 3 - Analysis with SonarQube](sonarqube/README.md) | 45 minutes |
-| [Lab 4 - Feature Toggle](feature-flag/README.md) | 45 minutes |
-| [Lab 5 - UI Testing](ui-testing/README.md) | 90 minutes |
-| [Lab 6 - Smoke Testing](smoke-testing/README.md) | 45 minutes |
-| [[**Optional**] Lab 7 - Security Verification Tests in your CD pipeline](security-testing/README.md) | 45 minutes |
+| [Prerequisites - Set up your development environment](azure-rm/README.md) | 30 minutes |
+| [Lab 1 - Continuous Integration with Azure DevOps](azure-devops-project/README.md) | 60 minutes |
+| [Lab 2 - Multi-stage deployments with Azure DevOps](multi-stage-deployments/README.md) | 45 minutes |
+| [Lab 3 - UI Testing with Selenium and Azure DevOps](ui-testing/README.md) | 90 minutes |
+| [Lab 4 - Static code analysis with SonarQube](sonarqube/README.md) | 45 minutes |
+| [Lab 5 - Feature Toggles](feature-flag/README.md) | 45 minutes |
+| [[**Optional**] Lab 6 - Security Verification Tests in your CD pipeline](security-testing/README.md) | 45 minutes |
+| [Lab 7 - Validating the release with automated Smoke Testing](smoke-testing/README.md) | 45 minutes |
