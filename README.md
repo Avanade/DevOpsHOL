@@ -17,4 +17,4 @@ The order in which they are presented, is the recommended order to run through t
 | [Lab 4 - Static code analysis with SonarQube](sonarqube/README.md) | 45 |
 | [Lab 5 - Feature Toggles](feature-flag/README.md) | 45 |
 | [[**Optional**] Lab 6 - Security Verification Tests in your CD pipeline](security-testing/README.md) | 45 |
-| [Lab 7 - Validating the release with automated Smoke Testing](smoke-testing/README.md) | 45 | 
+| [Lab 7 - Validating the release with automated Smoke Testing](smoke-testing/README.md) | 45 |
