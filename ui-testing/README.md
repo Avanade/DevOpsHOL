@@ -16,20 +16,6 @@ Based on the following tutorials:
 
 ## Tasks for local UI Testing
 
-1. Remove the sample test (SampleFunctionalTests.cs) from the **FunctionalTests** project if it exists
-
-1. Add the following NuGet packages to the **FunctionalTests** project:
-   - Selenium.Support
-   - Selenium.WebDriver
-   - Selenium.Chrome.WebDriver
-
-1. We need to ensure that the Selenium Chrome driver executable will be copied to the output during publishing. Edit your **FunctionalTests** project file and add the following:
-    ```xml
-    <PropertyGroup>
-        <PublishChromeDriver>true</PublishChromeDriver>
-    </PropertyGroup>
-    ```
-
 1. Modify the .runsettings file if it already exists, or add a new .runsettings file with the following content:
     <details><summary>Click here to view the contents</summary>
 
@@ -151,7 +137,7 @@ Based on the following tutorials:
         ```
    </details>
 
-1. Add a new class UITests to the **FunctionalTests** project.
+1. Remove SampleFunctionalTests from the project if it exists, and add a new class UITests to the **FunctionalTests** project.
     <details><summary>Click here to view the code</summary>
 
     ```csharp
