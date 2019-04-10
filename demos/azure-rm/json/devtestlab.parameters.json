@@ -1,0 +1,51 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "newLabName": {
+      "value": "devopslab"
+    },
+    "timeZoneId": {
+      "value": "W. Europe Standard Time"
+    },
+    "labVmShutDownTime": {
+      "value": "21:00"
+    },
+    "maxAllowedVmsPerUser": {
+      "value": 3
+    },
+    "maxAllowedVmsPerLab": {
+      "value": 100
+    },
+    "vmSize": {
+      "value": "Standard_B8ms"
+    },
+    "vmStorageType": {
+      "value": "Standard"
+    },
+    "vmUsername": {
+      "value": "devopshol"
+    },
+    "vmPassword": {
+      "value": "ADP#2019"
+    },
+    "offer": {
+      "value": "visualstudio2019"
+    },
+    "publisher": {
+      "value": "microsoftvisualstudio"
+    },
+    "sku": {
+      "value": "vs-2019-comm-win10-n"
+    },
+    "osType": {
+      "value": "Windows"
+    },
+    "version": {
+      "value": "latest"
+    },
+    "chocolatey_packages": {
+      "value": "git,vscode,googlechrome"
+    }
+  }
+}

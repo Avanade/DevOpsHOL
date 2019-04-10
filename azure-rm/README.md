@@ -1,4 +1,4 @@
-# Prerequisites lab - Set up development environment
+# Prerequisites lab - Set up your development environment
 Follow this lab to set up a development environment for the course labs. Creating the environment can take some time, so it is recommended to complete this before attending the course.
 
 ## Prepare Azure DevOps and Azure subscription
@@ -36,7 +36,10 @@ Follow instructions from [Add a VM to a lab in Azure DevTest Labs](https://docs.
    - Password: ADP#2019
    - Virtual machine size: Standard_B8ms
    - OS disk type: Standard SSD
-   - Artifacts selection: Git, Visual Studio Code, Chrome
+   - Artifacts selection: Install Chocolatey Packages, configuration:
+     - Packages: git,vscode,googlechrome
+     - Allow Empty Checksums: true
+     - Ignore Checksums: true
 
 3. Verify connection to the Virtual Machine
    - Wait untill the virtual machine is fully provisioned and the artifacts are applied.\
