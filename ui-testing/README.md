@@ -1,6 +1,6 @@
 # Avanade DevOps HOL - UI Testing
 
-In this lab, we add ui tests to our test project.
+In this lab, we will add ui tests to our test project. 
 
 Based on the following tutorials:
 
@@ -9,19 +9,19 @@ Based on the following tutorials:
 
 ## Prerequisites
 
+- The [Azure Devops Project](../azure-devops-project/README.md) lab.
 - A Virtual Machine on Azure. Follow [prerequisites](../getting-started/README.md) to set it up.
 - Set up a private VSTS agent using [this tutorial](../private-agent/README.md).
 - Optional: complete [Feature Flag](../feature-flag/README.md) lab.
 
 ## Tasks for local UI Testing
 
-1. Add a new Unit Test Project "**Tests**" (.NET Framework 4.7.1) and add the following NuGet packages:
-   - Selenium.Support (Includes Selenium.WebDriver)
-   - Selenium.WebDriver.PhantomJS
-   - (optional but recommended)Selenium.Chrome.WebDriver
-   - (optional)Selenium.WebDriver.IEDriver
+1. Add the following NuGet packages to the **FunctionalTests** project:
+   - Selenium.Support
+   - Selenium.WebDriver
+   - Selenium.Chrome.WebDriver
 
-1. Add new file local.runsettings to the **Tests** project.
+1. Modify the .runsettings file if it already exists, or add a new .runsettings file with the following content:
     <details><summary>Click here to view the contents</summary>
 
     ```xml
@@ -34,7 +34,7 @@ Based on the following tutorials:
     ```
     </details>
 
-1. Add folder PageObjects and add classes for all the pages to the **Tests** project.
+1. Add folder PageObjects and add classes for all the pages to the **FunctionalTests** project.
    - <details><summary>Code for BasePage</summary>
 
         ```csharp
@@ -100,7 +100,8 @@ Based on the following tutorials:
 
         ```csharp
         using OpenQA.Selenium;
-        
+        using OpenQA.Selenium.Support.PageObjects;
+
         class AboutPage : BasePage
         {
             public AboutPage(IWebDriver driver, string baseUrl) : base(driver, baseUrl)
@@ -122,6 +123,7 @@ Based on the following tutorials:
 
         ```csharp
         using OpenQA.Selenium;
+        using OpenQA.Selenium.Support.PageObjects;
         
         class ContactPage : BasePage
         {
@@ -140,118 +142,130 @@ Based on the following tutorials:
         ```
    </details>
 
-
-1. Add new class UITests to the **Tests** project.
+1. Remove SampleFunctionalTests from the project if it exists, and add a new class UITests to the **FunctionalTests** project.
     <details><summary>Click here to view the code</summary>
 
     ```csharp
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using OpenQA.Selenium;
-    using OpenQA.Selenium.PhantomJS;
+    using OpenQA.Selenium.Chrome;
     using OpenQA.Selenium.Remote;
     using System;
     using System.Drawing;
     using System.IO;
 
-    [TestClass]
-    public class UITests
+    namespace aspnet_core_dotnet_core.FunctionalTests
     {
-        public TestContext TestContext { get; set; }
-
-        private RemoteWebDriver _driver;
-        private string _siteUrl;
-
-        [TestInitialize()]
-        public void MyTestInitialize()
+        [TestClass]
+        public class UITests
         {
-            if (TestContext.Properties.Contains("siteUrl"))
+            private static TestContext _testContext;
+            private RemoteWebDriver _driver;
+            private string _siteUrl;
+
+            [ClassInitialize]
+            public static void Initialize(TestContext testContext)
             {
-                _siteUrl = TestContext.Properties["siteUrl"].ToString();
+                _testContext = testContext;
             }
 
-            // PhantomJS
-            _driver = new PhantomJSDriver(Directory.GetCurrentDirectory());
-
-            // Chrome
-            //var options =new ChromeOptions();
-            //options.AddArguments("headless");
-            //_driver = new ChromeDriver(Directory.GetCurrentDirectory(),options);
-
-            // Internet Explorer
-            //_driver = new InternetExplorerDriver(Directory.GetCurrentDirectory());
-
-            // Shared driver settings
-            _driver.Manage().Window.Size = new Size(1920, 1080);
-            _driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(10);
-            
-            // UITest working locally but not in VSTS with the PhantomJSDriver
-            // Test results in VSTS always showed a timeout exception with VS2017 hosted agent
-            // and with local agent in dev machine. Test method UITests.Test threw exception: OpenQA.Selenium.WebDriverTimeoutException: 
-            // To fix this I have increased the timeouts on pageload as well as implicit wait time as shown below
-            // Shared driver settings
-            // _driver.Manage().Window.Size = new Size(1920, 1080);
-            // _driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(20);
-            // _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
-
-        }
-
-        [TestMethod]
-        [TestCategory("UI")]
-        [Priority(1)]
-        [Owner("PhantomJS")]
-
-        public void Test()
-        {
-            try
+            [TestInitialize()]
+            public void MyTestInitialize()
             {
-                var page = new HomePage(_driver, _siteUrl);
-                page.GoToPage();
-                SaveAsImage(_driver.GetScreenshot(), "Home.png");
-                page.GoToContactPage();
-                SaveAsImage(_driver.GetScreenshot(), "Contact.png");
-                page.GoToAboutPage();
-                SaveAsImage(_driver.GetScreenshot(), "About.png");
-               var containerDiv = _driver.FindElement(By.ClassName("body-content"));
-               var header = containerDiv.FindElement(By.TagName("h3"));
-               Assert.AreEqual("Your application description page.", header.Text);
+                if (_testContext.Properties["siteUrl"] != null)
+                {
+                    _siteUrl = _testContext.Properties["siteUrl"].ToString();
+                }
+
+                // Chrome
+                var options = new ChromeOptions();
+                options.AddArguments("headless");
+                _driver = new ChromeDriver(Directory.GetCurrentDirectory(), options);
+
+                // Driver settings
+                _driver.Manage().Window.Size = new Size(1920, 1080);
+                _driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(20);
+                _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             }
-            catch (NoSuchElementException)
+
+            [TestMethod]
+            [TestCategory("UI")]
+            public void Test()
             {
-                SaveAsImage(_driver.GetScreenshot(), "Error.png");
-                throw;
+                try
+                {
+                    var page = new HomePage(_driver, _siteUrl);
+                    page.GoToPage();
+                    SaveAsImage(_driver.GetScreenshot(), "Home.png");
+                    page.GoToContactPage();
+                    SaveAsImage(_driver.GetScreenshot(), "Contact.png");
+                    page.GoToAboutPage();
+                    SaveAsImage(_driver.GetScreenshot(), "About.png");
+                    var containerDiv = _driver.FindElement(By.ClassName("body-content"));
+                    var header = containerDiv.FindElement(By.TagName("h3"));
+                    Assert.AreEqual("Your application description page.", header.Text);
+                }
+                catch (NoSuchElementException)
+                {
+                    SaveAsImage(_driver.GetScreenshot(), "Error.png");
+                    throw;
+                }
             }
-        }
 
-        [TestCleanup()]
-        public void MyTestCleanup()
-        {
-            _driver.Quit();
-        }
-
-        private void SaveAsImage(OpenQA.Selenium.Screenshot screenshot, string name)
-        {
-            var timestamp = DateTime.UtcNow.ToString("yyyyMMdd-HHmmss.fff");
-            var fileName = $"{timestamp} {name}";
-            if (File.Exists(fileName)) File.Delete(fileName);
-
-            using (var stream = new FileStream(fileName, FileMode.CreateNew))
-            using (var w = new BinaryWriter(stream))
+            [TestCleanup()]
+            public void MyTestCleanup()
             {
-                w.Write(screenshot.AsByteArray);
+                _driver.Close();
+                _driver.Quit();
             }
-            TestContext.AddResultFile(Path.Combine(Directory.GetCurrentDirectory(), fileName));
+
+            private void SaveAsImage(Screenshot screenshot, string name)
+            {
+                var timestamp = DateTime.UtcNow.ToString("yyyyMMdd-HHmmss.fff");
+                var fileName = $"{timestamp} {name}";
+                screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Png);
+            }
         }
     }
     ```
     </details>
 
-1. Configure Visual Studio to [use the local.runsettings](https://docs.microsoft.com/en-us/visualstudio/test/configure-unit-tests-by-using-a-dot-runsettings-file) file
+1. Configure Visual Studio to [use the .runsettings](https://docs.microsoft.com/en-us/visualstudio/test/configure-unit-tests-by-using-a-dot-runsettings-file) file
 
-1. Run all unit tests and make sure that all succeed
+1. Start your website, so that it's running on the url that you specified in the .runsettings file
+
+1. Run the UI test and make sure that it succeeds
 
 ## Tasks for UI Testing in the Staging environment
 
-1. Add new file vsts.runsettings to the **Tests** project, with "Copy to Output directory" set to "Copy always". Notice the different value of the parameter. This is a token that will be replaced by an actual Url during the Release in VSTS.
+1. Edit your Build Definition, to use a different Agent Pool:
+
+    - Change the Agent Pool to "Hosted Windows 2019 with VS2019". The default Linux Agent does not seem to handle .exe files, as the extension is stripped from those files during publishing.
+
+1. Edit your Release Definition, QA environment
+
+    - Change the Agent Pool to "Hosted Windows 2019 with VS2019". We need a windows agent here in order to use ChromeDriver.exe
+
+    - Add task: [Replace Tokens (by Guillaume Rouchon)](https://marketplace.visualstudio.com/items?itemName=qetza.replacetokens&targetId=af3daf82-7dfb-457e-a101-fb27736d03ca) (You'll need to add this to your organization, then re-open the Editor to add this task type)
+        - Root directory: $(System.DefaultWorkingDirectory)/Drop/drop/FunctionalTests
+        - Target files: **/*.runsettings
+
+    - Add task: .NET Core
+        - Command: custom
+        - Custom command: vstest
+        - Arguments (Replace the .dll with your own, if the project was named otherwise):
+            ```
+            aspnet-core-dotnet-core.FunctionalTests.dll --logger:"trx;LogFileName=functionalTestsResults.trx" --Settings:$(System.DefaultWorkingDirectory)/Drop/drop/FunctionalTests/release.runsettings --ResultsDirectory:.
+            ```
+            
+    - Add task: Publish Test Results
+        - Test result format: VSTest
+        - Test results files: **/*.trx
+        - Search folder: $(System.DefaultWorkingDirectory)/Drop/drop/FunctionalTests
+        - 
+    - Go to the Variables tab, add variable "SiteUrl" with Scope "Staging" and url "https://\<yourappservice\>-staging.azurewebsites.net"
+
+1. Add new file release.runsettings to the **FunctionalTests** project, with "Copy to Output directory" set to "Copy always". Notice the different value of the parameter. This is a token that will be replaced by an actual Url during the Release in Azure DevOps.
     <details><summary>Click here to view the contents</summary>
 
     ```xml
@@ -264,27 +278,12 @@ Based on the following tutorials:
     ```
     </details>
 
-1. Edit your Build Definition (save, do not queue)
-    1. Add task "NuGet restore" after the "Restore" task:
-        - Set the path to your Test project's packages.config (Tests/Tests.csproj)
-        - Under Advanced, set the destination to: ../packages
-    1. Change the Test task by adding the following argument: --filter TestCategory!=UI
-    1. Add task "Publish build artifact" after the other Publish task, with the following settings:
-        - Path to publish: \<yourtestprojectfolder\>/bin
-        - Artifact name: tests
-        - Artifact publish location: VSTS
-
-1. Edit your Release Definition, Staging environment
-    1. Add task: Replace Tokens (by Guillaume Rouchon) (You'll need to add this to VSTS, then re-edit to add this task type)
-        - Root directory: $(System.DefaultWorkingDirectory)/_DevOpsHOL-CI/tests
-        - Target files: **/*.runsettings
-        - Token prefix: #{
-        - Token suffix: }#
-    1. Add task: Visual Studio Test
-        - Search folder: $(System.DefaultWorkingDirectory)/_DevOpsHOL-CI/tests
-        - Test filter criteria: TestCategory=UI
-        - Settings file: $(System.DefaultWorkingDirectory)/_DevOpsHOL-CI/tests/Release/vsts.runsettings
-    1. Go to the Variables tab, add variable "SiteUrl" with Scope "Staging" and url "https://\<yourappservice\>-staging.azurewebsites.net"
+1. We need to ensure that the Selenium Chrome driver executable will be copied to the output during publishing. Edit your **FunctionalTests** project file and add the following:
+    ```xml
+    <PropertyGroup>
+        <PublishChromeDriver>true</PublishChromeDriver>
+    </PropertyGroup>
+    ```
 
 1. Commit your code to trigger a build and release
 
@@ -292,8 +291,8 @@ Based on the following tutorials:
 
 ## Stretch goals
 
-1. Run the same UI test with a different driver (Chrome, Internet Explorer)
-2. Introduce a failing test and verify that the deployment stops with the failed test.
+1. Introduce a failing test and verify that the deployment stops with the failed test.
+1. Upload the Test screenshots to Azure DevOps. https://stackoverflow.com/questions/52823650/selenium-screenshots-in-vsts-azure-devops
 
 ## Next steps
 Return to [the lab index](../README.md) and continue with the next lab.
