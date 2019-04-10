@@ -16,11 +16,6 @@ Based on the following tutorials:
 
 ## Tasks for local UI Testing
 
-1. Add the following NuGet packages to the **FunctionalTests** project:
-   - Selenium.Support
-   - Selenium.WebDriver
-   - Selenium.Chrome.WebDriver
-
 1. Modify the .runsettings file if it already exists, or add a new .runsettings file with the following content:
     <details><summary>Click here to view the contents</summary>
 
@@ -257,7 +252,7 @@ Based on the following tutorials:
             ```
             aspnet-core-dotnet-core.FunctionalTests.dll --logger:"trx;LogFileName=functionalTestsResults.trx" --Settings:$(System.DefaultWorkingDirectory)/Drop/drop/FunctionalTests/release.runsettings --ResultsDirectory:.
             ```
-            
+
     - Add task: Publish Test Results
         - Test result format: VSTest
         - Test results files: **/*.trx
@@ -277,13 +272,6 @@ Based on the following tutorials:
     </RunSettings>
     ```
     </details>
-
-1. We need to ensure that the Selenium Chrome driver executable will be copied to the output during publishing. Edit your **FunctionalTests** project file and add the following:
-    ```xml
-    <PropertyGroup>
-        <PublishChromeDriver>true</PublishChromeDriver>
-    </PropertyGroup>
-    ```
 
 1. Commit your code to trigger a build and release
 
