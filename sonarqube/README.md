@@ -29,7 +29,7 @@ Ensure the following settings:
      - *Project key:* devopshol
      - *Display name:* devopshol
    - Generate a token for access to the project on the next page.\
-*NOTE: store the token somewhere, it is needed in the next steps to configure the Release**
+*NOTE: store the token somewhere, it is needed in the next steps to configure the Release*
 
 ## Configure SonarQube analysis on the CI Build
 
