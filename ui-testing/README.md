@@ -1,50 +1,52 @@
-# Avanade DevOps HOL - UI Testing
+# UI Testing with Selenium and Azure DevOps
 
-In this lab, we will add ui tests to our test project. 
+This lab contains instructions to create automated functional UI tests.\
+The instructions are based on the following documentation:
 
-Based on the following tutorials:
-
-- [Get started with Selenium testing in a CD pipeline](https://docs.microsoft.com/en-us/vsts/build-release/test/continuous-test-selenium)
-- Documentation on [dotnet vstest](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-vstest)
+- [UI test with Selenium](https://docs.microsoft.com/azure/devops/pipelines/test/continuous-test-selenium)
+- [dotnet vstest](https://docs.microsoft.com/dotnet/core/tools/dotnet-vstest)
 
 ## Prerequisites
 
-- The [Azure Devops Project](../azure-devops-project/README.md) lab.
-- A Virtual Machine on Azure. Follow [prerequisites](../getting-started/README.md) to set it up.
-- Set up a private VSTS agent using [this tutorial](../private-agent/README.md).
-- Optional: complete [Feature Flag](../feature-flag/README.md) lab.
+- Complete lab: [Continuous Integration with Azure DevOps](../azure-devops-project/README.md)
+- Complete lab: [Multi-stage deployments with Azure DevOps](../multi-stage-deployments/README.md)
 
-## Tasks for local UI Testing
+## Configure local UI Testing
 
-1. Remove the sample test (SampleFunctionalTests.cs) from the **FunctionalTests** project if it exists
+1. In the **FunctionalTests** project, remove the sample test (SampleFunctionalTests.cs) if it exists
 
-1. Add the following NuGet packages to the **FunctionalTests** project:
+1. On the **FunctionalTests** project, add the following NuGet packages:
    - Selenium.Support
    - Selenium.WebDriver
-   - Selenium.Chrome.WebDriver
+   - Selenium.WebDriver.ChromeDriver
 
-1. We need to ensure that the Selenium Chrome driver executable will be copied to the output during publishing. Edit your **FunctionalTests** project file and add the following:
+1. Ensure the Selenium Chrome driver executable is copied to the output during publish. On the **FunctionalTests** project, edit the project file and add the following:
     ```xml
     <PropertyGroup>
         <PublishChromeDriver>true</PublishChromeDriver>
     </PropertyGroup>
     ```
 
-1. Modify the .runsettings file if it already exists, or add a new .runsettings file with the following content:
-    <details><summary>Click here to view the contents</summary>
+1. In the **FunctionalTests** project, (modify or) create a .runsettings file containing the siteUrl as parameter. Find the local website port in the website project *(aspnet-core-dotnet-core\Properties\launchSettings.json)* and create:
+
+    <details><summary>functionalTests.runsettings (expand to view code)</summary>
 
     ```xml
     <?xml version="1.0" encoding="utf-8" ?>
     <RunSettings>
         <TestRunParameters>
-            <Parameter name="siteUrl" value="http://localhost:<porttoyourlocalwebsite>" />
+            <Parameter name="siteUrl" value="http://localhost:<PortToYourLocalWebsite>" />
         </TestRunParameters>
     </RunSettings>
     ```
     </details>
 
-1. Add folder PageObjects and add classes for all the pages to the **FunctionalTests** project.
-   - <details><summary>Code for BasePage</summary>
+1. Configure Visual Studio to use the .runsettings file using:\
+[Configure unit tests by using a .runsettings file](https://docs.microsoft.com/visualstudio/test/configure-unit-tests-by-using-a-dot-runsettings-file)
+
+1. In the **FunctionalTests** project, add functional test classes for all pages.\
+Add a folder 'PageObjects' and add the following classes to it.
+   - <details><summary>BasePage.cs (expand to view code)</summary>
 
         ```csharp
         using OpenQA.Selenium;
@@ -84,7 +86,7 @@ Based on the following tutorials:
         ```
    </details>
 
-   - <details><summary>Code for Home page</summary>
+   - <details><summary>HomePage.cs (expand to view code)</summary>
 
         ```csharp
         using OpenQA.Selenium;
@@ -105,7 +107,7 @@ Based on the following tutorials:
         ```
    </details>
 
-   - <details><summary>Code for About page</summary>
+   - <details><summary>AboutPage.cs (expand to view code)</summary>
 
         ```csharp
         using OpenQA.Selenium;
@@ -128,7 +130,7 @@ Based on the following tutorials:
         ```
    </details>
 
-   - <details><summary>Code for Contact page</summary>
+   - <details><summary>ContactPage.cs (expand to view code)</summary>
 
         ```csharp
         using OpenQA.Selenium;
@@ -151,8 +153,8 @@ Based on the following tutorials:
         ```
    </details>
 
-1. Add a new class UITests to the **FunctionalTests** project.
-    <details><summary>Click here to view the code</summary>
+1. In the **FunctionalTests** project, create the following test class for the functional UI tests:
+   - <details><summary>UITests.cs (expand to view code)</summary>
 
     ```csharp
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -239,57 +241,31 @@ Based on the following tutorials:
     ```
     </details>
 
-1. Configure Visual Studio to [use the .runsettings](https://docs.microsoft.com/en-us/visualstudio/test/configure-unit-tests-by-using-a-dot-runsettings-file) file
 
-1. Start your website, so that it's running on the url that you specified in the .runsettings file
+1. Start your website once (using IIS Express settings) by debugging it, and then stop the debugger. This will ensure the website will be running in the local IIS Express instance, on the url specified in the .runsettings file.
 
-1. Run the UI test and make sure that it succeeds
+1. Run the UI tests you just created and make sure that it succeeds.
 
-## Tasks for UI Testing in the Staging environment
+## Configure automated UI Testing (on the staging environment)
 
-1. Edit your Build Definition, to use a different Agent Pool:
+1. The UI Test tasks are Windows based, which requires a Windows agent.\
+In the **Azure DevOps** project, in the **Build** and in the **Release - QA stage**, change the agent jobs to run on the agent **'Hosted Windows 2019 with VS2019'**
 
-    - Change the Agent Pool to "Hosted Windows 2019 with VS2019". The default Linux Agent does not seem to handle .exe files, as the extension is stripped from those files during publishing.
+1. In the Azure DevOps **Release**, configure a variable for the website url on the staging environment.
+Edit the release, go to Variables, and add the variable:
+- *Name:* SiteUrl
+- *Value:* https://\<qa-stage-appservice-address\>.azurewebsites.net
+- *Scope:* QA stage name
 
-1. Edit your Release Definition, QA environment
+1. In the Azure DevOps **Release**, include a task to run the functional UI tests.\
+Add a task of type Test - **Visual Studio Test**, and ensure it includes:
+- *Test files:* **\\*FunctionalTest\*.dll
+- *Settings file:* ../drop/../functionalTests.runsettings
+- *Override test run parameters:* -siteUrl $(SiteUrl)
 
-    - Change the Agent Pool to "Hosted Windows 2019 with VS2019". We need a windows agent here in order to use ChromeDriver.exe
+1. Commit your code to trigger a **Build**, followed by a **Release**
 
-    - Add task: [Replace Tokens (by Guillaume Rouchon)](https://marketplace.visualstudio.com/items?itemName=qetza.replacetokens&targetId=af3daf82-7dfb-457e-a101-fb27736d03ca) (You'll need to add this to your organization, then re-open the Editor to add this task type)
-        - Root directory: $(System.DefaultWorkingDirectory)/Drop/drop/FunctionalTests
-        - Target files: **/*.runsettings
-
-    - Add task: .NET Core
-        - Command: custom
-        - Custom command: vstest
-        - Arguments (Replace the .dll with your own, if the project was named otherwise):
-            ```
-            aspnet-core-dotnet-core.FunctionalTests.dll --logger:"trx;LogFileName=functionalTestsResults.trx" --Settings:$(System.DefaultWorkingDirectory)/Drop/drop/FunctionalTests/release.runsettings --ResultsDirectory:.
-            ```
-
-    - Add task: Publish Test Results
-        - Test result format: VSTest
-        - Test results files: **/*.trx
-        - Search folder: $(System.DefaultWorkingDirectory)/Drop/drop/FunctionalTests
-        - 
-    - Go to the Variables tab, add variable "SiteUrl" with Scope "Staging" and url "https://\<yourappservice\>-staging.azurewebsites.net"
-
-1. Add new file release.runsettings to the **FunctionalTests** project, with "Copy to Output directory" set to "Copy always". Notice the different value of the parameter. This is a token that will be replaced by an actual Url during the Release in Azure DevOps.
-    <details><summary>Click here to view the contents</summary>
-
-    ```xml
-    <?xml version="1.0" encoding="utf-8" ?>
-    <RunSettings>
-        <TestRunParameters>
-            <Parameter name="siteUrl" value="#{SiteUrl}#" />
-        </TestRunParameters>
-    </RunSettings>
-    ```
-    </details>
-
-1. Commit your code to trigger a build and release
-
-1. Upon Release completion, review the Test results and the uploaded screenshots
+1. Upon **Release** completion, review the Test results
 
 ## Stretch goals
 
@@ -297,4 +273,4 @@ Based on the following tutorials:
 1. Upload the Test screenshots to Azure DevOps. https://stackoverflow.com/questions/52823650/selenium-screenshots-in-vsts-azure-devops
 
 ## Next steps
-Return to [the lab index](../README.md) and continue with the next lab.
+Return to the [Lab index](../README.md) and continue with the next lab
