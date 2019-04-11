@@ -186,8 +186,8 @@ Edit the release, go to Variables, and add the variables:
 
     |Name                          |Value|Scope|
     |:-----------------------------|:----|:----|
-    |FeatureToggle:CheckPhoneNumber|true |qa   |
-    |FeatureToggle:CheckPhoneNumber|false|dev  |
+    |FeatureToggle.CheckPhoneNumber|true |qa   |
+    |FeatureToggle.CheckPhoneNumber|false|dev  |
 
 1. Commit your code to trigger a **Build**, followed by a **Release**
 
