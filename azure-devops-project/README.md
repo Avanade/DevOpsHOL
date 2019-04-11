@@ -1,4 +1,4 @@
-# Avanade DevOps HOL - Create a CI/CD pipeline for .NET with the Azure DevOps Project
+# Continuous Integration with Azure DevOps
 
 In this lab, we setup our DevOps Project in Azure to create our CI/CD pipeline. This will provide us with a standard code base to work with.
 
@@ -25,25 +25,22 @@ Based on [this](https://docs.microsoft.com/en-us/azure/devops-project/azure-devo
    - Update all NuGet packages to their 2.x counterparts (Right-click project > Manage NuGet packages > Select all packages > Update)
    - Add NuGet package to the web project: "Microsoft.NET.Sdk.Razor"
 
-1. Add the following NuGet packages to the **FunctionalTests** project:
-   - Selenium.Support
-   - Selenium.WebDriver
-   - Selenium.Chrome.WebDriver
-
-1. We need to ensure that the Selenium Chrome driver executable will be copied to the output during publishing. Edit your **FunctionalTests** project file and add the following:
-    ```xml
-    <PropertyGroup>
-        <PublishChromeDriver>true</PublishChromeDriver>
-    </PropertyGroup>
-    ```
-
 1. Unload the web project and unit test project. Make the following change to both project files:
    - Remove the line
     ```xml
     <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wp8+wpa81;</PackageTargetFallback>
     ``` 
 
-1. Reload all the projects, build your solution and run the unit tests. Make sure that the tests pass
+1. Set the functional tests to be ignored (this will be enabled in another lab).\
+In the **FunctionalTests** project, make the following change:
+    ```csharp
+    SampleFunctionalTests.cs
+
+    [Ignore] // <-- ignore test
+    public void SampleFunctionalTest1()
+    ```
+
+1. Reload all the projects, build your solution and run the unit tests. Make sure that the **unit tests** pass
 
 1. Open the folder "ArmTemplates" in your source, and edit the file "linux-webapp-template.json":
     - Change the dotnetcore version to 2.1:
