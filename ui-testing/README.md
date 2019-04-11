@@ -46,116 +46,116 @@ The instructions are based on the following documentation:
 
 1. In the **FunctionalTests** project, add functional test classes for all pages.\
 Add a folder 'PageObjects' and add the following classes to it.
-   - <details><summary>BasePage.cs (expand to view code)</summary>
+    <details><summary>BasePage.cs (expand to view code)</summary>
 
-        ```csharp
-        using OpenQA.Selenium;
+    ```csharp
+    using OpenQA.Selenium;
         
-        abstract class BasePage
+    abstract class BasePage
+    {
+        protected readonly IWebDriver Driver;
+        protected readonly string BaseUrl;
+
+        protected BasePage(IWebDriver driver, string baseUrl)
         {
-            protected readonly IWebDriver Driver;
-            protected readonly string BaseUrl;
-
-            protected BasePage(IWebDriver driver, string baseUrl)
-            {
-                Driver = driver;
-                BaseUrl = baseUrl;
-            }
-
-            public HomePage GoToHomePage()
-            {
-                var home = Driver.FindElement(By.LinkText("Home"));
-                home.Click();
-                return new HomePage(Driver, BaseUrl);
-            }
-
-            public AboutPage GoToAboutPage()
-            {
-                var about = Driver.FindElement(By.LinkText("About"));
-                about.Click();
-                return new AboutPage(Driver, BaseUrl);
-            }
-
-            public ContactPage GoToContactPage()
-            {
-                var contact = Driver.FindElement(By.LinkText("Contact"));
-                contact.Click();
-                return new ContactPage(Driver, BaseUrl);
-            }
+            Driver = driver;
+            BaseUrl = baseUrl;
         }
-        ```
-   </details>
 
-   - <details><summary>HomePage.cs (expand to view code)</summary>
+        public HomePage GoToHomePage()
+        {
+            var home = Driver.FindElement(By.LinkText("Home"));
+            home.Click();
+            return new HomePage(Driver, BaseUrl);
+        }
 
-        ```csharp
-        using OpenQA.Selenium;
+        public AboutPage GoToAboutPage()
+        {
+            var about = Driver.FindElement(By.LinkText("About"));
+            about.Click();
+            return new AboutPage(Driver, BaseUrl);
+        }
+
+        public ContactPage GoToContactPage()
+        {
+            var contact = Driver.FindElement(By.LinkText("Contact"));
+            contact.Click();
+            return new ContactPage(Driver, BaseUrl);
+        }
+    }
+    ```
+    </details>
+
+    <details><summary>HomePage.cs (expand to view code)</summary>
+
+    ```csharp
+    using OpenQA.Selenium;
         
-        class HomePage : BasePage
+    class HomePage : BasePage
+    {
+        public HomePage(IWebDriver driver, string baseUrl) : base(driver, baseUrl)
         {
-            public HomePage(IWebDriver driver, string baseUrl) : base(driver, baseUrl)
-            {
-            }
-
-            public string Title { get; set; }
-
-            public void GoToPage()
-            {
-                Driver.Navigate().GoToUrl($"{BaseUrl}");
-            }
         }
-        ```
-   </details>
 
-   - <details><summary>AboutPage.cs (expand to view code)</summary>
+        public string Title { get; set; }
 
-        ```csharp
-        using OpenQA.Selenium;
-        using OpenQA.Selenium.Support.PageObjects;
-
-        class AboutPage : BasePage
+        public void GoToPage()
         {
-            public AboutPage(IWebDriver driver, string baseUrl) : base(driver, baseUrl)
-            {
-            }
-
-            [FindsBy(How = How.ClassName, Using = "fusion-main-menu-icon")]
-            private IWebElement searchIcon;
-
-            public void GoToPage()
-            {
-                Driver.Navigate().GoToUrl($"{BaseUrl}/Home/About");
-            }
+            Driver.Navigate().GoToUrl($"{BaseUrl}");
         }
-        ```
-   </details>
+    }
+    ```
+    </details>
 
-   - <details><summary>ContactPage.cs (expand to view code)</summary>
+    <details><summary>AboutPage.cs (expand to view code)</summary>
 
-        ```csharp
-        using OpenQA.Selenium;
-        using OpenQA.Selenium.Support.PageObjects;
+    ```csharp
+    using OpenQA.Selenium;
+    using OpenQA.Selenium.Support.PageObjects;
+
+    class AboutPage : BasePage
+    {
+        public AboutPage(IWebDriver driver, string baseUrl) : base(driver, baseUrl)
+        {
+        }
+
+        [FindsBy(How = How.ClassName, Using = "fusion-main-menu-icon")]
+        private IWebElement searchIcon;
+
+        public void GoToPage()
+        {
+            Driver.Navigate().GoToUrl($"{BaseUrl}/Home/About");
+        }
+    }
+    ```
+    </details>
+
+    <details><summary>ContactPage.cs (expand to view code)</summary>
+
+    ```csharp
+    using OpenQA.Selenium;
+    using OpenQA.Selenium.Support.PageObjects;
         
-        class ContactPage : BasePage
+    class ContactPage : BasePage
+    {
+        public ContactPage(IWebDriver driver, string baseUrl) : base(driver, baseUrl)
         {
-            public ContactPage(IWebDriver driver, string baseUrl) : base(driver, baseUrl)
-            {
-            }
-
-            [FindsBy(How = How.ClassName, Using = "fusion-main-menu-icon")]
-            private IWebElement searchIcon;
-
-            public void GoToPage()
-            {
-                Driver.Navigate().GoToUrl($"{BaseUrl}/Home/Contact");
-            }
         }
-        ```
-   </details>
+
+        [FindsBy(How = How.ClassName, Using = "fusion-main-menu-icon")]
+        private IWebElement searchIcon;
+
+        public void GoToPage()
+        {
+            Driver.Navigate().GoToUrl($"{BaseUrl}/Home/Contact");
+        }
+    }
+    ```
+    </details>
 
 1. In the **FunctionalTests** project, create the following test class for the functional UI tests:
-   - <details><summary>UITests.cs (expand to view code)</summary>
-
+    <details><summary>UITests.cs (expand to view code)</summary>
+   
     ```csharp
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using OpenQA.Selenium;
