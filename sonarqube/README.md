@@ -22,7 +22,7 @@ Ensure the following settings:
    - *Port:* 9000
 
 1. When provisioning is complete, create a project in SonarQube:
-   - Visit the SonarQube instance at\
+   - **Visit** the **SonarQube** instance at\
 *http:\//sonar\<youruniquealias>.\<location>.azurecontainer.io:9000*
    - Login using the default credentials (admin/admin) 
    - Under Projects, select **Create new project**. Ensure the following settings:
