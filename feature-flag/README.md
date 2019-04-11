@@ -179,15 +179,18 @@ The instructions are based on the following documentation:
 
 ## Configure the feature toggle in the release pipeline
 
-1. Edit the Release pipeline
+1. Configure the feature toggle to be enabled on the **qa** environment:
+   - Edit the Azure DevOps **Release** pipeline
+   - Go to Variables, and add the variables:
 
-1. In the Azure DevOps **Release**, configure the feature toggle variable on the **qa** environment.\
-Edit the release, go to Variables, and add the variables:
+        |Name                          |Value|Scope|
+        |:-----------------------------|:----|:----|
+        |FeatureToggle.CheckPhoneNumber|true |qa   |
+        |FeatureToggle.CheckPhoneNumber|false|dev  |
 
-    |Name                          |Value|Scope|
-    |:-----------------------------|:----|:----|
-    |FeatureToggle.CheckPhoneNumber|true |qa   |
-    |FeatureToggle.CheckPhoneNumber|false|dev  |
+   - In the **Deploy Azure App Service** task, under *Application and Configuration Settings*,\
+     ensure the following setting:
+     - *App settings:* ```-FEATURETOGGLE__CHECKPHONENUMBER $(FeatureToggle.CheckPhoneNumber)```
 
 1. Commit your code to trigger a **Build**, followed by a **Release**
 
