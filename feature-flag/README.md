@@ -192,9 +192,7 @@ Edit the release, go to Variables, and add the variables:
 1. Commit your code to trigger a **Build**, followed by a **Release**
 
 1. Approve the release to all environments, and inspect the results:\
-The qa environment should have the feature enabled, and the dev environment not.
-
-1. Push your code changes and let your pipeline do it's job
+The **qa** environment should have the feature enabled, and the **dev** environment not.
 
 ## Next steps
-Return to [the lab index](../README.md) and continue with the next lab.
+Return to the [Lab index](../README.md) and continue with the next lab
