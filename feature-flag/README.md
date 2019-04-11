@@ -191,7 +191,7 @@ Edit the release, go to Variables, and add the variables:
 
 1. Commit your code to trigger a **Build**, followed by a **Release**
 
-1. Approve the release to all environments, and inspect the results.
+1. Approve the release to all environments, and inspect the results:\
 The qa environment should have the feature enabled, and the dev environment not.
 
 1. Push your code changes and let your pipeline do it's job
