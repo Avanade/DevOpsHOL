@@ -1,15 +1,14 @@
-# Avanade DevOps HOL - Analysis with SonarQube
+# Static code analysis with SonarQube
 
-In this lab, we enable SonarQube for analysis of our code.
+This lab contains instructions to enable automated code analysis using SonarQube.\
+The instructions are based on the following documentation:
 
-Based on [this](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Extension+for+VSTS-TFS) tutorial.
+- [Analyzing with SonarQube Extension for VSTS-TFS](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Extension+for+VSTS-TFS)
 
 ## Prerequisites
 
-- Complete [Continuous Deployment with Visual Studio Release Management](../continuous-deployment/README.md) lab with a private agent.
-- Your VSTS Agent Machine needs Java 8 installed, because the VSTS SonarQube Extension has that [requirement](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Extension+for+VSTS-TFS).
-- SonarQube server installed and configured.  For the purposes of the Avanade DevOps class, the address and login for the SonarQube server to be used will be supplied by the instructor.  If you are doing this lab on your own, use the Azure portal to create a SonarQube server using the "SonarQube Certified by Bitnami" template from the marketplace.
-- Install the [SonarQube extension](https://marketplace.visualstudio.com/items?itemName=SonarSource.sonarqube) into your VSTS environment.
+- Complete lab: [Continuous Integration with Azure DevOps](../azure-devops-project/README.md)
+- Complete lab: [Multi-stage deployments with Azure DevOps](../multi-stage-deployments/README.md)
 
 ## Tasks
 
