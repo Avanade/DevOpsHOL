@@ -14,5 +14,5 @@ The course contains the following labs:
 | [Lab 3 - UI Testing with Selenium and Azure DevOps](ui-testing/README.md) | 90 min |
 | [Lab 4 - Static code analysis with SonarQube](sonarqube/README.md) | 45 min |
 | [Lab 5 - Feature Toggles](feature-flag/README.md) | 45 min |
-| [Lab 6 - *(Optional)* - Security Verification Tests in your CD pipeline](security-testing/README.md) | 45 min |
-| [Lab 7 - Validating the release with automated Smoke Testing](smoke-testing/README.md) | 45 min |
+| [Lab 6 - Validating the release with automated Smoke Testing](smoke-testing/README.md) | 45 min |
+| [Lab 7 - *(Optional)* - Security Verification Tests in your CD pipeline](security-testing/README.md) | 45 min |
