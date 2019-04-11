@@ -251,21 +251,22 @@ Add a folder 'PageObjects' and add the following classes to it.
 1. The UI Test tasks are Windows based, which requires a Windows agent.\
 In the **Azure DevOps** project, in the **Build** and in the **Release - QA stage**, change the agent jobs to run on the agent **'Hosted Windows 2019 with VS2019'**
 
-1. In the Azure DevOps **Release**, configure a variable for the website url on the staging environment.
+2. In the Azure DevOps **Release**, configure a variable for the website url on the staging environment.
 Edit the release, go to Variables, and add the variable:
 - *Name:* SiteUrl
-- *Value:* https://\<qa-stage-appservice-address\>.azurewebsites.net
+- *Value:* [https://\<qa-stage-appservice-address\>.azurewebsites.net]
 - *Scope:* QA stage name
 
-1. In the Azure DevOps **Release**, include a task to run the functional UI tests.\
+3. In the Azure DevOps **Release**, include a task to run the functional UI tests.\
 Add a task of type Test - **Visual Studio Test**, and ensure it includes:
+
 - *Test files:* **\\*FunctionalTest\*.dll
 - *Settings file:* ../drop/../functionalTests.runsettings
 - *Override test run parameters:* -siteUrl $(SiteUrl)
 
-1. Commit your code to trigger a **Build**, followed by a **Release**
+4. Commit your code to trigger a **Build**, followed by a **Release**
 
-1. Upon **Release** completion, review the Test results
+5. Upon **Release** completion, review the Test results
 
 ## Stretch goals
 
