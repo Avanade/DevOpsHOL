@@ -181,7 +181,7 @@ The instructions are based on the following documentation:
 
 1. Edit the Release pipeline
 
-1. In the Azure DevOps **Release**, configure the feature toggle variable on the **qa** environment.
+1. In the Azure DevOps **Release**, configure the feature toggle variable on the **qa** environment.\
 Edit the release, go to Variables, and add the variables:
 
     |Name                          |Value|Scope|
