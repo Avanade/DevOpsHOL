@@ -25,10 +25,10 @@ Ensure the following settings:
    - Visit the SonarQube instance at\
 *http:\//sonar\<youruniquealias>.\<location>.azurecontainer.io:9000*
    - Login using the default credentials (admin/admin) 
-   - Under Projects, select Create new project. Ensure the following settings:
+   - Under Projects, select **Create new project**. Ensure the following settings:
      - *Project key:* devopshol
      - *Display name:* devopshol
-   - Generate a token for access to the project on the next page.\
+   - On the resulting project page, select **Generate** to generate a project token.\
 *NOTE: store the token somewhere, it is needed in the next steps to configure the Release*
 
 ## Configure SonarQube analysis on the CI Build
