@@ -1,19 +1,24 @@
-# Avanade DevOps HOL - Feature Flag for Web Application
-Feature flags provide the ability to turn features of your application on and off at a moments notice, no code deployments required. In this lab, we will add code to the project to demonstrate the use of feature flags to allow selectively turning on and off features to expose functionality. 
+# Feature Toggles
 
-In this lab, we add a Feature Toggle mechanism to our web application. The toggle will be enabled by json config and tested locally. To implement this, we use the [FeatureToggle.Net](https://github.com/jason-roberts/FeatureToggle) framework by Jason Roberts. This lab is based on the [Parts Unlimited](https://microsoft.github.io/PartsUnlimited/advanced/FeatureFlagWeb.html) reference project and the [example implementation](https://github.com/jason-roberts/FeatureToggle/tree/master/src/Examples/AspDotNetCoreExample) by Jason Roberts.
+This lab contains instructions to use feature toggles in an application.
+Feature toggles, or flags, provide the ability to selectively turn features on and off to expose functionality.
+The instructions are based on the following documentation:
 
-## Pre-requisites: ##
-- Complete [Getting Started](../getting-started/README.md) hands on lab.
+- [Simple, Reliable Feature Toggles in .NET](http://jason-roberts.github.io/FeatureToggle.Docs/)
 
-## Tasks
+## Prerequisites
 
-1. Add the following NuGet package to your Web Application project:
+- Complete lab: [Continuous Integration with Azure DevOps](../azure-devops-project/README.md)
+- Complete lab: [Multi-stage deployments with Azure DevOps](../multi-stage-deployments/README.md)
+
+## Add a feature toggle to the application
+
+1. In the **Website** project, add the feature toggle NuGet package:
     - FeatureToggle (by Jason Roberts)
 
-1. Apply the following code changes to your Web Application:
-
-    - <details><summary>Add class "CheckPhoneNumber" in a folder named "Feature"</summary>
+1. In the **Website** project, add a feature toggle:
+    - Create a feature toggle class in a 'Feature' folder 
+        <details><summary>Feature\CheckPhoneNumber.cs (expand to view code)</summary>
 
         ```csharp
         using FeatureToggle;
@@ -23,94 +28,26 @@ In this lab, we add a Feature Toggle mechanism to our web application. The toggl
             public class CheckPhoneNumber : SimpleFeatureToggle { }
         }
         ```
-    </details>
+        </details>
 
-    - <details><summary>Add class "ContactViewModel" in a folder named "Models". This class will be used to bring the Feature Toggle setting to the Contact page</summary>
+    - Add the feature toggle configuration to the appsettings
+        <details><summary>appsettings.json (expand to view code)</summary>
 
-        ```csharp
-        using FeatureToggle;
-
-        namespace aspnet_core_dotnet_core.Models
+        ```json
         {
-            public class ContactViewModel
-            {
-                public IFeatureToggle CheckPhoneNumber { get; set; }
-
-                public string Name { get; set; }
-
-                public int? PhoneNumber { get; set; }
+            "FeatureToggle": {
+                "CheckPhoneNumber": false
             }
-        }
-        ```
-    </details>
-
-    - <details><summary>Modify "Controllers/HomeController" to bind the new viewmodel to the Contact page. The Contact method already exists, so replace it entirely.</summary>
-
-        ```csharp
-        ...
-
-        private readonly CheckPhoneNumber _checkPhoneNumber;
-
-        public HomeController(CheckPhoneNumber checkPhoneNumber)
-        {
-            _checkPhoneNumber = checkPhoneNumber;
-        }
-
-        ...
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View(new ContactViewModel { CheckPhoneNumber = _checkPhoneNumber });
-        }
-
-        ...
-        ```
-    </details>
-
-    - <details><summary>Modify "Views/Home/Contact" to include a reference to your model class, and to add a new form to the page. Make sure you replace "yourprojectname"</summary>
-
-        ```csharp
-        @model <yourprojectname>.Models.ContactViewModel
-
-        ...
-
-        <form asp-action="Contact">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PhoneNumber" class="control-label"></label>
-
-                @if (Model.CheckPhoneNumber.FeatureEnabled)
-                {
-                    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", placeholder = "555-555-5555", type = "tel", pattern = "\\d{3}[\\-]\\d{3}[\\-]\\d{4}", id = "phone" })
-                }
-                else
-                {
-                    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", placeholder = "Phone Number", id = "phone" })
-                }
-
-                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input id="submit" type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </form>
-        ```
-    </details>
-
-    - <details><summary>Modify the "Startup" class. Replace the ConfigureServices method with the code below</summary>
-
-        ```csharp
-        public class Startup
-        {
             ...
+        }
+        ```
+        </details>
 
+    - Initialize the feature toggle setting from the configuration during startup
+
+        <details><summary>Startup.cs (expand to view code)</summary>
+
+            ```csharp
             // This method gets called by the runtime. Use this method to add services to the container.
             public void ConfigureServices(IServiceCollection services)
             {
@@ -119,62 +56,146 @@ In this lab, we add a Feature Toggle mechanism to our web application. The toggl
 
                 // Add your feature here
                 services.AddSingleton(new CheckPhoneNumber { ToggleValueProvider = provider });
-
-                services.AddMvc();
+                ...
             }
+            ```
+        </details>
 
-            ...
-        }
+1. In the **Website** project, implement the feature toggle in a (new) phone number form on the contact page:
+      - Create a view model for the contact page including the feature toggle
 
-        ```
-    </details>
+        <details><summary>Models\ContactViewModel.cs (expand to view code)</summary>
 
-    - <details><summary>Modify your Unit Test class</summary>
+            ```csharp
+            using FeatureToggle;
 
-        Change every occurrence of:
-        ```csharp
-        HomeController controller = new HomeController();
-        ```
+            namespace aspnet_core_dotnet_core.Models
+            {
+                public class ContactViewModel
+                {
+                    public IFeatureToggle CheckPhoneNumber { get; set; }
 
-        to:
-        ```csharp
-        HomeController controller = new HomeController(new CheckPhoneNumber());
-        ```
-    </details>
+                    public string Name { get; set; }
 
-
-1. Add the feature toggle configuration to the appsettings:
-
-    - <details><summary>Modify config file "appsettings.json" with the feature toggle activated</summary>
-
-        ```json
-        {
-            "FeatureToggle": {
-                "CheckPhoneNumber": true
-            },
-            "Logging": {
-                "IncludeScopes": false,
-                "LogLevel": {
-                "Default": "Warning"
+                    public int? PhoneNumber { get; set; }
                 }
             }
-        }
-        ```
-    </details>
+            ```
+        </details>
 
-1. Run the web application locally and test the new Contact form:
+    - Inject the feature toggle in the controller, and pass it to the contact page
 
-    1. Disable the feature by editing the config, set it to false, reload the page:
+        <details><summary>Controllers\HomeController.cs" (expand to view code)</summary>
 
-        1. Enter any phone number and hit submit. Notice how no validation error is given
+            ```csharp
+            public class HomeController : Controller
+            {
+                private readonly CheckPhoneNumber _checkPhoneNumber;
+           
+                protected HomeController()
+                {
+                }
 
-    1. Enable the feature, reload the page:
+                public HomeController(CheckPhoneNumber checkPhoneNumber)
+                {
+                    _checkPhoneNumber = checkPhoneNumber;
+                }
 
+                ...
+
+                public IActionResult Contact()
+                {
+                    ...
+                    // return a contact view model including the toggle setting
+                    return View(new ContactViewModel { CheckPhoneNumber = _checkPhoneNumber });
+                }
+
+                ...
+            }
+            ```
+        </details>
+
+    - Add the form with a toggle for the phone number logic to the contact page
+        <details><summary>Views\Home\Contact.cshtml (expand to view code)</summary>
+
+            ```csharp
+            @model aspnet_core_dotnet_core.Models.ContactViewModel
+
+            ...
+
+            <form asp-action="Contact">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PhoneNumber" class="control-label"></label>
+
+                    @if (Model.CheckPhoneNumber.FeatureEnabled)
+                    {
+                        @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", placeholder = "555-555-5555", type = "tel", pattern = "\\d{3}[\\-]\\d{3}[\\-]\\d{4}", id = "phone" })
+                    }
+                    else
+                    {
+                        @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", placeholder = "Phone Number", id = "phone" })
+                    }
+
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input id="submit" type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </form>
+            ```
+        </details>
+
+    - In the UnitTest project, adjust the unit tests to the feature toggle injection
+
+        <details><summary>SampleUnitTests.cs (expand to view code)</summary>
+
+            ```csharp
+            public void IndexPageTest()
+            {
+                var controller = new HomeController(null);
+            ...
+            public void AboutPageTest()
+            {
+                var controller = new HomeController(null);
+            ...
+            public void ContactPageTest()
+            {
+                var controller = new HomeController(null);
+            ```
+        </details>
+
+1. Start the website locally and test the feature toggle in the Contact form:
+    - With the toggle set to **false** in config, on the Contact page form:
+      1. Enter any phone number and hit submit. Notice how no validation error is given
+    - With the toggle set to **true** in config, on the Contact page form:
         1. Enter phone number 0123456789, hit submit, and notice the validation error
-
         1. Enter phone number 123-123-5678, submit and notice the page refreshes without error
 
-1. Push your code changes and let your pipeline do it's job
+## Configure the feature toggle in the release pipeline
+
+1. Configure the feature toggle to be enabled on the **qa** environment:
+   - Edit the Azure DevOps **Release** pipeline
+   - Go to Variables, and add the variables:
+
+        |Name                          |Value|Scope|
+        |:-----------------------------|:----|:----|
+        |FeatureToggle.CheckPhoneNumber|true |qa   |
+        |FeatureToggle.CheckPhoneNumber|false|dev  |
+
+   - In the **Deploy Azure App Service** task, under *Application and Configuration Settings*,\
+     ensure the following setting:
+     - *App settings:* ```-FEATURETOGGLE__CHECKPHONENUMBER $(FeatureToggle.CheckPhoneNumber)```
+
+1. Commit your code to trigger a **Build**, followed by a **Release**
+
+1. Approve the release to all environments, and inspect the results:\
+The **qa** environment should have the feature enabled, and the **dev** environment not.
 
 ## Next steps
-Return to [the lab index](../README.md) and continue with the next lab.
+Return to the [Lab index](../README.md) and continue with the next lab
