@@ -69,14 +69,18 @@ Right-click the *ValidateSiteIsAvailable()* test method and select **Run Test(s)
 
 1. Include a task to run the Smoke tests in the release pipeline:
    - Edit the Azure DevOps **Release** 
-   - Clone the existing **Visual Studio Test** task
+   - In the **qa** environment stage, clone the existing **Visual Studio Test** task
    - Rename the first test task to **Run Smoke Tests** and ensure it has this setting:
      - *Test filter criteria:* TestCategory=Smoke
    - Rename the second test task to **Run UI Tests** and ensure it has this setting:
      - *Test filter criteria:* TestCategory=UI
+   - Create the same **Run UI Tests** task in the **dev** environment stage
 
 1. Commit your code to trigger a **Build**, followed by a **Release**.\
-   Upon completion, inspect the release results and verify the Smoke test passed.
+   Upon completion, inspect the release results and verify the Smoke test passed.\
+   Notice the difference in executed tests per environment stage:
+   - **qa** environment stage: **smoke** tests and **UI** tests have been executed
+   - **dev** environment stage: **smoke** tests have been executed
 
 ## Stretch goals
 
