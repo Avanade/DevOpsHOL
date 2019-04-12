@@ -249,7 +249,7 @@ Add a folder 'PageObjects' and add the following classes to it.
 ## Configure automated UI Testing (on the staging environment)
 
 1. The UI Test tasks are Windows based, which requires a Windows agent.\
-In the **Azure DevOps** project, in the **Build** and in the **Release - QA stage**, change the agent jobs to run on the agent **'Hosted Windows 2019 with VS2019'**
+In the **Azure DevOps** project, in the **Build** and in **both** of the **Release** environment stages, change the agent jobs to run on the agent **'Hosted Windows 2019 with VS2019'**
 
 1. In the Azure DevOps **Release**, configure a variable for the website url on the staging environment.
 Edit the release, go to Variables, and add the variable:
