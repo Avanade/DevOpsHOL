@@ -16,3 +16,4 @@ The course contains the following labs:
 | [Lab 5 - Feature Toggles](feature-flag/README.md) | 45 min |
 | [Lab 6 - Validating the release with automated Smoke Testing](smoke-testing/README.md) | 45 min |
 | [Lab 7 - *(Optional)* - Security Verification Tests in your CD pipeline](security-testing/README.md) | 45 min |
+| [Lab 8 - *(Optional)* - Feature branching and branch protection](feature-branching/README.md) | 45 min |
