@@ -1,6 +1,6 @@
 # Feature branching and branch protection
 
-This lab contains instructions to ensure code quality using pull requests and branch protection.
+This lab contains instructions to ensure code quality using pull requests and branch protection.\
 The instructions are based on the following documentation:
 
 - [Review code with pull requests](https://docs.microsoft.com/en-us/azure/devops/repos/git/pull-requests)
