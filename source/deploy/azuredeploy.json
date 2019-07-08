@@ -19,7 +19,7 @@
         "2"
       ],
       "defaultValue": "0"
-    },
+    }
   },
   "resources": [
     {
@@ -62,8 +62,7 @@
             "webSocketsEnabled": true,
             "alwaysOn": true,
             "remoteDebuggingEnabled": true,
-            "remoteDebuggingVersion": "VS2013",
-
+            "remoteDebuggingVersion": "VS2017",
             "defaultDocuments": [
               "index.html",
               "hostingstart.html"
