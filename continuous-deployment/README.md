@@ -5,7 +5,7 @@ In this lab, you have an example MVC application, committed to a Git repository 
 ### Pre-requisites: ###
 - Complete [Continuous Integration](../continuous-integration/README.md) lab.
 - Having your subscription linked with your own Azure Active Directory instance<br>
-	Check the [Course Pre-Requisites #1](..\README.md#course-pre-requisites)
+	Check the [Course Pre-Requisites #1](../README.md#course-pre-requisites)
 
 ### Tasks Overview: ###
 
