@@ -6,7 +6,15 @@ In this lab, we will be installing the required development components and verif
 	[Azure Portal](https://portal.azure.com)
 2. An active Azure DevOps account.<br>
 	[Sign up for Visual Studio Team Services](https://azure.microsoft.com/en-us/services/devops/)
-
+3. Having your subscription linked with your own Azure Active Directory instance<br>
+	If you use your Avanade email address as a Micrsoft account, you may have problems related to write permissions into the Azure Active Directory managed by Avanade (avanade.onmicrosoft.com).<br>
+    As a result you won't be able to create multiple services in Azure that require registering a Service Principal account in the AD (e.g.: creating a Service Connection in Azure DevOps, creating a new Kubernetes cluster, etc.).<br>
+    To prevent that and save you lots of frustrations in the future, create a new Active Directory from the [Azure Portal](https://portal.azure.com) , "Create a resource" menu (search for Active directory).<br>
+    Once created, find the Subscriptions menu and select your "Visual Studio ********" subscription Overview blade (or the subscription you will use for this lab).<br> 
+    A "Change directory" option in the upper bar will allow you to attach this subscription to the newly created Azure Active Directory instance.<br>
+    The migration process requires between 10 and 30 minutes so please be sure to perform this operation before the Lab. <br>
+    [Associate or add an Azure subscription to your Azure Active Directory tenant](https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/active-directory-how-subscriptions-associated-directory)
+ 
 ## Set up your machine ##
 1. Install [Visual Studio 2017](http://go.microsoft.com/fwlink/?LinkId=517106)<br>
       Select ASP.NET and web development and Azure development tools on the installer.
