@@ -108,7 +108,7 @@ Based on [this](https://microsoft.github.io/PartsUnlimited/apm/200.6x-APM-Featur
             public void ConfigureServices(IServiceCollection services)
             {
                 // Set provider config so file is read from content root path
-                var provider = new AppSettingsProvider { Configuration = (IConfiguration)Configuration };
+                var provider = new AppSettingsProvider { Configuration = (IConfigurationRoot)Configuration };
 
                 // Add your feature here
                 services.AddSingleton(new CheckPhoneNumber { ToggleValueProvider = provider });
@@ -164,6 +164,7 @@ Based on [this](https://microsoft.github.io/PartsUnlimited/apm/200.6x-APM-Featur
         1. Enter phone number 123-123-5678, submit and notice the page refreshes without error
 
 1. Push your code changes and let your pipeline do it's job
+    - Note (optional): You can override the feature toggle setting value defined in the appsettings.json file by using the Azure Web App settings screen (Azure portal > your Web app > Settings > Configuration panel). Open your production Web app configuration panel and try adding a new Application Setting called FeatureToggle:CheckPhoneNumber then assign it with either true or false. Hit the Save button and refresh the Contact page in your Production environment to check the feature toggle in action. 
 
 ## Next steps
 
