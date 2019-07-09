@@ -6,7 +6,9 @@ In this lab, we will be installing the required development components and verif
 	[Azure Portal](https://portal.azure.com)
 2. An active Azure DevOps account.<br>
 	[Sign up for Visual Studio Team Services](https://azure.microsoft.com/en-us/services/devops/)
-
+3. Having your subscription linked with your own Azure Active Directory instance<br>
+	Check the [Course Pre-Requisites #1](../README.md#course-pre-requisites)
+ 
 ## Set up your machine ##
 1. Install [Visual Studio 2017](http://go.microsoft.com/fwlink/?LinkId=517106)<br>
       Select ASP.NET and web development and Azure development tools on the installer.
