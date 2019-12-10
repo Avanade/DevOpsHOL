@@ -34,7 +34,8 @@ Follow instructions from [Add a VM to a lab in Azure DevTest Labs](https://docs.
    - Virtual machine name: devopsvm
    - User name: devopshol
    - Password: ADP#2019
-   - Virtual machine size: Standard_B8ms
+   - Virtual machine size:
+     - Pick any size that fits within your subscription
    - OS disk type: Standard SSD
    - Artifacts selection: Install Chocolatey Packages, configuration:
      - Packages: `git,vscode,microsoft-edge-insider`
