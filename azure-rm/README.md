@@ -37,7 +37,7 @@ Follow instructions from [Add a VM to a lab in Azure DevTest Labs](https://docs.
    - Virtual machine size: Standard_B8ms
    - OS disk type: Standard SSD
    - Artifacts selection: Install Chocolatey Packages, configuration:
-     - Packages: git,vscode,googlechrome
+     - Packages: `git,vscode,microsoft-edge-insider`
      - Allow Empty Checksums: true
      - Ignore Checksums: true
 
