@@ -8,7 +8,7 @@ Based on the following tutorials:
 
 ## Prerequisites
 
-- Complete lab [Create a CI/CD pipeline for .NET with the Azure DevOps Project](../azure-devops-project/README.md).
+- Complete lab [Continuous Integration with Azure DevOps](../azure-devops-project/README.md).
 
 ## Tasks
 

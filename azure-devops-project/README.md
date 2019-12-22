@@ -1,8 +1,10 @@
 # Continuous Integration with Azure DevOps
 
-In this lab, we setup our DevOps Project in Azure to create our CI/CD pipeline. This will provide us with a standard code base to work with. We will also generate a YAML file from the existing pipeline, so we can work with Pipeline as Code in future labs.
+In this lab, we setup our DevOps Project in Azure to create our CI/CD pipeline. This will provide us with a standard code base to work with. We will also generate a YAML file from the existing pipeline, so we can work with Pipeline as Code in future labs. We will use the existing Build steps as a template and expand the coded pipeline with a Deploy stage.
 
-Based on [this](https://docs.microsoft.com/en-us/azure/devops-project/azure-devops-project-aspnet-core) tutorial.
+Based on the following tutorials:
+- [Azure Devops Project ASP.NET Core](https://docs.microsoft.com/en-us/azure/devops-project/azure-devops-project-aspnet-core)
+- [Adding Continuous Delivery to the YAML definition](https://www.azuredevopslabs.com/labs/azuredevops/yaml/#task-4-adding-continuous-delivery-to-the-yaml-definition)
 
 ## Prerequisites
 
@@ -26,7 +28,6 @@ Based on [this](https://docs.microsoft.com/en-us/azure/devops-project/azure-devo
    - `git clone <url.to.your.project>`
 
 ### Set up the Pipeline as Code
-In the following steps, it is important to unlink any parameters so they 
 
 1. In the root folder of your repository, create a new file called `azure-pipelines.yaml`
 
@@ -48,7 +49,8 @@ In the following steps, it is important to unlink any parameters so they
 
 1. Save all changes and commit + push them to your repository
 
-## Set up a pipeline in Azure Devops using the YAML file
+### Set up a pipeline in Azure Devops using the YAML file
+
 1. Go to Azure DevOps Pipelines and click 'New Pipeline'
 
 1. Create the new pipeline with the following settings:
@@ -62,6 +64,10 @@ In the following steps, it is important to unlink any parameters so they
     - Value: release
 
 1. Click Run to finalize the setup and wait for the build to complete
+
+### Add a Deploy stage to the pipeline
+
+1. Follow the [steps from this guide](https://www.azuredevopslabs.com/labs/azuredevops/yaml/#task-4-adding-continuous-delivery-to-the-yaml-definition) to add a deployment stage to the pipeline
 
 ## Next steps
 Return to [the lab index](../README.md) and continue with the next lab.
