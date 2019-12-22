@@ -65,12 +65,5 @@ Based on the following tutorials:
 
 1. Click Run to finalize the setup and wait for the build to complete
 
-### Add a Deploy stage to the pipeline
-
-1. Follow the [steps from this guide](https://www.azuredevopslabs.com/labs/azuredevops/yaml/#task-4-adding-continuous-delivery-to-the-yaml-definition) to add a deployment stage to the pipeline
-
-1. Finally save and run the pipeline. If you encounter an authorization issue on your first next run, click the Authorize button and then try again:
-     ![](../images/pipelines-authorize.png)
-
 ## Next steps
 Return to [the lab index](../README.md) and continue with the next lab.
