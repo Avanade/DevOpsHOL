@@ -6,11 +6,11 @@ Follow this lab to set up a development environment for the course labs. Creatin
 1. Make sure you have an active Azure DevOps account.\
 [Sign up for Azure DevOps](https://dev.azure.com/)
 
-2. Make sure you have an active Azure subscription.\
+1. Make sure you have an active Azure subscription.\
 Sign in to the [Azure Portal](https://portal.azure.com) to verify you can log in and create resources.\
 If you used a (Avanade) organization MDSN account, go to the next step.
 
-3. (only for organization accounts) If you are using your Avanade email to access the Azure portal, then you will need to create a new Active Directory instance. This is because the labs require creating an enterprise application id and individual users do not have permissions to create enterprise applications on the Avanade AD instance.
+1. (only for organization accounts) If you are using your Avanade email to access the Azure portal, then you will need to create a new Active Directory instance. This is because the labs require creating an enterprise application id and individual users do not have permissions to create enterprise applications on the Avanade AD instance.
 
 - In the [Azure Portal](https://portal.azure.com), *Create a Resource* of *Azure Active Directory* with a meaningful name. This is probably something you will use as a general purpose AD instance (i.e. not just for the class) so you may want to name it appropriately.
 
@@ -28,7 +28,7 @@ Follow instructions from [Create a lab in Azure DevTest Labs](https://docs.micro
    - Location: West Europe
    - Auto-shutdown: default (Enabled, 19:00)
 
-2. Add a Virtual Machine to your DevTest lab\
+1. Add a Virtual Machine to your DevTest lab\
 Follow instructions from [Add a VM to a lab in Azure DevTest Labs](https://docs.microsoft.com/azure/lab-services/devtest-lab-add-vm). Ensure the following settings:
    - Choose a base: Visual Studio 2019 Community on Windows 10 Enterprise N (x64)
    - Virtual machine name: devopsvm
@@ -42,11 +42,16 @@ Follow instructions from [Add a VM to a lab in Azure DevTest Labs](https://docs.
      - Allow Empty Checksums: true
      - Ignore Checksums: true
 
-3. Verify connection to the Virtual Machine
+1. Verify connection to the Virtual Machine
    - Wait untill the virtual machine is fully provisioned and the artifacts are applied.\
    *(this can take up to 20 minutes)*
    - Verify you can use the virtual machine by connecting to it:\
    Select 'Connect' in the Virtual machine Overview in the portal and provide the credentials you used in the previous step. 
+
+1. Install .NET Core SDK version 2.2:
+   - Open a PowerShell window
+   - Enter this command and press Enter:
+     - `choco install dotnetcore-sdk --version=2.2.102 -y`
 
 ## Next steps
 Return to the [Lab index](../README.md) to continue with the course labs.

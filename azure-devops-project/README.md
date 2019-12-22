@@ -1,6 +1,6 @@
 # Continuous Integration with Azure DevOps
 
-In this lab, we setup our DevOps Project in Azure to create our CI/CD pipeline. This will provide us with a standard code base to work with.
+In this lab, we setup our DevOps Project in Azure to create our CI/CD pipeline. This will provide us with a standard code base to work with. We will also generate a YAML file from the existing pipeline, so we can work with Pipeline as Code in future labs.
 
 Based on [this](https://docs.microsoft.com/en-us/azure/devops-project/azure-devops-project-aspnet-core) tutorial.
 
@@ -10,6 +10,8 @@ Based on [this](https://docs.microsoft.com/en-us/azure/devops-project/azure-devo
 
 ## Tasks
 
+### Setting up the code repository on your development machine
+
 1. Go to your Azure Portal and create a new DevOps Project. Make sure it meets the following demands:
     - .NET Runtime
     - ASP.NET Core application
@@ -18,50 +20,48 @@ Based on [this](https://docs.microsoft.com/en-us/azure/devops-project/azure-devo
 
 1. When the azure resources are created, go to your Azure DevOps account and make sure that:
    - The first Build and Release are successful
-   - The App is deployed and accessable
+   - The App is deployed and accessable through the web app url (*.azurewebsites.net)
 
-1. Clone your code repository to your development environment and open your solution in Visual Studio:
-   - Upgrade all projects to ASP.NET Core 2.1 (Right-click project > Properties)
-   - Update all NuGet packages to their 2.x counterparts (Right-click project > Manage NuGet packages > Select all packages > Update)
-   - Add NuGet package to the web project: "Microsoft.NET.Sdk.Razor"
+1. Clone your code repository to your development environment using:
+   - `git clone <url.to.your.project>`
 
-1. Unload the web project and unit test project. Make the following change to both project files:
-   - Remove the line
-    ```xml
-    <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wp8+wpa81;</PackageTargetFallback>
-    ``` 
+### Set up the Pipeline as Code
+In the following steps, it is important to unlink any parameters so they 
 
-1. Set the functional tests to be ignored (this will be enabled in another lab).\
-In the **FunctionalTests** project, make the following change:
-    ```csharp
-    SampleFunctionalTests.cs
+1. In the root folder of your repository, create a new file called `azure-pipelines.yaml`
 
-    [Ignore] // <-- ignore test
-    public void SampleFunctionalTest1()
-    ```
+1. In your browser, go to Azure DevOps Pipelines and Edit the existing pipeline:
+   - Unlink the parameters:
+     ![](../images/pipelines-unlink.png)
 
-1. Reload all the projects, build your solution and run the unit tests. Make sure that the **unit tests** pass
+   - Go to Triggers and disable continuous integration:
+     ![](../images/pipelines-disable-ci.png)
 
-1. Open the folder "ArmTemplates" in your source, and edit the file "linux-webapp-template.json":
-    - Change the dotnetcore version to 2.1:
-    ```json
-    "linuxFxVersion": {
-        "type": "string",
-        "defaultValue": "dotnetcore|2.1"
-    },
-    ```
+   - Save the pipeline changes, do not queue
 
-1. Go to your Azure Devops project site and edit the Release definition
-    - In the step "Deploy Azure App Service" change the Runtime Stack to .NET Core 2.1
-    ![](../images/dotnetcore-runtime-stack.png)
+   - Select the Agent Job and click 'View YAML':
+     ![](../images/pipelines-view-yaml.png)
 
-1. Push your code to trigger a build/release
+   - Select all text from the YAML view and copy it
 
-1. When the Release is finished, visit your web app url to verify it is still working
+1. Paste all the contents into your `azure-pipelines.yaml` file
 
-## Stretch goals
+1. Save all changes and commit + push them to your repository
 
-1. Add custom logging to Application Insights through your Web App
+## Set up a pipeline in Azure Devops using the YAML file
+1. Go to Azure DevOps Pipelines and click 'New Pipeline'
+
+1. Create the new pipeline with the following settings:
+    - Azure Repos Git (YAML)
+    - Choose your git repository
+    - Existing Azure Pipelines YAML file
+    - Choose the YAML file from your repository
+
+1. Add a new Variable:
+    - Name: BuildConfiguration
+    - Value: release
+
+1. Click Run to finalize the setup and wait for the build to complete
 
 ## Next steps
 Return to [the lab index](../README.md) and continue with the next lab.
