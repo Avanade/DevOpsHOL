@@ -22,7 +22,7 @@ Based on the following tutorials and VERY useful pages:
 
 ### Add a Deployment stage to the pipeline
 
-1. Follow the [steps from this guide](https://www.azuredevopslabs.com/labs/azuredevops/yaml/#task-4-adding-continuous-delivery-to-the-yaml-definition) to set up your pipeline YAML file for multiple stages
+1. Follow the [steps from this guide](https://www.azuredevopslabs.com/labs/azuredevops/yaml/#task-4-adding-continuous-delivery-to-the-yaml-definition) to convert your pipeline to use stages. Create your first stage `Build` and then continue with the next step below
 
 1. Add the following stage to the bottom of your pipeline:
    ```
@@ -55,23 +55,34 @@ Based on the following tutorials and VERY useful pages:
 
 ### Add a second Deployment stage for Production
 
-1. Use the guide on [Deployment Jobs](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/deployment-jobs?view=azure-devops) and proceed with the following steps
+1. Add another stage to the bottom of your pipeline, but this time name it Production:
+   ```
+   - stage: DeployProduction
+     displayName: Deploy to Production
+     dependsOn: DeployStaging
+     jobs:
+       - deployment: DeployProduction
+         displayName: Deploy to Production
+         environment: Production
+         strategy:
+           runOnce:
+             deploy:
+               steps:
+               - task: AzureRmWebAppDeployment@4
+                 inputs:
+                   ConnectionType: 'AzureRM'
+                   azureSubscription: 'geuze-adp2020 - Azure'
+                   appType: 'webAppLinux'
+                   WebAppName: 'geuze-adp2020'
+                   deployToSlotOrASE: true
+                   ResourceGroupName: 'geuze-adp2020-rg'
+                   SlotName: 'production'
+                   packageForLinux: '$(Pipeline.Workspace)/drop/*.zip'
+   ```
 
-1. Edit your `azure-pipelines.yaml` file with the following changes:
+1. Make sure to configure the `AzureRmWebAppDeployment` task to use your own subscription, app name and resource group name for Production
 
-   - Replace the top part of the file until `steps`:
-      ```
-      pool:
-        name: Hosted Ubuntu 1604
-      
-      stages:
-      - stage: Build
-        jobs:
-        - job: Build
-          steps:
-      ```
-
-   - Now
+1. Save and run the pipeline again. Verify the pipeline runs through all the stages and ends with a successful Production deployment
 
 ### Add the approval check to the Production Environment
 
