@@ -49,7 +49,7 @@ This instructions are based on the following documentation
 1. Navigate with the File Explorer to the installation directory of Terraform. 
 1. In the File Explorer location path type `PowerShell` and press enter.
 
-    ![alt text](../images/terraform-powershell.jpg "")
+    ![alt text](../images/terraform-powershell.png "")
 
 1. A new PowerShell prompt will open with the Terraform directory as his current location path
 
