@@ -78,7 +78,7 @@ The AzSK Monitoring Solution is deployed to a Log Analytics workspace that is us
     ```
 1. In the [Azure Portal](https://portal.azure.com) go to your Log Analytics workspace to view the logs. Inside the Log Analytics workspace go to the overview page. In the Get started with Log Analytics block you can click on the View Solutions link (located below 2. Configure monitoring solutions). A new blade will something like here below. When you click on the graph it will open the Az SK Security View.
 
-![alt text](../images/secure-devopskit-workspace-summary-azure.png "")
+    ![alt text](../images/secure-devopskit-workspace-summary-azure.png "")
 
 1. The next step should be analyzing the logs and create alerts based on the results of the logs. But that is out of scope for this lab.
 
