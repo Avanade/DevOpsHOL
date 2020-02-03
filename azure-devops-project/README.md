@@ -87,10 +87,10 @@ Based on the following tutorials:
       dns_prefix          = var.dns_prefix
 
       linux_profile {
-        admin_username = "ubuntu"
+        admin_username = "azureuser"
 
         ssh_key {
-            key_data = file(var.ssh_public_key)
+            key_data = var.ssh_public_key
         }
       }
 
@@ -123,7 +123,7 @@ Based on the following tutorials:
     variable "client_secret" {}
 
     variable "agent_count" {
-      default = 3
+      default = 1
     }
 
     variable "ssh_public_key" {
@@ -139,7 +139,7 @@ Based on the following tutorials:
     }
 
     variable resource_group_name {
-      default = "testautomatedcreatedappk8s-rg"
+      default = "devopsholk8s-rg"
     }
 
     variable location {
@@ -199,10 +199,7 @@ Based on the following tutorials:
 1. In the root folder of your repository, create a new file called `azure-pipelines.yaml`
 
 1. In your browser, go to Azure DevOps Pipelines, Open the Build pipelines and Edit the existing build pipeline:
-   - Remove the copy ARM templates step, because we are going to work with Terraform:
-   ![](../images/pipelines-delete-arm-copy.png)
-
-   - Add Terraform Init step by clicking on the **+** sign you see behind Agent job 1. Here you can search for Terraform. 
+    - Add Terraform Init step by clicking on the **+** sign you see behind Agent job 1. Here you can search for Terraform. 
       - Terraform is by default not installed in your DevOps project. So you should click on Add Terraform, you will be redirected to the Market Place. Follow the steps to install Terraform and when you are finished you can close the window.
 
    - After installing Terraform, you should see the following search results:
@@ -222,6 +219,12 @@ Based on the following tutorials:
      - Name: `Terraform: validate`
      - Command: `validate`
      - Configuration directory: `TerraformTemplates`
+
+   - Modify the copy ARM templates step, because we are going to work with Terraform. Make the properties has the followings values:
+      - Display name:  `Copy Terraform templates`
+      - Source Folder: `TerraformTemplates`
+      - Contents: `*.tf`
+      - Target Folder: `$(Build.ArtifactStagingDirectory)/TerraformTemplates`
 
    - Go to Triggers and disable continuous integration:
      ![](../images/pipelines-disable-ci.png)
@@ -258,3 +261,6 @@ Based on the following tutorials:
 
 ## Next steps
 Return to [the lab index](../README.md) and continue with the next lab.
+
+##TODO:
+- secrets uit de variables halen en als variabelen in pipeline
