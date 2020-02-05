@@ -36,12 +36,20 @@ The instructions are based on the following documentation:
    - Selenium.WebDriver
    - Selenium.WebDriver.ChromeDriver
 
-1. Ensure the Selenium Chrome driver executable is copied to the output during publish. On the **FunctionalTests** project, edit the project file and add the following:
-    ```xml
-    <PropertyGroup>
-        <PublishChromeDriver>true</PublishChromeDriver>
-    </PropertyGroup>
-    ```
+1. Ensure the Selenium Chrome driver executable is copied to the output during publish. Also make sure that the testproject is using .NET Core 2.2. On the **FunctionalTests** project, edit the project file
+    - Add the following PropertyGroup:
+        ```xml
+        <PropertyGroup>
+            <PublishChromeDriver>true</PublishChromeDriver>
+        </PropertyGroup>
+        ```
+    - Verify that the project is using .NET Core 2.2
+        ```xml
+        <PropertyGroup>
+            <TargetFramework>netcoreapp2.2</TargetFramework>
+        </PropertyGroup>
+        ```
+
 
 1. In the **FunctionalTests** project, (modify or) create a .runsettings file containing the siteUrl as parameter. Find the local website port in the website project *(mywebapp\Properties\launchSettings.json)* and create:
 
@@ -227,26 +235,92 @@ Add a folder 'PageObjects' and add the following classes to it.
 
 1. Run the UI tests you just created and make sure that it succeeds.
 
-## Configure automated UI Testing (on the staging environment)
+## Configure automated UI Testing
+1. Open the app-pipeline.yml to edit your app pipeline.
 
-1. The UI Test tasks are Windows based, which requires a Windows agent.\
-In the **Azure DevOps** project, in the **Build** and in **both** of the **Release** environment stages, change the agent jobs to run on the agent **'Hosted Windows 2019 with VS2019'**
+1. First the build of the Selenium project needs to be added to the **Build** stage by adding the following code above the job **Build_containers**
+    ```
+    - job: Build_functional_tests
+    pool:
+      vmImage: 'windows-latest'
+    steps:
+    - task: UseDotNet@2
+      displayName: 'Use .NET Core sdk 2.2.301'
+      inputs:
+        packageType: 'sdk'
+        version: '2.2.301'
+    - task: DotNetCoreCLI@2
+      displayName: 'Restore'
+      inputs:
+        command: 'restore'
+        projects: '**/FunctionalTests.csproj'
+        feedsToUse: 'select'
+    - task: DotNetCoreCLI@2
+      displayName: 'Publish'
+      inputs:
+        command: publish
+        publishWebProjects: false
+        projects: '**/FunctionalTests.csproj'
+        arguments: '--configuration Release -o $(build.artifactstagingdirectory)/SeleniumTests'
+        zipAfterPublish: false
+        modifyOutputPath: false
+    - task: PublishPipelineArtifact@1
+      displayName: 'Publish Pipeline Artifact'
+      inputs:
+        targetPath: '$(Build.ArtifactStagingDirectory)'
+        artifact: 'functionaltests'
+        publishLocation: 'pipeline'
+    ```
 
-1. In the Azure DevOps **Release**, configure a variable for the website url on the staging environment.
-Edit the release, go to Variables, and add the variable:
-   - *Name:* SiteUrl
-   - *Value:* [https://\<qa-stage-appservice-address\>.azurewebsites.net]
-   - *Scope:* QA stage name
+1. The automated Selenium tests will run against the public ip address of our deployed Pods. To assign the right IP address to the pipeline we will use variables. Add the next two variables:
+    1. **Name:** testip **Value:** the public ip address of your test environment
+    1. **Name:** prodip **Value:** the public ip address of your production environment
 
-1. In the Azure DevOps **Release**, include a task to run the functional UI tests.\
-Add a task of type Test - **Visual Studio Test**, and ensure it includes:
-   - *Test files:* **\\*FunctionalTest\*.dll
-   - *Settings file:* ../drop/../functionalTests.runsettings
-   - *Override test run parameters:* -siteUrl $(SiteUrl)
+1. The next step is to add the automated Selenium tests to the Test deployment pipeline by adding the following code in stage **Release_Test** below the block **- deployment: Deploy_containers**:
+    ```
+    - deployment: Run_functional_tests
+    dependsOn: "Deploy_containers"
+    environment: test
+    pool: 
+      vmImage: 'windows-latest'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: VSTest@2
+            inputs:
+              testSelector: 'testAssemblies'
+              testAssemblyVer2: |
+                **\*FunctionalTests.dll
+                !**\*TestAdapter.dll
+                !**\obj\**
+              searchFolder: '$(Pipeline.Workspace)/functionaltests/SeleniumTests'
+              overrideTestrunParameters: '-siteUrl "$(testip)"'
+    ```
 
-1. Commit your code to trigger a **Build**, followed by a **Release**
+1. The last step is to add the automated Selenium tests to the Production deployment pipeline by adding the following code in stage **Release_Prod** below the block **- deployment: Deploy_containers**:
+    ```
+    - deployment: Run_functional_tests
+    dependsOn: "Deploy_containers"
+    environment: prod
+    pool: 
+      vmImage: 'windows-latest'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: VSTest@2
+            inputs:
+              testSelector: 'testAssemblies'
+              testAssemblyVer2: |
+                **\*FunctionalTests.dll
+                !**\*TestAdapter.dll
+                !**\obj\**
+              searchFolder: '$(Pipeline.Workspace)/functionaltests/SeleniumTests'
+              overrideTestrunParameters: '-siteUrl "$(prodip)"'
+    ```
 
-1. Upon **Release** completion, review the Test results
+1. Save your pipeline and run it. The Selenium will be automatically executed on the Test and Production environment. After the pipeline is completed you can find the test results in the tab **Tests**.
 
 ## Stretch goals
 
