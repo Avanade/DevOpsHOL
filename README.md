@@ -9,11 +9,10 @@ The course contains the following labs:
 | Lab       | Effort |
 | :-------- |:--------------------------:|
 | [Prerequisites - Set up development environment](azure-rm/README.md) | 30 min |
-| [Lab 1 - Continuous Integration with Azure DevOps](azure-devops-project/README.md) | 60 min |
-| [Lab 2 - Multi-stage deployments with Azure DevOps](multi-stage-deployments/README.md) | 45 min |
-| [Lab 3 - UI Testing with Selenium and Azure DevOps](ui-testing/README.md) | 90 min |
-| [Lab 4 - Static code analysis with SonarQube](sonarqube/README.md) | 45 min |
-| [Lab 5 - Feature Toggles](feature-flag/README.md) | 45 min |
-| [Lab 6 - Validating the release with automated Smoke Testing](smoke-testing/README.md) | 45 min |
-| [Lab 7 - *(Optional)* - Security Verification Tests in your CD pipeline](security-testing/README.md) | 45 min |
-| [Lab 8 - *(Optional)* - Feature branching and branch protection](feature-branching/README.md) | 45 min |
+| [Lab 1 - Pipelines as code with K8s and Terraform](https://dev.azure.com/thx1139/_git/workshop1?path=%2FREADME.md) | 30 min |
+| [Lab 2 - UI Testing with Selenium and Azure DevOps](ui-testing/README.md) | 45 min |
+| [Lab 3 - Static code analysis with SonarQube](sonarqube/README.md) | 45 min |
+| [Lab 4 - Feature Toggles](feature-flag/README.md) | 45 min |
+| [Lab 5 - Validating the release with automated Smoke Testing](smoke-testing/README.md) | 45 min |
+| [Lab 6 - Working with Secure DevOps Kit for Azure](security-testing/README.md) | 45 min |
+| [Lab 7 - *(Optional)* - Feature branching and branch protection](feature-branching/README.md) | 45 min |

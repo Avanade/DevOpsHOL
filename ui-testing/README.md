@@ -12,10 +12,26 @@ The instructions are based on the following documentation:
 - Complete lab: [Multi-stage deployments with Azure DevOps](../multi-stage-deployments/README.md)
 
 ## Configure local UI Testing
+1. Open the mywebapp.csproj (TRAIN/workshop1/app/mywebapp) in Visual Studio.
 
-1. In the **FunctionalTests** project, remove the sample test (SampleFunctionalTests.cs) if it exists
+1. Add a new project to the solution with the following settings:
+    - **Project Type:** xUnit Test Project (.NET Core) Visual C#
+    - **Name:** FunctionalTests 
+
+1. Close the solution in Visual Studio and open the mywebapp folder (./TRAIN/azdotraining1/app/mywebapp) in file explorer. Move the **mywebapp.sln** towards the app folder (./TRAIN/azdotraining1/app).
+
+1. Edit the **mywebapp.sln** with Notepad or VS Code:
+    - Change `"mywebapp.csproj"` to `".\mywebapp\mywebapp.csproj"`
+    - Change `""..\FunctionalTests\FunctionalTests.csproj` to `".\FunctionalTests\FunctionalTests.csproj"`
+    - Save and close the **mywebapp.sln** file.
+
+1. Reopen the **mywebapp.sln** in Visual Studio. 
+
+1. In the **FunctionalTests** project, remove the sample test (UnitTest1.cs) if it exists
 
 1. On the **FunctionalTests** project, add the following NuGet packages:
+   - MSTest.TestFramework
+   - MSTest.TestAdapter
    - Selenium.Support
    - Selenium.WebDriver
    - Selenium.WebDriver.ChromeDriver
@@ -27,7 +43,7 @@ The instructions are based on the following documentation:
     </PropertyGroup>
     ```
 
-1. In the **FunctionalTests** project, (modify or) create a .runsettings file containing the siteUrl as parameter. Find the local website port in the website project *(aspnet-core-dotnet-core\Properties\launchSettings.json)* and create:
+1. In the **FunctionalTests** project, (modify or) create a .runsettings file containing the siteUrl as parameter. Find the local website port in the website project *(mywebapp\Properties\launchSettings.json)* and create:
 
     <details><summary>functionalTests.runsettings (expand to view code)</summary>
 
@@ -44,13 +60,13 @@ The instructions are based on the following documentation:
 1. Configure Visual Studio to use the .runsettings file using:\
 [Configure unit tests by using a .runsettings file](https://docs.microsoft.com/visualstudio/test/configure-unit-tests-by-using-a-dot-runsettings-file)
 
-1. In the **FunctionalTests** project, add functional test classes for all pages.\
+1. In the **FunctionalTests** project, add functional test classes for all pages.
 Add a folder 'PageObjects' and add the following classes to it.
     <details><summary>BasePage.cs (expand to view code)</summary>
 
     ```csharp
     using OpenQA.Selenium;
-        
+
     abstract class BasePage
     {
         protected readonly IWebDriver Driver;
@@ -69,18 +85,11 @@ Add a folder 'PageObjects' and add the following classes to it.
             return new HomePage(Driver, BaseUrl);
         }
 
-        public AboutPage GoToAboutPage()
+        public PrivacyPage GoToPrivacyPage()
         {
-            var about = Driver.FindElement(By.LinkText("About"));
+            var about = Driver.FindElement(By.LinkText("Privacy"));
             about.Click();
-            return new AboutPage(Driver, BaseUrl);
-        }
-
-        public ContactPage GoToContactPage()
-        {
-            var contact = Driver.FindElement(By.LinkText("Contact"));
-            contact.Click();
-            return new ContactPage(Driver, BaseUrl);
+            return new PrivacyPage(Driver, BaseUrl);
         }
     }
     ```
@@ -107,48 +116,22 @@ Add a folder 'PageObjects' and add the following classes to it.
     ```
     </details>
 
-    <details><summary>AboutPage.cs (expand to view code)</summary>
+    <details><summary>PrivacyPage.cs (expand to view code)</summary>
 
     ```csharp
     using OpenQA.Selenium;
-    using OpenQA.Selenium.Support.PageObjects;
 
-    class AboutPage : BasePage
+    class PrivacyPage : BasePage
     {
-        public AboutPage(IWebDriver driver, string baseUrl) : base(driver, baseUrl)
+        public PrivacyPage(IWebDriver driver, string baseUrl) : base(driver, baseUrl)
         {
         }
-
-        [FindsBy(How = How.ClassName, Using = "fusion-main-menu-icon")]
-        private IWebElement searchIcon;
 
         public void GoToPage()
         {
-            Driver.Navigate().GoToUrl($"{BaseUrl}/Home/About");
-        }
-    }
-    ```
-    </details>
-
-    <details><summary>ContactPage.cs (expand to view code)</summary>
-
-    ```csharp
-    using OpenQA.Selenium;
-    using OpenQA.Selenium.Support.PageObjects;
-        
-    class ContactPage : BasePage
-    {
-        public ContactPage(IWebDriver driver, string baseUrl) : base(driver, baseUrl)
-        {
+            Driver.Navigate().GoToUrl($"{BaseUrl}/Privacy");
         }
 
-        [FindsBy(How = How.ClassName, Using = "fusion-main-menu-icon")]
-        private IWebElement searchIcon;
-
-        public void GoToPage()
-        {
-            Driver.Navigate().GoToUrl($"{BaseUrl}/Home/Contact");
-        }
     }
     ```
     </details>
@@ -156,7 +139,7 @@ Add a folder 'PageObjects' and add the following classes to it.
 1. In the **FunctionalTests** project, create the following test class for the functional UI tests:
     <details><summary>UITests.cs (expand to view code)</summary>
    
-    ```csharp
+    ```csharp  
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using OpenQA.Selenium;
     using OpenQA.Selenium.Chrome;
@@ -208,13 +191,11 @@ Add a folder 'PageObjects' and add the following classes to it.
                     var page = new HomePage(_driver, _siteUrl);
                     page.GoToPage();
                     SaveAsImage(_driver.GetScreenshot(), "Home.png");
-                    page.GoToContactPage();
-                    SaveAsImage(_driver.GetScreenshot(), "Contact.png");
-                    page.GoToAboutPage();
-                    SaveAsImage(_driver.GetScreenshot(), "About.png");
-                    var containerDiv = _driver.FindElement(By.ClassName("body-content"));
-                    var header = containerDiv.FindElement(By.TagName("h3"));
-                    Assert.AreEqual("Your application description page.", header.Text);
+                    page.GoToPrivacyPage();
+                    SaveAsImage(_driver.GetScreenshot(), "Privacy.png");
+                    var containerDiv = _driver.FindElement(By.ClassName("pb-3"));
+                    var header = containerDiv.FindElement(By.TagName("h1"));
+                    Assert.AreEqual("Privacy Policy", header.Text);
                 }
                 catch (NoSuchElementException)
                 {
