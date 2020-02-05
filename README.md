@@ -1,6 +1,4 @@
 # Avanade DevOps Hands-On Labs
-These are the hands-on labs associated with the Avanade DevOps Practitioners course.  This is based to a large part on the [PartsUnlimitedHOL](https://github.com/Microsoft/PartsUnlimitedE2E/blob/master/PartsUnlimited-aspnet45/docs/GettingStarted.md) but simplified to use the Visual Studio MVC sample application.  It does not use the PartsUnlimited HOL, but we want to acknowledge that project's contribution to this project.
-
 The labs can be completed using an Azure Virtual Machine as development environment. This not only keeps you from having to make changes to your local environment, but it gives you additional experience using Azure and PowerShell. The [Prerequisites](azure-rm/README.md) instructions help you to set up this environment.
 
 ## Course Labs
