@@ -1,6 +1,6 @@
 # UI Testing with Selenium and Azure DevOps
 
-This lab contains instructions to create automated functional UI tests.\
+This lab contains instructions to create automated functional UI tests.
 The instructions are based on the following documentation:
 
 - [UI test with Selenium](https://docs.microsoft.com/azure/devops/pipelines/test/continuous-test-selenium)
@@ -8,8 +8,7 @@ The instructions are based on the following documentation:
 
 ## Prerequisites
 
-- Complete lab: [Continuous Integration with Azure DevOps](../azure-devops-project/README.md)
-- Complete lab: [Multi-stage deployments with Azure DevOps](../multi-stage-deployments/README.md)
+- Complete lab: [Pipeline as code with K8s and Terraform](https://dev.azure.com/thx1139/_git/workshop1?path=%2FREADME.md))
 
 ## Configure local UI Testing
 1. Open the mywebapp.csproj (TRAIN/workshop1/app/mywebapp) in Visual Studio.
