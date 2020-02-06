@@ -8,7 +8,7 @@ The instructions are based on the following documentation:
 
 ## Prerequisites
 
-- Complete lab: [Pipeline as code with K8s and Terraform](https://dev.azure.com/thx1139/_git/workshop1?path=%2FREADME.md))
+- Complete lab: [Pipeline as code with K8s and Terraform](https://dev.azure.com/thx1139/_git/workshop1?path=%2FREADME.md)
 
 ## Configure local UI Testing
 1. Open the mywebapp.csproj (TRAIN/workshop1/app/mywebapp) in Visual Studio.
