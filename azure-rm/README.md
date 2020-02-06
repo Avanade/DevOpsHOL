@@ -48,10 +48,15 @@ Follow instructions from [Add a VM to a lab in Azure DevTest Labs](https://docs.
    - Verify you can use the virtual machine by connecting to it:\
    Select 'Connect' in the Virtual machine Overview in the portal and provide the credentials you used in the previous step. 
 
-1. Install .NET Core SDK version 2.2:
+1. Install .NET Core SDK version 3.1:
    - Open a PowerShell window
    - Enter this command and press Enter:
-     - `choco install dotnetcore-sdk --version=2.2.102 -y`
+     - `choco install dotnetcore-sdk`
+
+1. Install Azure CLI
+  - Open a PowerShell window
+  - Enter this command and press Enter:
+    - `Invoke-WebRequest -Uri https://aka.ms/installazurecliwindows -OutFile .\AzureCLI.msi; Start-Process msiexec.exe -Wait -ArgumentList '/I AzureCLI.msi /quiet'`
 
 ## Next steps
 Return to the [Lab index](../README.md) to continue with the course labs.
