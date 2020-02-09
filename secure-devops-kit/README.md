@@ -104,4 +104,4 @@ The AzSK Monitoring Solution is deployed to a Log Analytics workspace that is us
 1. Once the Continuous setupd and modules download are completed successfully, the runbooks will automatically execute periodically (once a day) and scan the subscription and the specified resource groups for the application(s) for security issues. The outcomes of these scans will get stored in a storage account created by the installation (format : azsk<YYYYMMDDHHMMSS> e.g. azsk20170505181008) and follows a similar structure as followed by standalone SVT execution (CSV file, LOG file, etc.).
 
 ## Stretch goals
-1. Create an Azure pipeline with AzSK tasks to scan your Azure subscription and his resources.
+1. Add the AzSK tasks to your pipeline to scan your Azure subscription and his resources.
