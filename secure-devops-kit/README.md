@@ -6,7 +6,6 @@ This lab contains instructions to explore the possibilities of the Micorosoft Se
 - Security in CICD
 - Continuous Assurance
 - Alerting & Monitoring
-- Cloud Risk Governance
 
 This instructions are based on the following documentation
 - [Getting started with the Secure DevOps Kit for Azure!](https://azsk.azurewebsites.net/00b-Getting-Started/Readme.html)
