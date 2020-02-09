@@ -77,7 +77,7 @@ Right-click the *ValidateSiteIsAvailable()* test method and select **Run Test(s)
             - *Test filter criterai:* TestCategory=UI
 
 1. Commit your code to trigger the **App pipeline**.\
-   Upon completion, inspect the release results and verify the Smoke test passed.\
+   Upon completion, inspect the release results and verify the Smoke test passed.
 
 ## Stretch goals
 

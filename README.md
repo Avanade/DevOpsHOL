@@ -12,5 +12,5 @@ The course contains the following labs:
 | [Lab 3 - Static code analysis with SonarQube](sonarqube/README.md) | 45 min |
 | [Lab 4 - Feature Toggles](feature-flag/README.md) | 45 min |
 | [Lab 5 - Validating the release with automated Smoke Testing](smoke-testing/README.md) | 45 min |
-| [Lab 6 - Working with Secure DevOps Kit for Azure](security-testing/README.md) | 45 min |
+| [Lab 6 - Working with Secure DevOps Kit for Azure](secure-devops-kit/README.md) | 45 min |
 | [Lab 7 - *(Optional)* - Feature branching and branch protection](feature-branching/README.md) | 45 min |

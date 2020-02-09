@@ -12,8 +12,7 @@ This instructions are based on the following documentation
 - [Getting started with the Secure DevOps Kit for Azure!](https://azsk.azurewebsites.net/00b-Getting-Started/Readme.html)
 
 ## Prerequisites
-- PowerShell 5.0 or higher installed on local machine
-- Active Azure subscription
+- Complete lab: [Pipeline as code with K8s and Terraform](https://dev.azure.com/thx1139/_git/workshop1?path=%2FREADME.md)
 
 ## Preparations
 1. Install Azure CLI on your local machine
@@ -105,14 +104,5 @@ The AzSK Monitoring Solution is deployed to a Log Analytics workspace that is us
 
 1. Once the Continuous setupd and modules download are completed successfully, the runbooks will automatically execute periodically (once a day) and scan the subscription and the specified resource groups for the application(s) for security issues. The outcomes of these scans will get stored in a storage account created by the installation (format : azsk<YYYYMMDDHHMMSS> e.g. azsk20170505181008) and follows a similar structure as followed by standalone SVT execution (CSV file, LOG file, etc.).
 
-## Setup and configure Control Telemetry (Cloud Risk Governance)
-Soon Control Telemetry will be renamed towards Org Telemetry.
-
-1. Create an Application Insights account in the [Azure Portal](https://portal.azure.com)
-
-1. When the Application Insights account has been created execute the next PowerShell command to configure the Org Telemetry setup on your local machine `Set-AzSKLocalAIOrgTelemetrySettings -LocalAIOrgTelemetryKey '<instrumentation-key>' -EnableLocalAIOrgTelemetry $true`. Instrumentation key can be found on the overview page of the Application Insights account in the [Azure Portal](https://portal.azure.com).
-
-1. Check the data in Application Insights account in the [Azure Portal](https://portal.azure.com). It can take around 4 to 5 minutes before the data will be shown in Azure.
-
-## Stretch goals??
+## Stretch goals
 1. Create an Azure pipeline with AzSK tasks to scan your Azure subscription and his resources.
