@@ -54,9 +54,10 @@ Follow instructions from [Add a VM to a lab in Azure DevTest Labs](https://docs.
      - `choco install dotnetcore-sdk`
 
 1. Install Azure CLI
-  - Open a PowerShell window
-  - Enter this command and press Enter:
-    - `Invoke-WebRequest -Uri https://aka.ms/installazurecliwindows -OutFile .\AzureCLI.msi; Start-Process msiexec.exe -Wait -ArgumentList '/I AzureCLI.msi /quiet'`
+    - Open a PowerShell window
+    - Enter this command and press Enter:
+      
+       `Invoke-WebRequest -Uri https://aka.ms/installazurecliwindows -OutFile .\AzureCLI.msi; Start-Process msiexec.exe -Wait -ArgumentList '/I AzureCLI.msi /quiet'`
 
 ## Next steps
 Return to the [Lab index](../README.md) to continue with the course labs.
