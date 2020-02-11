@@ -123,23 +123,23 @@ The instructions are based on the following documentation:
 
 ## Configure the feature toggle in the release pipeline
 
-1. Configure the feature toggle to be enabled on the **qa** environment:
-   - Edit the Azure DevOps **Release** pipeline
+1. Configure the feature toggle to be enabled on the **Test** environment:
+   - Edit the Azure DevOps **app** pipeline
    - Go to Variables, and add the variables:
 
-        |Name                          |Value|Scope|
-        |:-----------------------------|:----|:----|
-        |FeatureToggle.CheckPhoneNumber|true |qa   |
-        |FeatureToggle.CheckPhoneNumber|false|dev  |
+        |Name                  |Value|Scope|
+        |:---------------------|:----|:----|
+        |FeatureToggle.ShowDate|true |test |
+        |FeatureToggle.ShowDate|false|prod |
 
    - In the **Deploy Azure App Service** task, under *Application and Configuration Settings*,\
      ensure the following setting:
-     - *App settings:* ```-FEATURETOGGLE__CHECKPHONENUMBER $(FeatureToggle.CheckPhoneNumber)```
+     - *App settings:* ```-FEATURETOGGLE__SHOWDATE $(FeatureToggle.ShowDate)```
 
-1. Commit your code to trigger a **Build**, followed by a **Release**
+1. Commit your code to trigger the **app** pipeline
 
 1. Approve the release to all environments, and inspect the results:\
-The **qa** environment should have the feature enabled, and the **dev** environment not.
+The **test** environment should have the feature enabled, and the **prod** environment not.
 
 ## Next steps
 Return to the [Lab index](../README.md) and continue with the next lab
