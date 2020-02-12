@@ -41,7 +41,7 @@ Ensure the following settings:
 1. Add SonarQube service connection to your Azure DevOps pipelines
     - Go to Project Settings --> Service Connections
     - Add a new SonarQube service connection with the following demands:
-       * Server url: http://sonar-\<youruniquealias>.westeurope.azurecontainer.io:9000
+       * Server url: http://sonar-\<youruniquealias.westeurope.azurecontainer.io:9000
        * Token: The just generated token from SonarQube
        * Service connection name: sonarqubeconn1
 
