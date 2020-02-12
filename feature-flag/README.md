@@ -43,7 +43,7 @@ The instructions are based on the following documentation:
         </details>
 
     - Initialize the feature toggle setting from the configuration during startup
-
+       
         <details><summary>Startup.cs (expand to view code)</summary>
 
             ```csharp
@@ -56,6 +56,40 @@ The instructions are based on the following documentation:
                 // Add your feature here
                 services.AddSingleton(new ShowDate { ToggleValueProvider = provider });
                 ...
+            }
+            ```
+        </details>
+
+    - Add environment variables to the program configuration
+
+        <details><summary>Program.cs (expand to view code)</summary>
+
+            ```csharp
+            using Microsoft.AspNetCore.Hosting;
+            using Microsoft.Extensions.Configuration;
+            using Microsoft.Extensions.Hosting;
+
+            namespace mywebapp
+            {
+                public class Program
+                {
+                    public static void Main(string[] args)
+                    {
+                        CreateHostBuilder(args).Build().Run();
+                    }
+
+                    public static IHostBuilder CreateHostBuilder(string[] args) =>
+                        Host.CreateDefaultBuilder(args)
+                        .ConfigureWebHostDefaults(webBuilder =>
+                        {
+                            webBuilder.UseStartup<Startup>();
+                            webBuilder.UseUrls("http://*:5000");
+                            webBuilder.ConfigureAppConfiguration((hostingContext, config) =>
+                            {
+                                config.AddEnvironmentVariables(prefix: "ShowDate_");
+                            });
+                         });
+                }
             }
             ```
         </details>
@@ -132,9 +166,37 @@ The instructions are based on the following documentation:
         |FeatureToggle.ShowDate|true |test |
         |FeatureToggle.ShowDate|false|prod |
 
+    - Add the environment variable to mywebapp.yaml
+         <details><summary>deploy\myapp\templates\mywebapp.yaml (expand to view code)</summary>
+
+            ```
+            ...
+            - image: {{ .Values.containerregistryurl}}/mywebapp:{{ .Values.build }}
+              name: mywebapp
+              env:
+  	            - name: "FeatureToggle__ShowDate"
+	              value: {{ index .Values "ftcpn" }}
+            ...
+            ```
+        </details>
+
+
    - In the **Deploy Azure App Service** task, under *Application and Configuration Settings*,\
      ensure the following setting:
      - *App settings:* ```-FEATURETOGGLE__SHOWDATE $(FeatureToggle.ShowDate)```
+
+1. Edit the **app** pipeline
+    - Add two new variables:
+        1. *ft.showdate.test* with the value *true*
+        1. *ft.showdate.prod* with the value *false*
+
+    - Include variable *ft.showdate.test* in the test deployment stage
+        - location: Release_Test/Deploy_containers/HelmDeploy@0
+        - add a new override value: ftcpn=$(ft.showdate.test)
+
+    - Include variable *ft.showdate.prod* in the prod deployment stage
+        - location: Release_Prod/Deploy_containers/HelmDeploy@0
+        - add a new override value: ftcpn=$(ft.showdate.prod)
 
 1. Commit your code to trigger the **app** pipeline
 

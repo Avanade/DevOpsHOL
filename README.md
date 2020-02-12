@@ -7,7 +7,7 @@ The course contains the following labs:
 | Lab       | Effort |
 | :-------- |:--------------------------:|
 | [Prerequisites - Set up development environment](azure-rm/README.md) | 30 min |
-| [Lab 1 - Pipelines as code with K8s and Terraform](https://dev.azure.com/thx1139/_git/workshop1?path=%2FREADME.md) | 30 min |
+| [Lab 1 - Pipelines as code with K8s and Terraform](https://dev.azure.com/thx1139/_git/workshop1?path=%2FREADME.md) | 60 min |
 | [Lab 2 - UI Testing with Selenium and Azure DevOps](ui-testing/README.md) | 45 min |
 | [Lab 3 - Static code analysis with SonarQube](sonarqube/README.md) | 45 min |
 | [Lab 4 - Feature Toggles](feature-flag/README.md) | 45 min |
