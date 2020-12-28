@@ -4,13 +4,12 @@ This lab contains instructions to enable automated smoke testing in the release.
 
 ## Prerequisites
 
-- Complete lab: [Continuous Integration with Azure DevOps](../azure-devops-project/README.md)
-- Complete lab: [Multi-stage deployments with Azure DevOps](../multi-stage-deployments/README.md)
+- Complete lab: [Pipeline as code with K8s and Terraform](https://dev.azure.com/thx1139/_git/workshop1?path=%2FREADME.md)
 - Complete lab: [UI Testing with Selenium and Azure DevOps](../ui-testing/README.md)
 
 ## Configure local Smoke Testing
 
-1. In the **FunctionalTest** project, add a smoke test to validate if the website is available:
+1. In the **FunctionalTests** project, add a smoke test to validate if the website is available:
     <details><summary>SmokeTests.cs (expand to view code)</summary>
 
     ```csharp
@@ -30,7 +29,7 @@ This lab contains instructions to enable automated smoke testing in the release.
             [TestInitialize()]
             public void MyTestInitialize()
             {
-                if (TestContext.Properties.ContainsKey("siteUrl"))
+                if (TestContext.Properties["siteUrl"] != null)
                 {
                     _siteUrl = TestContext.Properties["siteUrl"].ToString();
                 }
@@ -67,20 +66,18 @@ Right-click the *ValidateSiteIsAvailable()* test method and select **Run Test(s)
 
 ## Configure automated Smoke Testing in the release pipeline
 
-1. Include a task to run the Smoke tests in the release pipeline:
-   - Edit the Azure DevOps **Release** 
-   - In the **qa** environment stage, clone the existing **Visual Studio Test** task
-   - Rename the first test task to **Run Smoke Tests** and ensure it has this setting:
-     - *Test filter criteria:* TestCategory=Smoke
-   - Rename the second test task to **Run UI Tests** and ensure it has this setting:
-     - *Test filter criteria:* TestCategory=UI
-   - Create the same **Run UI Tests** task in the **dev** environment stage
+1. Include Smoke tests in the app pipeline:
+    - Edit the Azure DevOps **app** pipeline
+    - In the stage **Release_Test**, edit the deployment **Run_functional_tests**
+        - Rename the deployment name to **Run_tests**
+        - Clone the existing **VSTest@2** and place it right below the current task
+        - Give the first test task the displayname **Run Smoke Tests** and ensure it has this setting:
+            - *Test filter criteria:* TestCategory=Smoke
+        - Give the second test task the displayname **Run UI Tests** and ensure it has this setting:
+            - *Test filter criterai:* TestCategory=UI
 
-1. Commit your code to trigger a **Build**, followed by a **Release**.\
-   Upon completion, inspect the release results and verify the Smoke test passed.\
-   Notice the difference in executed tests per environment stage:
-   - **qa** environment stage: **smoke** tests and **UI** tests have been executed
-   - **dev** environment stage: **smoke** tests have been executed
+1. Commit your code to trigger the **App pipeline**.\
+   Upon completion, inspect the release results and verify the Smoke test passed.
 
 ## Stretch goals
 

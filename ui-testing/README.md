@@ -1,6 +1,6 @@
 # UI Testing with Selenium and Azure DevOps
 
-This lab contains instructions to create automated functional UI tests.\
+This lab contains instructions to create automated functional UI tests.
 The instructions are based on the following documentation:
 
 - [UI test with Selenium](https://docs.microsoft.com/azure/devops/pipelines/test/continuous-test-selenium)
@@ -8,26 +8,42 @@ The instructions are based on the following documentation:
 
 ## Prerequisites
 
-- Complete lab: [Continuous Integration with Azure DevOps](../azure-devops-project/README.md)
-- Complete lab: [Multi-stage deployments with Azure DevOps](../multi-stage-deployments/README.md)
+- Complete lab: [Pipeline as code with K8s and Terraform](https://dev.azure.com/thx1139/_git/workshop1?path=%2FREADME.md)
 
 ## Configure local UI Testing
+1. Open the mywebapp.csproj (TRAIN/azdotraining1/app/mywebapp) in Visual Studio.
 
-1. In the **FunctionalTests** project, remove the sample test (SampleFunctionalTests.cs) if it exists
+1. Add a new project to the solution with the following settings:
+    - **Project Type:** xUnit Test Project (.NET Core) Visual C#
+    - **Name:** FunctionalTests 
+
+1. Save the solution in Visual Studio in the app folder (./TRAIN/azdotraining1/app).
+
+1. In the **FunctionalTests** project, remove the sample test (UnitTest1.cs) if it exists
 
 1. On the **FunctionalTests** project, add the following NuGet packages:
+   - MSTest.TestFramework
+   - MSTest.TestAdapter
    - Selenium.Support
    - Selenium.WebDriver
-   - Selenium.WebDriver.ChromeDriver
+   - Selenium.WebDriver.ChromeDriver **Version: (79.0.3945.3600)**
 
-1. Ensure the Selenium Chrome driver executable is copied to the output during publish. On the **FunctionalTests** project, edit the project file and add the following:
-    ```xml
-    <PropertyGroup>
-        <PublishChromeDriver>true</PublishChromeDriver>
-    </PropertyGroup>
-    ```
+1. Ensure the Selenium Chrome driver executable is copied to the output during publish. Also make sure that the testproject is using .NET Core 2.2. To do this: double click on the **FunctionalTests** and the FunctionalTests.csproj will be opened:
+    - Add the following PropertyGroup:
+        ```xml
+        <PropertyGroup>
+            <PublishChromeDriver>true</PublishChromeDriver>
+        </PropertyGroup>
+        ```
+    - Make sure that the project is using .NET Core 2.2
+        ```xml
+        <PropertyGroup>
+            <TargetFramework>netcoreapp2.2</TargetFramework>
+        </PropertyGroup>
+        ```
 
-1. In the **FunctionalTests** project, (modify or) create a .runsettings file containing the siteUrl as parameter. Find the local website port in the website project *(aspnet-core-dotnet-core\Properties\launchSettings.json)* and create:
+
+1. In the **FunctionalTests** project, create the **functionalTests.runsettings** file. And replace the content with the following content:
 
     <details><summary>functionalTests.runsettings (expand to view code)</summary>
 
@@ -35,56 +51,19 @@ The instructions are based on the following documentation:
     <?xml version="1.0" encoding="utf-8" ?>
     <RunSettings>
         <TestRunParameters>
-            <Parameter name="siteUrl" value="http://localhost:<PortToYourLocalWebsite>" />
+            <Parameter name="siteUrl" value="http://localhost:39394" />
         </TestRunParameters>
     </RunSettings>
     ```
     </details>
 
-1. Configure Visual Studio to use the .runsettings file using:\
-[Configure unit tests by using a .runsettings file](https://docs.microsoft.com/visualstudio/test/configure-unit-tests-by-using-a-dot-runsettings-file)
+1. In the **functionalTests.runsettings** file make sure that the port of the siteUrl is the same as the webapp is using. This port can be found in the **launSettings.json** *(mywebapp\Properties\launchSettings.json)* of the **mywebapp** project. 
 
-1. In the **FunctionalTests** project, add functional test classes for all pages.\
-Add a folder 'PageObjects' and add the following classes to it.
-    <details><summary>BasePage.cs (expand to view code)</summary>
 
-    ```csharp
-    using OpenQA.Selenium;
-        
-    abstract class BasePage
-    {
-        protected readonly IWebDriver Driver;
-        protected readonly string BaseUrl;
+1. Configure Visual Studio to use the .runsettings file you just created. In Visual Studio go to *Test-->Configure Run Settings-->Select Solution Wide runsettings File*. In the explorer window select the **functionalTests.runsettings** file located in the folder *FunctionalTests*.
 
-        protected BasePage(IWebDriver driver, string baseUrl)
-        {
-            Driver = driver;
-            BaseUrl = baseUrl;
-        }
-
-        public HomePage GoToHomePage()
-        {
-            var home = Driver.FindElement(By.LinkText("Home"));
-            home.Click();
-            return new HomePage(Driver, BaseUrl);
-        }
-
-        public AboutPage GoToAboutPage()
-        {
-            var about = Driver.FindElement(By.LinkText("About"));
-            about.Click();
-            return new AboutPage(Driver, BaseUrl);
-        }
-
-        public ContactPage GoToContactPage()
-        {
-            var contact = Driver.FindElement(By.LinkText("Contact"));
-            contact.Click();
-            return new ContactPage(Driver, BaseUrl);
-        }
-    }
-    ```
-    </details>
+1. In the **FunctionalTests** project add functional test classes for all pages.
+Add the following classes to it:
 
     <details><summary>HomePage.cs (expand to view code)</summary>
 
@@ -107,47 +86,54 @@ Add a folder 'PageObjects' and add the following classes to it.
     ```
     </details>
 
-    <details><summary>AboutPage.cs (expand to view code)</summary>
+    <details><summary>PrivacyPage.cs (expand to view code)</summary>
 
     ```csharp
     using OpenQA.Selenium;
-    using OpenQA.Selenium.Support.PageObjects;
 
-    class AboutPage : BasePage
+    class PrivacyPage : BasePage
     {
-        public AboutPage(IWebDriver driver, string baseUrl) : base(driver, baseUrl)
+        public PrivacyPage(IWebDriver driver, string baseUrl) : base(driver, baseUrl)
         {
         }
-
-        [FindsBy(How = How.ClassName, Using = "fusion-main-menu-icon")]
-        private IWebElement searchIcon;
 
         public void GoToPage()
         {
-            Driver.Navigate().GoToUrl($"{BaseUrl}/Home/About");
+            Driver.Navigate().GoToUrl($"{BaseUrl}/Privacy");
         }
+
     }
     ```
     </details>
 
-    <details><summary>ContactPage.cs (expand to view code)</summary>
+    <details><summary>BasePage.cs (expand to view code)</summary>
 
     ```csharp
     using OpenQA.Selenium;
-    using OpenQA.Selenium.Support.PageObjects;
-        
-    class ContactPage : BasePage
+
+    abstract class BasePage
     {
-        public ContactPage(IWebDriver driver, string baseUrl) : base(driver, baseUrl)
+        protected readonly IWebDriver Driver;
+        protected readonly string BaseUrl;
+
+        protected BasePage(IWebDriver driver, string baseUrl)
         {
+            Driver = driver;
+            BaseUrl = baseUrl;
         }
 
-        [FindsBy(How = How.ClassName, Using = "fusion-main-menu-icon")]
-        private IWebElement searchIcon;
-
-        public void GoToPage()
+        public HomePage GoToHomePage()
         {
-            Driver.Navigate().GoToUrl($"{BaseUrl}/Home/Contact");
+            var home = Driver.FindElement(By.LinkText("Home"));
+            home.Click();
+            return new HomePage(Driver, BaseUrl);
+        }
+
+        public PrivacyPage GoToPrivacyPage()
+        {
+            var about = Driver.FindElement(By.LinkText("Privacy"));
+            about.Click();
+            return new PrivacyPage(Driver, BaseUrl);
         }
     }
     ```
@@ -156,7 +142,7 @@ Add a folder 'PageObjects' and add the following classes to it.
 1. In the **FunctionalTests** project, create the following test class for the functional UI tests:
     <details><summary>UITests.cs (expand to view code)</summary>
    
-    ```csharp
+    ```csharp  
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using OpenQA.Selenium;
     using OpenQA.Selenium.Chrome;
@@ -208,13 +194,11 @@ Add a folder 'PageObjects' and add the following classes to it.
                     var page = new HomePage(_driver, _siteUrl);
                     page.GoToPage();
                     SaveAsImage(_driver.GetScreenshot(), "Home.png");
-                    page.GoToContactPage();
-                    SaveAsImage(_driver.GetScreenshot(), "Contact.png");
-                    page.GoToAboutPage();
-                    SaveAsImage(_driver.GetScreenshot(), "About.png");
-                    var containerDiv = _driver.FindElement(By.ClassName("body-content"));
-                    var header = containerDiv.FindElement(By.TagName("h3"));
-                    Assert.AreEqual("Your application description page.", header.Text);
+                    page.GoToPrivacyPage();
+                    SaveAsImage(_driver.GetScreenshot(), "Privacy.png");
+                    var containerDiv = _driver.FindElement(By.ClassName("pb-3"));
+                    var header = containerDiv.FindElement(By.TagName("h1"));
+                    Assert.AreEqual("Privacy Policy", header.Text);
                 }
                 catch (NoSuchElementException)
                 {
@@ -241,31 +225,102 @@ Add a folder 'PageObjects' and add the following classes to it.
     ```
     </details>
 
+1. Start your website without debugging. This will ensure the website will be running in the local IIS Express instance, on the url specified in the .runsettings file.
 
-1. Start your website once (using IIS Express settings) by debugging it, and then stop the debugger. This will ensure the website will be running in the local IIS Express instance, on the url specified in the .runsettings file.
+1. Run the UI tests you just created in the Test Explorer and make sure that it succeeds.
 
-1. Run the UI tests you just created and make sure that it succeeds.
+1. When the tests are completed go in the File explorer to build folder of the FunctionalTests project *(C://TRAIN/azdotraining1/app/FunctionalTests/bin/Debug/netcoreapp2.2)*. Here you will some screenshots that were made during the test run, which can be used as Test evidence.
 
-## Configure automated UI Testing (on the staging environment)
+## Configure automated UI Testing
+1. Open the **app** pipeline *(Azure DevOps/Pipelines/Pipelines/app)* and press on **Edit**.
 
-1. The UI Test tasks are Windows based, which requires a Windows agent.\
-In the **Azure DevOps** project, in the **Build** and in **both** of the **Release** environment stages, change the agent jobs to run on the agent **'Hosted Windows 2019 with VS2019'**
+1. The automated Selenium tests will run against the public ip address of our deployed Pods. To assign the right ip address to the pipeline we will use variables. The ip addressess can be found in the PowerShell window you used in lab 1. Add the next two variables:
+    1. **Name:** testip **Value:** http://*\<public ip address of the test environment>*
+    1. **Name:** prodip **Value:** http://*\<public ip address of the production environment>* 
 
-1. In the Azure DevOps **Release**, configure a variable for the website url on the staging environment.
-Edit the release, go to Variables, and add the variable:
-   - *Name:* SiteUrl
-   - *Value:* [https://\<qa-stage-appservice-address\>.azurewebsites.net]
-   - *Scope:* QA stage name
+**Dont forget to press on Save!!**
 
-1. In the Azure DevOps **Release**, include a task to run the functional UI tests.\
-Add a task of type Test - **Visual Studio Test**, and ensure it includes:
-   - *Test files:* **\\*FunctionalTest\*.dll
-   - *Settings file:* ../drop/../functionalTests.runsettings
-   - *Override test run parameters:* -siteUrl $(SiteUrl)
+1. First the build step of the Selenium project needs to be added to the **Build** stage by adding the following code above the job **Build_containers**. Make sure that the identation of the code is correct.
+    ```
+    - job: Build_functional_tests
+      pool:
+        vmImage: 'windows-latest'
+      steps:
+        - task: UseDotNet@2
+          displayName: 'Use .NET Core sdk 2.2.301'
+          inputs:
+            packageType: 'sdk'
+            version: '2.2.301'
+        - task: DotNetCoreCLI@2
+          displayName: 'Restore'
+          inputs:
+            command: 'restore'
+            projects: '**/FunctionalTests.csproj'
+            feedsToUse: 'select'
+        - task: DotNetCoreCLI@2
+          displayName: 'Publish'
+          inputs:
+            command: publish
+            publishWebProjects: false
+            projects: '**/FunctionalTests.csproj'
+            arguments: '--configuration Release -o $(build.artifactstagingdirectory)/SeleniumTests'
+        zipAfterPublish: false
+        modifyOutputPath: false
+        - task: PublishPipelineArtifact@1
+          displayName: 'Publish Pipeline Artifact'
+          inputs:
+            targetPath: '$(Build.ArtifactStagingDirectory)'
+            artifact: 'functionaltests'
+            publishLocation: 'pipeline'
+    ```
 
-1. Commit your code to trigger a **Build**, followed by a **Release**
+1. The next step is to add the automated Selenium tests to the Test deployment pipeline by adding the following code in stage **Release_Test** below the block **- deployment: Deploy_containers**. Make sure that the identation is correct.
+    ```
+    - deployment: Run_functional_tests
+      dependsOn: "Deploy_containers"
+      environment: test
+      pool: 
+        vmImage: 'windows-latest'
+      strategy:
+        runOnce:
+            deploy:
+                steps:
+                - task: VSTest@2
+                  displayName: Run UI Tests
+                  inputs:
+                  testSelector: 'testAssemblies' 
+                  testAssemblyVer2: |
+                    **\*FunctionalTests.dll
+                    !**\*TestAdapter.dll
+                    !**\obj\**
+                  searchFolder: '$(Pipeline.Workspace)/functionaltests/SeleniumTests'
+                  overrideTestrunParameters: '-siteUrl "$(testip)"'
+    ```
 
-1. Upon **Release** completion, review the Test results
+1. The last step is to add the automated Selenium tests to the Production deployment pipeline by adding the following code in stage **Release_Prod** below the block **- deployment: Deploy_containers**. Make sure that the identation is correct.
+    ```
+    - deployment: Run_functional_tests
+      dependsOn: "Deploy_containers"
+      environment: prod
+      pool: 
+        vmImage: 'windows-latest'
+      strategy:
+        runOnce:
+            deploy:
+            steps:
+            - task: VSTest@2
+              displayName: Run UI Tests
+              inputs:
+                testSelector: 'testAssemblies' 
+                testAssemblyVer2: |
+                    **\*FunctionalTests.dll
+                    !**\*TestAdapter.dll
+                    !**\obj\**
+                searchFolder: '$(Pipeline.Workspace)/functionaltests/SeleniumTests'
+                overrideTestrunParameters: '-siteUrl "$(prodip)"'
+    ```
+
+1. Save your pipeline but don't run it yet. Commit the code changes you made in Visual Studio and push those. This will trigger the **app** pipeline. The Selenium will be automatically executed on the Test and Production environment. After the pipeline is completed you can find the test results in the tab **Tests**.
 
 ## Stretch goals
 

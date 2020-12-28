@@ -8,24 +8,23 @@ The instructions are based on the following documentation:
 
 ## Prerequisites
 
-- Complete lab: [Continuous Integration with Azure DevOps](../azure-devops-project/README.md)
-- Complete lab: [Multi-stage deployments with Azure DevOps](../multi-stage-deployments/README.md)
+- Complete lab: [Pipeline as code with K8s and Terraform](https://dev.azure.com/thx1139/_git/workshop1?path=%2FREADME.md)
 
 ## Add a feature toggle to the application
 
-1. In the **Website** project, add the feature toggle NuGet package:
+1. In the **mywebapp** project, add the feature toggle NuGet package:
     - FeatureToggle (by Jason Roberts)
 
-1. In the **Website** project, add a feature toggle:
+1. In the **mywebapp** project, add a feature toggle:
     - Create a feature toggle class in a 'Feature' folder 
-        <details><summary>Feature\CheckPhoneNumber.cs (expand to view code)</summary>
+        <details><summary>Feature\ShowDate.cs (expand to view code)</summary>
 
         ```csharp
         using FeatureToggle;
 
-        namespace aspnet_core_dotnet_core.Features
+        namespace mywebapp.Feature
         {
-            public class CheckPhoneNumber : SimpleFeatureToggle { }
+            public class ShowDate : SimpleFeatureToggle { }
         }
         ```
         </details>
@@ -36,7 +35,7 @@ The instructions are based on the following documentation:
         ```json
         {
             "FeatureToggle": {
-                "CheckPhoneNumber": false
+                "ShowDate": false
             }
             ...
         }
@@ -44,7 +43,7 @@ The instructions are based on the following documentation:
         </details>
 
     - Initialize the feature toggle setting from the configuration during startup
-
+       
         <details><summary>Startup.cs (expand to view code)</summary>
 
             ```csharp
@@ -52,150 +51,157 @@ The instructions are based on the following documentation:
             public void ConfigureServices(IServiceCollection services)
             {
                 // Set provider config so file is read from content root path
-                var provider = new AppSettingsProvider { Configuration = Configuration };
+                var provider = new AppSettingsProvider { Configuration = (IConfigurationRoot)Configuration };
 
                 // Add your feature here
-                services.AddSingleton(new CheckPhoneNumber { ToggleValueProvider = provider });
+                services.AddSingleton(new ShowDate { ToggleValueProvider = provider });
                 ...
             }
             ```
         </details>
 
-1. In the **Website** project, implement the feature toggle in a (new) phone number form on the contact page:
-      - Create a view model for the contact page including the feature toggle
+    - Add environment variables to the program configuration
 
-        <details><summary>Models\ContactViewModel.cs (expand to view code)</summary>
+        <details><summary>Program.cs (expand to view code)</summary>
+
+            ```csharp
+            using Microsoft.AspNetCore.Hosting;
+            using Microsoft.Extensions.Configuration;
+            using Microsoft.Extensions.Hosting;
+
+            namespace mywebapp
+            {
+                public class Program
+                {
+                    public static void Main(string[] args)
+                    {
+                        CreateHostBuilder(args).Build().Run();
+                    }
+
+                    public static IHostBuilder CreateHostBuilder(string[] args) =>
+                        Host.CreateDefaultBuilder(args)
+                        .ConfigureWebHostDefaults(webBuilder =>
+                        {
+                            webBuilder.UseStartup<Startup>();
+                            webBuilder.UseUrls("http://*:5000");
+                            webBuilder.ConfigureAppConfiguration((hostingContext, config) =>
+                            {
+                                config.AddEnvironmentVariables(prefix: "ShowDate_");
+                            });
+                         });
+                }
+            }
+            ```
+        </details>
+
+1. In the **mywebapp** project, implement the feature toggle on the Index page:
+      - Add the FeatureToggle as property to the IndexModel and assigned it with Dependency Injection in the OnGet method.
+
+        <details><summary>Pages\Index.cshtml.cs (expand to view code)</summary>
 
             ```csharp
             using FeatureToggle;
+            using Microsoft.AspNetCore.Mvc.RazorPages;
+            using Microsoft.Extensions.Logging;
+            using mywebapp.Feature;
 
-            namespace aspnet_core_dotnet_core.Models
+            namespace mywebapp.Pages
             {
-                public class ContactViewModel
+                public class IndexModel : PageModel
                 {
-                    public IFeatureToggle CheckPhoneNumber { get; set; }
+                    private readonly ILogger<IndexModel> _logger;
+                    public IFeatureToggle ShowDate { get; set; }
 
-                    public string Name { get; set; }
+                    public IndexModel(ILogger<IndexModel> logger)
+                    {
+                        _logger = logger;
+                    }
 
-                    public int? PhoneNumber { get; set; }
+                    public void OnGet(ShowDate showDate)
+                    {
+                        ShowDate = showDate;
+                    }
                 }
             }
             ```
         </details>
 
-    - Inject the feature toggle in the controller, and pass it to the contact page
-
-        <details><summary>Controllers\HomeController.cs" (expand to view code)</summary>
+    - Add html to show the current DateTime in the form that will only display if the feature ShowDate is enabled.
+        <details><summary>Pages\Index.cshtml (expand to view code)</summary>
 
             ```csharp
-            public class HomeController : Controller
-            {
-                private readonly CheckPhoneNumber _checkPhoneNumber;
-           
-                protected HomeController()
-                {
-                }
-
-                public HomeController(CheckPhoneNumber checkPhoneNumber)
-                {
-                    _checkPhoneNumber = checkPhoneNumber;
-                }
-
-                ...
-
-                public IActionResult Contact()
-                {
-                    ...
-                    // return a contact view model including the toggle setting
-                    return View(new ContactViewModel { CheckPhoneNumber = _checkPhoneNumber });
-                }
-
-                ...
+            @page
+            @model IndexModel
+            @{
+                ViewData["Title"] = "Home page";
             }
+
+            <div class="text-center">
+                <h1 class="display-4">Welcome Avanadi!</h1>
+                <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+                @if(Model.ShowDate.FeatureEnabled)
+                {
+                    <div>
+                        @Html.Label("Current DateTime is: " + DateTime.Now.ToString())
+                    </div>
+                }
+            </div>
             ```
         </details>
 
-    - Add the form with a toggle for the phone number logic to the contact page
-        <details><summary>Views\Home\Contact.cshtml (expand to view code)</summary>
-
-            ```csharp
-            @model aspnet_core_dotnet_core.Models.ContactViewModel
-
-            ...
-
-            <form asp-action="Contact">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Name" class="control-label"></label>
-                    <input asp-for="Name" class="form-control" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="PhoneNumber" class="control-label"></label>
-
-                    @if (Model.CheckPhoneNumber.FeatureEnabled)
-                    {
-                        @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", placeholder = "555-555-5555", type = "tel", pattern = "\\d{3}[\\-]\\d{3}[\\-]\\d{4}", id = "phone" })
-                    }
-                    else
-                    {
-                        @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", placeholder = "Phone Number", id = "phone" })
-                    }
-
-                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input id="submit" type="submit" value="Create" class="btn btn-default" />
-                </div>
-            </form>
-            ```
-        </details>
-
-    - In the UnitTest project, adjust the unit tests to the feature toggle injection
-
-        <details><summary>SampleUnitTests.cs (expand to view code)</summary>
-
-            ```csharp
-            public void IndexPageTest()
-            {
-                var controller = new HomeController(null);
-            ...
-            public void AboutPageTest()
-            {
-                var controller = new HomeController(null);
-            ...
-            public void ContactPageTest()
-            {
-                var controller = new HomeController(null);
-            ```
-        </details>
-
-1. Start the website locally and test the feature toggle in the Contact form:
-    - With the toggle set to **false** in config, on the Contact page form:
-      1. Enter any phone number and hit submit. Notice how no validation error is given
-    - With the toggle set to **true** in config, on the Contact page form:
-        1. Enter phone number 0123456789, hit submit, and notice the validation error
-        1. Enter phone number 123-123-5678, submit and notice the page refreshes without error
+1. Start the website locally and test the feature toggle on the Index page:
+    - With the toggle set to **false** in config, on the Index page:
+        * You won't see the current DateTime.
+    - With the toggle set to **true** in config, on the Index page:
+        * You will see the current DateTime.
 
 ## Configure the feature toggle in the release pipeline
 
-1. Configure the feature toggle to be enabled on the **qa** environment:
-   - Edit the Azure DevOps **Release** pipeline
+1. Configure the feature toggle to be enabled on the **Test** environment:
+   - Edit the Azure DevOps **app** pipeline
    - Go to Variables, and add the variables:
 
-        |Name                          |Value|Scope|
-        |:-----------------------------|:----|:----|
-        |FeatureToggle.CheckPhoneNumber|true |qa   |
-        |FeatureToggle.CheckPhoneNumber|false|dev  |
+        |Name                  |Value|Scope|
+        |:---------------------|:----|:----|
+        |FeatureToggle.ShowDate|true |test |
+        |FeatureToggle.ShowDate|false|prod |
+
+    - Add the environment variable to mywebapp.yaml
+         <details><summary>deploy\myapp\templates\mywebapp.yaml (expand to view code)</summary>
+
+            ```
+            ...
+            - image: {{ .Values.containerregistryurl}}/mywebapp:{{ .Values.build }}
+              name: mywebapp
+              env:
+  	            - name: "FeatureToggle__ShowDate"
+	              value: {{ index .Values "ftcpn" }}
+            ...
+            ```
+        </details>
+
 
    - In the **Deploy Azure App Service** task, under *Application and Configuration Settings*,\
      ensure the following setting:
-     - *App settings:* ```-FEATURETOGGLE__CHECKPHONENUMBER $(FeatureToggle.CheckPhoneNumber)```
+     - *App settings:* ```-FEATURETOGGLE__SHOWDATE $(FeatureToggle.ShowDate)```
 
-1. Commit your code to trigger a **Build**, followed by a **Release**
+1. Edit the **app** pipeline
+    - Add two new variables:
+        1. *ft.showdate.test* with the value *true*
+        1. *ft.showdate.prod* with the value *false*
+
+    - Include variable *ft.showdate.test* in the test deployment stage
+        - location: Release_Test/Deploy_containers/HelmDeploy@0
+        - add a new override value: ftcpn=$(ft.showdate.test)
+
+    - Include variable *ft.showdate.prod* in the prod deployment stage
+        - location: Release_Prod/Deploy_containers/HelmDeploy@0
+        - add a new override value: ftcpn=$(ft.showdate.prod)
+
+1. Commit your code to trigger the **app** pipeline
 
 1. Approve the release to all environments, and inspect the results:\
-The **qa** environment should have the feature enabled, and the **dev** environment not.
+The **test** environment should have the feature enabled, and the **prod** environment not.
 
 ## Next steps
 Return to the [Lab index](../README.md) and continue with the next lab
