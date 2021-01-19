@@ -1,6 +1,6 @@
-# Secure DevOps Kit for Azure
+# Secure DevOps Kit for Azure with PowerShell
 
-This lab contains instructions to explore the possibilities of the Micorosoft Secure DevOps kit. This kit contains several tools to scan and monitor security in Azure in the following categories:
+This lab contains instructions to explore the possibilities of the Microsoft Secure DevOps kit. This kit contains several tools to scan and monitor security in Azure in the following categories:
 - Subscription Security
 - Secure Development
 - Security in CICD
