@@ -8,8 +8,7 @@ The instructions are based on the following documentation:
 
 ## Prerequisites
 
-- Complete lab: [Continuous Integration with Azure DevOps](../azure-devops-project/README.md)
-- Complete lab: [Multi-stage deployments with Azure DevOps](../multi-stage-deployments/README.md)
+- Complete lab: [Pipeline as code with K8s and Terraform](https://dev.azure.com/thx1139/_git/workshop1?path=%2FREADME.md)
 
 ## Enable branch protection
 
@@ -20,33 +19,38 @@ The instructions are based on the following documentation:
  
 ## Configure pull request build
 
-1. Create a copy of the **CI Build**, and name it **PR Build**
+1. Create a new pipeline:
+   * **Code location:** Azure Repos Git YAML
+   * **Repository:** azdotraining1
+   * **Configure:** Starters pipeline
 
-1. In the **PR Build**, remove all tasks that are publishing artifacts.\
-   Ensure the pull request build only contains build and test tasks.
+1. Change the name of the pipeline/file towards **pr-pipeline.yml**.
 
-1. Edit the **master** branch policy, enable **Build validation** and set it to the **PR Build**
+1. Change **vmImage** towards **windows-latest**.
+
+1. Remove the two script steps.
+
+1. In the section steps add the **.Net Core** task with the following settings:  
+* **command:** build
+* **projects:** **/*.csproj 
+    
+1. Click on Save and Run. This should successfully build your projects.
+
+1. Edit the **master** branch policy, enable **Build validation** and set it to the pipeline you just created.
 
 ## Create a feature branch and make a pull request
 
 1. In your Azure DevOps project, under Repos - Branches, create a new feature branch:
-   On the **devopshol** repository, create a feature branch named 'feature/slogan' Protect the **master** branch of your repository by enabling a branch policy using:\
-   [Review code with pull requests](https://docs.microsoft.com/en-us/azure/devops/repos/git/pull-requests)
+   On the **azdotraining1** repository, create a feature branch named 'feature/newFeature'
 
 1. Switch to the feature branch in Visual Studio
 
-1. In the **Website** project, add a slogan to the home page:
-        <details><summary>Views\Home\Index.cshtml (expand to view code)</summary>
-
-        ```csharp
-        ...
-        <div class="cloud-image">
-            <center><h4>DevOps HOL application slogan</h4></center>
-            <img src="~/images/successCloudNew.svg" />
-        </div>
-        ...
+1. In the **mywebapp** project, add a slogan to the home page:\
         ```
-        </details>
+        <div>
+            <p>Awesome new feature!</p>
+        </div>
+        ```
 
 1. Commit the changes to the feature branch, and **push** or **sync** the changes to Azure DevOps
 
@@ -55,15 +59,7 @@ The instructions are based on the following documentation:
    Approve the pull request, and notice the CI Build is triggered after approval.
 
 ## Stretch goals
-
-1. Move the shared tasks of the **CI** (Continous Integration) build and the **PR** (Pull Request) to a **Task Group**.\
-   Ensure the following setup:
-   - **PR Build:**
-     - 'Build application' task group, containing: Build + Test tasks
-   - **CI Build:**
-     - 'Build application' task group, containing: Build + Test tasks
-     - Publish artifact tasks
-1. Prefix the Build number with 'feature'
+1. Try to add other steps/tasks we have added in other labs which would make sense to have in your PR build, for example: SonarQube.
 
 ## Next steps
 Return to the [Lab index](../README.md) and continue with the next lab
