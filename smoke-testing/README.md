@@ -72,9 +72,9 @@ Right-click the *ValidateSiteIsAvailable()* test method and select **Run Test(s)
         - Rename the deployment name to **Run_tests**
         - Clone the existing **VSTest@2** and place it right below the current task
         - Give the first test task the displayname **Run Smoke Tests** and ensure it has this setting:
-            - *Test filter criteria:* TestCategory=Smoke
+            - *testFiltercriteria:* TestCategory=Smoke
         - Give the second test task the displayname **Run UI Tests** and ensure it has this setting:
-            - *Test filter criterai:* TestCategory=UI
+            - *testFiltercriteria:* TestCategory=UI
 
 1. Commit your code to trigger the **App pipeline**.\
    Upon completion, inspect the release results and verify the Smoke test passed.
