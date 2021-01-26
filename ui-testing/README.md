@@ -24,10 +24,10 @@ The instructions are based on the following documentation:
    - MSTest.TestAdapter
    - Selenium.Support
    - Selenium.WebDriver
-   - Selenium.WebDriver.ChromeDriver **Version: (79.0.3945.3600)**
+   - Selenium.WebDriver.ChromeDriver **Version: (87.0.4280.8800)**
    - System.Configuration.ConfigurationManager
 
-1. Ensure the Selenium Chrome driver executable is copied to the output during publish. Also make sure that the testproject is using .NET Core 2.2. To do this: double click on the **FunctionalTests** and the FunctionalTests.csproj will be opened:
+1. Ensure the Selenium Chrome driver executable is copied to the output during publish. To do this: double click on the **FunctionalTests** and the FunctionalTests.csproj will be opened:
     - Add the following PropertyGroup:
         ```xml
         <PropertyGroup>
@@ -238,9 +238,7 @@ Add the following classes to it:
     1. **Name:** testip **Value:** http://*\<public ip address of the test environment>*
     1. **Name:** prodip **Value:** http://*\<public ip address of the production environment>* 
 
-**Dont forget to press on Save!!**
-
-1. First the build step of the Selenium project needs to be added to the **Build** stage by adding the following code above the job **Build_containers**. Make sure that the identation of the code is correct.
+1. The next thing we need to do is adding build steps for the Selenium project. Make sure that you add the following code in the **Build** stage above the **Build_containers** job. Please be aware that the identation of the code is correct.
     ```
     - job: Build_functional_tests
       pool:
@@ -255,12 +253,12 @@ Add the following classes to it:
         - task: DotNetCoreCLI@2
           displayName: 'Publish'
           inputs:
-            command: publish
+            command: 'publish'
             publishWebProjects: false
             projects: '**/FunctionalTests.csproj'
             arguments: '--configuration Release -o $(build.artifactstagingdirectory)/SeleniumTests'
-        zipAfterPublish: false
-        modifyOutputPath: false
+            zipAfterPublish: false
+            modifyOutputPath: false
         - task: PublishPipelineArtifact@1
           displayName: 'Publish Pipeline Artifact'
           inputs:
@@ -281,7 +279,7 @@ Add the following classes to it:
             deploy:
                 steps:
                 - task: VSTest@2
-                  displayName: Run UI Tests
+                  displayName: 'Run UI Tests'
                   inputs:
                   testSelector: 'testAssemblies' 
                   testAssemblyVer2: |
@@ -302,17 +300,17 @@ Add the following classes to it:
       strategy:
         runOnce:
             deploy:
-            steps:
-            - task: VSTest@2
-              displayName: Run UI Tests
-              inputs:
-                testSelector: 'testAssemblies' 
-                testAssemblyVer2: |
-                    **\*FunctionalTests.dll
-                    !**\*TestAdapter.dll
-                    !**\obj\**
-                searchFolder: '$(Pipeline.Workspace)/functionaltests/SeleniumTests'
-                overrideTestrunParameters: '-siteUrl "$(prodip)"'
+                steps:
+                    - task: VSTest@2
+                      displayName: Run UI Tests
+                      inputs:
+                        testSelector: 'testAssemblies' 
+                        testAssemblyVer2: |
+                            **\*FunctionalTests.dll
+                            !**\*TestAdapter.dll
+                            !**\obj\**
+                        searchFolder: '$(Pipeline.Workspace)/functionaltests/SeleniumTests'
+                        overrideTestrunParameters: '-siteUrl "$(prodip)"'
     ```
 
 1. Save your pipeline but don't run it yet. Commit the code changes you made in Visual Studio and push those. This will trigger the **app** pipeline. The Selenium will be automatically executed on the Test and Production environment. After the pipeline is completed you can find the test results in the tab **Tests**.
