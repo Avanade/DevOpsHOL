@@ -125,5 +125,11 @@ The instructions are based on the following documentation:
 
 1. Run the app pipeline and when the deployment is done, verify your configuration on the Test and Prod site.
 
+## Stretch goals
+- Implement a custom filters, for example a percentage filter
+- Create a feature toggle which will show an alternate content when its disabled.
+
+Information for both stretch goals can be found here: [Use feature flags in an ASP.NET Core app](https://docs.microsoft.com/en-us/azure/azure-app-configuration/use-feature-flags-dotnet-core).
+
 ## Next steps
 Return to the [Lab index](../README.md) and continue with the next lab
