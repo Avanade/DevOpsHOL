@@ -24,7 +24,7 @@ In this lab we will configure option 2: ADO pipeline via a marketplace extension
 1. Press `Proceed to organization`, this will take you back to your ADO environment. Which will now have the extension installed.
 
 ## Create Personal Access Token
-To be able to run the ADO security scanner, the pipeline needs a Service Connection with the right access rights. To setup the Service Connection we need a Personal Access Token (PAT)
+To be able to run the ADO security scanner, the pipeline needs a Service Connection with the right access rights. To setup the Service Connection we need a Personal Access Token (PAT).
 1. Go to your Personal Access Tokens
 
     ![alt text](../images/personal-access-tokens.png "")
