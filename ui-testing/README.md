@@ -281,13 +281,13 @@ Add the following classes to it:
                 - task: VSTest@2
                   displayName: 'Run UI Tests'
                   inputs:
-                  testSelector: 'testAssemblies' 
-                  testAssemblyVer2: |
-                    **\*FunctionalTests.dll
-                    !**\*TestAdapter.dll
-                    !**\obj\**
-                  searchFolder: '$(Pipeline.Workspace)/functionaltests/SeleniumTests'
-                  overrideTestrunParameters: '-siteUrl "$(testip)"'
+                    testSelector: 'testAssemblies' 
+                    testAssemblyVer2: |
+                        **\*FunctionalTests.dll
+                        !**\*TestAdapter.dll
+                        !**\obj\**
+                    searchFolder: '$(Pipeline.Workspace)/functionaltests/SeleniumTests'
+                    overrideTestrunParameters: '-siteUrl "$(testip)"'
     ```
 
 1. The last step is to add the automated Selenium tests to the Production deployment pipeline by adding the following code in stage **Release_Prod** below the block **- deployment: Deploy_containers**. Make sure that the identation is correct.
