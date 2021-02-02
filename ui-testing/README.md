@@ -125,7 +125,7 @@ Add the following classes to it:
                 return new HomePage(_driver, _baseUrl);
             }
 
-            public PrivacyPage GotToPrivacyPage()
+            public PrivacyPage GoToPrivacyPage()
             {
                 var about = _driver.FindElement(By.LinkText("Privacy"));
                 about.Click();
