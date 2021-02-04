@@ -65,10 +65,8 @@ The last thing you need to do is add the SonarCloud tasks to the ```App pipeline
     1. Restore the solution with .NET Core
     
     1.  Prepare Analysis Configuration (SonarCloud)
-        * SonarCloud Endpoint: sonarcloudconn1
+        * Use the values of the previous chapter for the endpoint, project key and project name
         * Integrate with MSBuild
-        * Project key: devopshol
-        * Project name: azdotraining1
         * Project version: 1.0
 
     1. .NET Core
