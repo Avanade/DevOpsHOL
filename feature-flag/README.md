@@ -20,7 +20,7 @@ The instructions are based on the following documentation:
 
 1. Configure the FeatureManagement as .Net Core service
     - In the ConfigureServices method of the Startup.cs file add the following line: \
-    ```service.AddFeatureManagement()```
+    ```services.AddFeatureManagement()```
 
 1. Add FeatureManagement configuration to the appsettings.json: 
     ```json
@@ -59,11 +59,11 @@ The instructions are based on the following documentation:
 
 1. Modify **Privacy.cshtml.cs** and add the following code:
     ```Csharp
-    using Microsoft.FeatureManagement 
+    using Microsoft.FeatureManagement;
     ```
     
     ```Csharp
-    private readonly IFeatureManager _featureManager
+    private readonly IFeatureManager _featureManager;
     ```
 
     ```Csharp

@@ -70,8 +70,8 @@ To be able to run the ADO security scanner, the pipeline needs a Service Connect
 1. Click on `New service connection`
 1. Choose `Azure Repos/Team Foundation Server`
 1. Fill in the following details:
-    - **Authentication method:** Url of your ADO environment
-    - **Connection URL:** ADO Scanner
+    - **Authentication method:** Token Based Authentication
+    - **Connection URL:** Url of your Azure DevOps environment
     - **Personal Access Token:** Paste the PAT you just have created
     - Press verify, this should be successfull
     - **Service connection name:** ADO security scanner

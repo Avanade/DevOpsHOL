@@ -11,6 +11,6 @@ The course contains the following labs:
 | [Lab 2 - UI Testing with Selenium and Azure DevOps](ui-testing/README.md) | 45 min |
 | [Lab 3 - Static code analysis with SonarCloud](sonarcloud/README.md) | 45 min |
 | [Lab 4 - Feature Toggles](feature-flag/README.md) | 45 min |
-| [Lab 5 - Working with Azure DevOps Security Scanner](secure-devops-kit-adoscanner/README.md) | 45 min |
-| [Lab 6 - Validating the release with automated Smoke Testing](smoke-testing/README.md) | 45 min |
-| [Lab 7 - *(Optional)* - Feature branching and branch protection](feature-branching/README.md) | 45 min |
+| [Lab 5 - Working with Azure DevOps Security Scanner](secure-devops-kit-adoscanner/README.md) | 30 min |
+| [Lab 6 - Validating the release with automated Smoke Testing](smoke-testing/README.md) | 30 min |
+| [Lab 7 - *(Optional)* - Feature branching and branch protection](feature-branching/README.md) | 15 min |
